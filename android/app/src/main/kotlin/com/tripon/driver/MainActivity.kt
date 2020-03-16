@@ -1,4 +1,4 @@
-package com.tripon.driver
+package my.tripon.driver
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
