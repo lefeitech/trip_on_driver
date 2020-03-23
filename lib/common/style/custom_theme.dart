@@ -3,6 +3,8 @@ import 'package:driver/shared_state/global_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+const _primaryRed = const Color(0xFFF66139);
+
 /// 自定义样式
 class CustomTheme {
   static double get separationHeight => 16;
@@ -22,7 +24,7 @@ class CustomTheme {
     this.settingCardColorEnd,
     this.inputErrorBorder = const OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.red)),
     this.tipMainColor = const Color(0xFF3CBF0D),
-    this.tipAlertColor = const Color(0xFFFB4949),
+    this.tipAlertColor = _primaryRed,
   });
 
   factory CustomTheme.light() {
@@ -60,11 +62,12 @@ class CustomTheme {
   /// 亮色/暗色主题
   static ThemeData lightTheme() {
     return ThemeData.light().copyWith(
-      primaryColor: Color.fromARGB(255, 161, 191, 98),
-      primaryColorLight: Color.fromARGB(255, 181, 211, 142),
-      accentColor: Color.fromARGB(255, 161, 191, 98),
+      primaryColor: Color(0xFF00AFFF),
+      primaryColorLight: Color(0xFF00CFFF),
+      accentColor: Color(0xFF00CFFF),
       appBarTheme: AppBarTheme(elevation: 0),
-      toggleableActiveColor: Color(0xFFA3C462),
+      scaffoldBackgroundColor: Color(0xFFEEEEEE),
+      toggleableActiveColor: _primaryRed,
       textTheme: ThemeData.light().textTheme.copyWith(
             caption: TextStyle(color: Color(0xFF999999), fontSize: 12),
           ),
