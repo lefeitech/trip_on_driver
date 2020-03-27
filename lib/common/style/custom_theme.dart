@@ -68,6 +68,7 @@ class CustomTheme {
       appBarTheme: AppBarTheme(elevation: 0),
       scaffoldBackgroundColor: Color(0xFFEEEEEE),
       toggleableActiveColor: _primaryRed,
+      dividerColor: Color(0xFFEEEEEE),
       textTheme: ThemeData.light().textTheme.copyWith(
             caption: TextStyle(color: Color(0xFF999999), fontSize: 12),
           ),

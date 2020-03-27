@@ -1,7 +1,7 @@
 import 'package:driver/pages/home/home.dart';
 import 'package:driver/pages/message/message.dart';
 import 'package:driver/pages/mine/mine.dart';
-import 'package:driver/pages/order/order.dart';
+import 'package:driver/pages/order/order_list_page.dart';
 import 'package:driver/shared_state/tab_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +10,7 @@ class TabPage extends StatelessWidget {
   final _tabs = [
     HomePage(),
     MessagePage(),
-    OrderPage(),
+    OrderListPage(),
     MinePage(),
   ];
 

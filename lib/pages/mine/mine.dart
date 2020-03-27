@@ -1,4 +1,5 @@
 import 'package:driver/common/style/custom_theme.dart';
+import 'package:driver/pages/mine/my_info_card.dart';
 import 'package:flutter/material.dart';
 
 class MinePage extends StatefulWidget {
@@ -17,7 +18,8 @@ class _MinePageState extends State<MinePage> {
 
   @override
   Widget build(BuildContext context) {
-    final paddingTop = MediaQuery.of(context).padding.top + kToolbarHeight;
+    final safePadding = MediaQuery.of(context).padding.top;
+    final paddingTop = safePadding + kToolbarHeight;
     final double contentHeight = _introCardHeight + _introCardPadding.top + _introCardPadding.bottom;
 
     return Scaffold(
@@ -32,13 +34,11 @@ class _MinePageState extends State<MinePage> {
           }
           return false;
         },
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
+        child: CustomScrollView(
+          slivers: [
             SliverAppBar(
               pinned: true,
-              // note: [expandedHeight] default value without [kToolbarHeight]
-              // expandedHeight: contentHeight + paddingTop - kToolbarHeight + _bottomHeight + kToolbarHeight,
-              expandedHeight: contentHeight + paddingTop + _bottomHeight,
+              expandedHeight: contentHeight - safePadding + paddingTop + _bottomHeight + kToolbarHeight,
               title: Opacity(
                 opacity: _titleOpt,
                 child: Text('张师傅'),
@@ -62,9 +62,9 @@ class _MinePageState extends State<MinePage> {
                 ),
               ),
               bottom: _BottomInfo(_bottomHeight),
-            )
+            ),
+            SliverToBoxAdapter(child: MineInfoCard()),
           ],
-          body: Container(height: 1000, color: Colors.red),
         ),
       ),
     );
