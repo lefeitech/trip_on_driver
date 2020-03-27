@@ -65,21 +65,30 @@ class OrderListTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).cardColor,
-      child: TabBar(
-        controller: controller,
-        tabs: <Widget>[
-          Tab(text: '待服务'),
-          Tab(text: '已完成'),
-          Tab(text: '已取消'),
-        ],
-        labelColor: Color(0xFF222222),
-        labelStyle: TextStyle(fontWeight: FontWeight.bold),
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
-        indicatorColor: Theme.of(context).primaryColor,
-        indicatorPadding: EdgeInsets.only(bottom: 4),
-        indicatorWeight: 4,
-        indicatorSize: TabBarIndicatorSize.label,
+      height: 95,
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [BoxShadow(blurRadius: 10, color: Color(0x14959192))],
+      ),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 16),
+        child: TabBar(
+          controller: controller,
+          tabs: <Widget>[
+            Tab(text: '待服务'),
+            Tab(text: '已完成'),
+            Tab(text: '已取消'),
+          ],
+          labelColor: Color(0xFF222222),
+          labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
+          indicator: UnderlineTabIndicator(
+            borderSide: BorderSide(width: 3, color: Theme.of(context).primaryColor),
+            insets: const EdgeInsets.only(bottom: 16),
+          ),
+        ),
       ),
     );
   }
