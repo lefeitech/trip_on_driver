@@ -1,4 +1,5 @@
 import 'package:driver/common/style/custom_theme.dart';
+import 'package:driver/common/style/trip_on_icons.dart';
 import 'package:driver/widgets/start_arrive_widget.dart';
 import 'package:driver/widgets/to_card.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Icon(Icons.card_giftcard),
+                      Icon(TripOnIcons.brand),
                       Text("举牌接机"),
                       Text("¥ 20/一次"),
                       IconButton(
@@ -72,7 +73,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Icon(Icons.card_giftcard),
+                      Icon(TripOnIcons.ertongzuoyijiekoux),
                       Text("儿童座椅"),
                       Text("¥ 20/一次"),
                       IconButton(
@@ -170,7 +171,7 @@ class _TravelInfoWidget extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Icon(Icons.directions_car),
+                  Icon(TripOnIcons.hangcheng),
                   SizedBox(width: 10.0),
                   Text("紧凑五座-丰田corolla等级同车"),
                 ],
@@ -204,7 +205,7 @@ class _TravelInfoWidget extends StatelessWidget {
               SizedBox(height: 10.0),
               Row(
                 children: <Widget>[
-                  Icon(Icons.calendar_view_day),
+                  Icon(TripOnIcons.juli),
                   SizedBox(width: 10.0),
                   Expanded(child: Text("65km")),
                 ],
@@ -212,7 +213,7 @@ class _TravelInfoWidget extends StatelessWidget {
               SizedBox(height: 10.0),
               Row(
                 children: <Widget>[
-                  Icon(Icons.local_airport),
+                  Icon(TripOnIcons.feiji),
                   SizedBox(width: 10.0),
                   Expanded(child: Text("D7539")),
                 ],

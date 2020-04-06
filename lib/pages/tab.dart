@@ -1,3 +1,4 @@
+import 'package:driver/common/style/trip_on_icons.dart';
 import 'package:driver/pages/home/home.dart';
 import 'package:driver/pages/message/message.dart';
 import 'package:driver/pages/mine/mine.dart';
@@ -39,20 +40,21 @@ class TabPage extends StatelessWidget {
     return [
       BottomNavigationBarItem(
         title: Text('首页', style: textStyle),
-        icon: Icon(Icons.home),
+        icon: Icon(TripOnIcons.shouye2),
+        activeIcon: Icon(TripOnIcons.shouye1),
       ),
       BottomNavigationBarItem(
         title: Text('消息', style: textStyle),
-        icon: Icon(Icons.message),
+        icon: Icon(TripOnIcons.xiaoxi),
       ),
       BottomNavigationBarItem(
         title: Text('订单', style: textStyle),
-        icon: Icon(Icons.format_list_bulleted),
+        icon: Icon(TripOnIcons.order_copy),
       ),
       BottomNavigationBarItem(
         title: Text('我的', style: textStyle),
-        icon: Icon(Icons.person_outline),
-        activeIcon: Icon(Icons.person),
+        icon: Icon(TripOnIcons.wode1),
+        activeIcon: Icon(TripOnIcons.wode2),
       ),
     ];
   }

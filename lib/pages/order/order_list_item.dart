@@ -1,4 +1,5 @@
 import 'package:driver/common/style/custom_theme.dart';
+import 'package:driver/common/style/trip_on_icons.dart';
 import 'package:driver/widgets/start_arrive_widget.dart';
 import 'package:driver/widgets/to_card.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class OrderListItem extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(left: 15, top: 6, bottom: 6, right: 10),
-                  child: Icon(Icons.cloud_circle, color: _bodyFontColor, size: 20),
+                  child: Icon(TripOnIcons.shijian, color: _bodyFontColor, size: 20),
                 ),
                 Text(' AE86E86 航班实际到达后用车', style: TextStyle(color: _bodyFontColor, fontSize: 12)),
               ],
