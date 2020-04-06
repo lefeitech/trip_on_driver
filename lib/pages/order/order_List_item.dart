@@ -45,8 +45,8 @@ class OrderListItem extends StatelessWidget {
               ],
             ),
             // start point and arrive point
-            StartArriveWidget(title: '吉隆坡国际机场（吉隆坡）'),
-            StartArriveWidget(title: '马来西亚国际伊斯兰大学', isStart: false),
+            StartArriveWidget(title: Text('吉隆坡国际机场（吉隆坡）')),
+            StartArriveWidget(title: Text('马来西亚国际伊斯兰大学'), isStart: false),
             SizedBox(height: 20),
             // sum
             Padding(

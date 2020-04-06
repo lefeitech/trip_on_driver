@@ -56,7 +56,7 @@ class CustomTheme {
   static ThemeData getSystemTheme(BuildContext context) {
     GlobalConfig globalConfig = Provider.of<GlobalConfig>(context, listen: false);
     String theme = globalConfig.getTheme();
-    return theme == ThemeEnums.light ? CustomTheme.lightTheme() : CustomTheme.darkTheme();
+    return theme == ThemeEnums.light ? lightTheme() : darkTheme();
   }
 
   /// 亮色/暗色主题
@@ -66,7 +66,7 @@ class CustomTheme {
       primaryColorLight: Color(0xFF00CFFF),
       accentColor: Color(0xFF00CFFF),
       appBarTheme: AppBarTheme(elevation: 0),
-      scaffoldBackgroundColor: Color(0xFFEEEEEE),
+      scaffoldBackgroundColor: Color(0xFFFCF9FC),
       toggleableActiveColor: _primaryRed,
       dividerColor: Color(0xFFEEEEEE),
       textTheme: ThemeData.light().textTheme.copyWith(

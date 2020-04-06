@@ -2,9 +2,10 @@ import 'package:driver/widgets/timeline_node.dart';
 import 'package:flutter/material.dart';
 
 class StartArriveWidget extends StatelessWidget {
-  StartArriveWidget({@required this.title, this.isStart = true});
+  StartArriveWidget({@required this.title, this.isStart = true, this.preferredWidth = 50});
 
-  final String title;
+  final Widget title;
+  final double preferredWidth;
 
   final bool isStart;
 
@@ -19,8 +20,9 @@ class StartArriveWidget extends StatelessWidget {
         pointColor: Color(0xFFE5E5E5),
         pointRadius: 4,
         lineWidth: .33,
+        preferredWidth: preferredWidth,
       ),
-      child: Padding(padding: _padding, child: Text(title)),
+      child: Padding(padding: _padding, child: title),
     );
   }
 }

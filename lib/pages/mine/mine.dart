@@ -12,7 +12,7 @@ class _MinePageState extends State<MinePage> {
 
   final _introCardPadding = EdgeInsets.only(left: 16, bottom: 46, right: 16);
 
-  final double _bottomHeight = 74;
+  final double _bottomHeight = 80;
 
   double _titleOpt = 0;
 
@@ -84,7 +84,6 @@ class UserInfoCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           SizedBox(
             width: height,
@@ -94,6 +93,7 @@ class UserInfoCard extends StatelessWidget {
           SizedBox(width: 16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text('张师傅', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500)),
               Text('服务指数：✨✨✨✨✨', style: TextStyle(color: Colors.white.withOpacity(.8))),
@@ -110,14 +110,17 @@ class _BottomInfo extends StatelessWidget implements PreferredSizeWidget {
 
   _BottomInfo(this._bottomHeight);
 
+  final _iconSize = 26.0;
+
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight + _bottomHeight);
+
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
+        color: Colors.white,
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(kToolbarHeight / 2),
         ),
@@ -156,17 +159,17 @@ class _BottomInfo extends StatelessWidget implements PreferredSizeWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 _ColumnIconLabel(
-                  icon: Icon(Icons.donut_small, size: 32),
+                  icon: Icon(Icons.donut_small, size: _iconSize),
                   text: '好评',
                   count: 99,
                 ),
                 _ColumnIconLabel(
-                  icon: Icon(Icons.donut_small, size: 32),
+                  icon: Icon(Icons.donut_small, size: _iconSize),
                   text: '好评',
                   count: 99,
                 ),
                 _ColumnIconLabel(
-                  icon: Icon(Icons.donut_small, size: 32),
+                  icon: Icon(Icons.donut_small, size: _iconSize),
                   text: '好评',
                   count: 99,
                 ),
@@ -205,6 +208,7 @@ class _ColumnIconLabel extends StatelessWidget {
               )
             ],
           ),
+          style: TextStyle(fontSize: 13),
         ),
       ],
     );

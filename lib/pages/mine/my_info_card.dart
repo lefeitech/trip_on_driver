@@ -29,7 +29,7 @@ class MineInfoCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(3),
         boxShadow: [
           BoxShadow(blurRadius: 5, color: Color(0x14A29E9E)),
