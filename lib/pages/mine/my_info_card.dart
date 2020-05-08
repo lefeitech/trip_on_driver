@@ -17,7 +17,7 @@ class MineInfoCard extends StatelessWidget {
       ),
       _InfoItem(
         icon: TripOnIcons.gerenzhongxinwoderenwubiaozhuntouxianxing,
-        title: '惹人信息',
+        title: '个人信息',
         onPress: () {},
       ),
       _InfoItem(
