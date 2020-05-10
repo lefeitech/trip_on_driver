@@ -122,7 +122,7 @@ class _LoginForm extends StatelessWidget {
                     onPressed: provider.loginTypeChanged,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
                     child: Text(
-                      provider.loginMethod == LoginType.code ? 'Code login' : 'Password login',
+                      provider.loginMethod == LoginType.code ? 'Password login' : 'Code login',
                       style: Theme.of(context).textTheme.caption,
                     ),
                   ),

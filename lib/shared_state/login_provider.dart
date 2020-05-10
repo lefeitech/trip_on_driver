@@ -25,6 +25,8 @@ class LoginProvider with ChangeNotifier {
 
   int get loginMethod => _loginMethod;
 
+  bool get loading => _loading;
+
   int _loginMethod = LoginType.code;
 
   final TextEditingController _userNameCtrl = TextEditingController();
@@ -45,7 +47,7 @@ class LoginProvider with ChangeNotifier {
 
   void loginTypeChanged() {
     if (_loginMethod == LoginType.code) {
-      // todo stop counter , clear code , hide pwd
+      // todo stop counter
       _loginMethod = LoginType.pwd;
       _userPwdCtrl.clear();
     } else if (_loginMethod == LoginType.pwd) {
