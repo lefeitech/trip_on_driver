@@ -15,21 +15,26 @@ class Config {
 
   /// ////////////////////////////////////// NETWORK常量 //////////////////////////////////////
   /// prod host
-  static const String _PROD_STATION_HOST = 'https://station.zhigongshe.cn';
-  static const String _PROD_SHOP_HOST = 'https://shop.zhigongshe.cn';
+  static const String _PROD_HOST = 'https://tripapi.ldbro.com';
 
   /// test host
-  static const String _DEV_STATION_HOST = 'http://teststation.zhigongshe.com';
-  static const String _DEV_SHOP_HOST = 'http://testshop.zhigongshe.com';
-
+  static const String _DEV_HOST = 'https://tripapi.ldbro.com';
 
   /// ////////////////////////////////////// sentry appid //////////////////////////////////////
   static const String SENTRY_DSN = 'https://8e5a2bddff834adeaf1f5ed550cbddbf@sentry.io/4784190';
 
+  /// ////////////////////////////////////// http client key secret //////////////////////////////////////
+  static const String HTTP_VERSION = 'v2';
+  static const String HTTP_KEY = 'driver';
+  static const String HTTP_SECRET = 'qwertyuiopasdfghjklzxcvbnm123';
+
+  /// ////////////////////////////////////// sentry appid //////////////////////////////////////
+  static const String TEST_ACCOUNT = '13333333333';
+  static const String TEST_PWD = '1qaz@WSX';
+
   /// ////////////////////////////////////// getter //////////////////////////////////////
-  static String get host => debugMode ? _DEV_STATION_HOST : _PROD_STATION_HOST;
+  static String get host => debugMode ? _DEV_HOST : _PROD_HOST;
 
-//  static String get stationHost => false ? _DEV_STATION_HOST : _PROD_STATION_HOST;
-
+//  static String get host => false ? _DEV_STATION_HOST : _PROD_STATION_HOST;
 
 }

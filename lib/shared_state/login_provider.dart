@@ -29,8 +29,8 @@ class LoginProvider with ChangeNotifier {
 
   void _init(BuildContext context) {
     if (Config.debugMode) {
-      _userNameCtrl.text = '13867348879';
-      _userPwdCtrl.text = '888777';
+      _userNameCtrl.text = Config.TEST_ACCOUNT;
+      _userPwdCtrl.text = Config.TEST_PWD;
     }
   }
 

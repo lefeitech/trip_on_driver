@@ -1,6 +1,5 @@
 import 'package:driver/common/style/custom_theme.dart';
 import 'package:driver/shared_state/login_provider.dart';
-import 'package:driver/widgets/circular_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -124,12 +123,6 @@ class _LoginForm extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-//                CircularCheckBox(
-//                  value: provider.agreed,
-//                  onChanged: (bool value) {
-//                    provider.agreeClicked();
-//                  },
-//                ),
                 IconButton(
                   icon: Icon(
                     provider.agreed ? Icons.check_circle : Icons.radio_button_unchecked,

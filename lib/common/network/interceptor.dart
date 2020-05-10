@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:driver/common/local/local_storage.dart';
 import 'package:driver/common/network/code.dart';
 import 'package:driver/common/report/report.dart';
+import 'package:driver/common/utils/common_util.dart';
 import '../config/config.dart';
 
 /// 拦截器
@@ -17,7 +18,8 @@ class ZGSInterceptor extends Interceptor {
   @override
   onRequest(RequestOptions options) async {
     String token = await LocalStorage.get(Config.TOKEN_KEY);
-    if (!options.path.contains('union')) {
+    if (!options.path.contains('user_register')) {
+      // except login
 //      if (await CommonUtils.isNeedRefreshToken()) {
 //        dio.lock();
 //        String newToken = await refreshToken(token);
@@ -28,6 +30,19 @@ class ZGSInterceptor extends Interceptor {
 //        dio.unlock();
 //      }
       options.headers["AccessToken"] = '$token';
+
+      final timeStamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+      if (options.data != null) {
+        options.data['sign'] = CommonUtils.generateMd5(timeStamp);
+        options.data['time'] = timeStamp;
+        options.data['token'] = token;
+      } else {
+        options.data = {
+          'sign': CommonUtils.generateMd5(timeStamp),
+          'time': timeStamp,
+          'token': token,
+        };
+      }
     }
     return options;
   }
