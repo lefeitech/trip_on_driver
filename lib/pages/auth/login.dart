@@ -1,5 +1,6 @@
 import 'package:driver/common/enums/auth.dart';
 import 'package:driver/common/style/custom_theme.dart';
+import 'package:driver/pages/auth/register.dart';
 import 'package:driver/pages/tab.dart';
 import 'package:driver/shared_state/login_provider.dart';
 import 'package:flutter/material.dart';
@@ -41,9 +42,9 @@ class _LoginForm extends StatelessWidget {
     );
     final InputBorder errBorder = UnderlineInputBorder(borderSide: BorderSide(width: .4, color: Colors.red));
 
-    String codeInfo = '获取验证码';
+    String codeInfo = 'send code';
     if (provider.secondDec != 0) {
-      codeInfo = '重新发送(${provider.secondDec})';
+      codeInfo = 'send again(${provider.secondDec})';
     }
 
     Widget codeSuffix = Padding(
@@ -155,6 +156,18 @@ class _LoginForm extends StatelessWidget {
               ],
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: FlatButton(
+              child: Text('Register'),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (BuildContext context) => RegisterPage()),
+                );
+              },
+            ),
+          )
 //          Padding(
 //            padding: const EdgeInsets.only(top: 12),
 //            child: Row(

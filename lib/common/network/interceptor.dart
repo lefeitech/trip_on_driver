@@ -32,16 +32,16 @@ class ZGSInterceptor extends Interceptor {
       options.headers["AccessToken"] = '$token';
 
       final timeStamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+      final Map<dynamic, Object> extraInfo = {
+        'sign': CommonUtils.generateMd5(timeStamp),
+        'time': timeStamp,
+        'token': token,
+      };
       if (options.data != null) {
-        options.data['sign'] = CommonUtils.generateMd5(timeStamp);
-        options.data['time'] = timeStamp.toString();
-        options.data['token'] = token;
+        extraInfo.addAll(options.data);
+        options.data = Map.from(extraInfo);
       } else {
-        options.data = {
-          'sign': CommonUtils.generateMd5(timeStamp),
-          'time': timeStamp,
-          'token': token,
-        };
+        options.data = extraInfo;
       }
     }
     return options;

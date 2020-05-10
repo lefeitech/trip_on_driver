@@ -65,8 +65,6 @@ class CommonUtils {
     final content = Utf8Encoder().convert(originStr);
     final digest = md5.convert(content);
     final md5Str = hex.encode(digest.bytes);
-    print('---------md5Str---------');
-    print(md5Str);
     return md5Str;
   }
 }

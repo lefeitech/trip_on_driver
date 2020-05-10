@@ -9,6 +9,8 @@ class Config {
   static const TOKEN_TIME_DIFF = "token-time-diff";
   static const USER_NAME_KEY = "user-name";
   static const USER_INFO = "user-info";
+  static const USER_ID = "user-id";
+  static const VERIFY_STATUS = "verify-status";
   static const THEME_STYLE = "theme-style";
   static const LANGUAGE = "language";
   static const COUNTRY = "country";

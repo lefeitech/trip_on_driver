@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:driver/common/api/auth/auth.dart';
 import 'package:driver/common/config/config.dart';
 import 'package:driver/common/enums/auth.dart';
 import 'package:driver/common/local/local_storage.dart';
 import 'package:driver/common/model/auth/send_code.dart';
+import 'package:driver/common/model/user/user_info.dart';
 import 'package:driver/common/utils/common_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -125,6 +128,7 @@ class LoginProvider with ChangeNotifier {
         return Future.value(false);
       } else {
         await _saveToken(res.data.token);
+        await _saveUserInfo(res.data.info);
         // todo save userInfo
         CommonUtils.showMessage('login success');
         success = true;
@@ -140,6 +144,13 @@ class LoginProvider with ChangeNotifier {
 
   Future<void> _saveToken(String token) {
     return LocalStorage.set(Config.TOKEN_KEY, token);
+  }
+
+  Future<void> _saveUserInfo(UserInfoModel userInfo) async {
+    await LocalStorage.set(Config.VERIFY_STATUS, VerifyStatus.registered);
+    await LocalStorage.set(Config.USER_ID, userInfo.id.toString());
+    await LocalStorage.set(Config.USER_NAME_KEY, userInfo.driverName);
+    await LocalStorage.set(Config.USER_INFO, json.encode(userInfo.toJson()));
   }
 
   @override
