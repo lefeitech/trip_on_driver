@@ -1,4 +1,6 @@
+import 'package:driver/common/enums/auth.dart';
 import 'package:driver/common/style/custom_theme.dart';
+import 'package:driver/pages/tab.dart';
 import 'package:driver/shared_state/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -49,11 +51,11 @@ class _LoginForm extends StatelessWidget {
       child: Text(codeInfo, style: TextStyle(color: CustomTheme.of(context).tipAlertColor)),
     );
 
-    Widget shortDividerLine = Container(
-      width: 40,
-      height: .4,
-      decoration: BoxDecoration(border: Border(top: BorderSide(color: Theme.of(context).dividerColor))),
-    );
+//    Widget shortDividerLine = Container(
+//      width: 40,
+//      height: .4,
+//      decoration: BoxDecoration(border: Border(top: BorderSide(color: Theme.of(context).dividerColor))),
+//    );
 
     return SafeArea(
       child: Column(
@@ -84,70 +86,105 @@ class _LoginForm extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: TextFormField(
               controller: provider.userPwdCtrl,
+              obscureText: provider.loginMethod == LoginType.pwd,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.only(top: 14),
                 prefixIcon: Icon(Icons.security),
-                hintText: 'please enter verification code',
+                hintText:
+                    provider.loginMethod == LoginType.code ? 'please enter verification code' : 'please enter password',
                 hintStyle: hintStyle,
-                suffixIcon: GestureDetector(
-                  onTap: () {
-                    if (provider.secondDec != 0) {
-                      return;
-                    }
-                    provider.sendCode(context);
-                  },
-                  child: codeSuffix,
-                ),
+                suffixIcon: provider.loginMethod == LoginType.code
+                    ? GestureDetector(
+                        onTap: () {
+                          if (provider.secondDec != 0) {
+                            return;
+                          }
+                          provider.sendCode(context);
+                        },
+                        child: codeSuffix,
+                      )
+                    : null,
                 enabledBorder: enabledBorder,
                 focusedBorder: focusedBorder,
                 errorBorder: errBorder,
               ),
             ),
           ),
-          SizedBox(height: 60),
+          SizedBox(height: 50),
           Container(
             width: double.infinity,
             height: 46,
-            margin: const EdgeInsets.symmetric(horizontal: 14),
-            child: FlatButton(
-              onPressed: () {
-                provider.smsValidateLoginCode(context);
-              },
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-              child: Text('log in', style: TextStyle(color: Colors.white)),
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 12),
+            margin: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    provider.agreed ? Icons.check_circle : Icons.radio_button_unchecked,
-                    color: CustomTheme.of(context).tipAlertColor,
-                    size: 16,
-                  ),
-                  onPressed: provider.agreeClicked,
-                ),
-                Flexible(
-                  child: Text.rich(
-                    TextSpan(
-                      text: 'read the ',
+                Expanded(
+                  child: OutlineButton(
+                    onPressed: provider.loginTypeChanged,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                    child: Text(
+                      provider.loginMethod == LoginType.code ? 'Code login' : 'Password login',
                       style: Theme.of(context).textTheme.caption,
-                      children: [
-                        TextSpan(
-                          text: '\"User Services Agreement\"',
-                          style: TextStyle(color: CustomTheme.of(context).tipAlertColor),
-                        )
-                      ],
                     ),
                   ),
                 ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: FlatButton(
+                    onPressed: () async {
+                      final result = await provider.login(context);
+                      if (result) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (BuildContext context) => TabPage()),
+                        );
+                      }
+                    },
+                    textColor: Colors.white,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text('Login'),
+                        SizedBox(width: 16),
+                        Icon(Icons.arrow_forward, size: 20),
+                      ],
+                    ),
+                    color: Theme.of(context).primaryColor,
+                  ),
+                )
               ],
             ),
           ),
+//          Padding(
+//            padding: const EdgeInsets.only(top: 12),
+//            child: Row(
+//              mainAxisAlignment: MainAxisAlignment.center,
+//              children: <Widget>[
+//                IconButton(
+//                  icon: Icon(
+//                    provider.agreed ? Icons.check_circle : Icons.radio_button_unchecked,
+//                    color: CustomTheme.of(context).tipAlertColor,
+//                    size: 16,
+//                  ),
+//                  onPressed: provider.agreeClicked,
+//                ),
+//                Flexible(
+//                  child: Text.rich(
+//                    TextSpan(
+//                      text: 'read the ',
+//                      style: Theme.of(context).textTheme.caption,
+//                      children: [
+//                        TextSpan(
+//                          text: '\"User Services Agreement\"',
+//                          style: TextStyle(color: CustomTheme.of(context).tipAlertColor),
+//                        )
+//                      ],
+//                    ),
+//                  ),
+//                ),
+//              ],
+//            ),
+//          ),
 //            if (provider.isWxInstalled || Config.DEBUG) ...[
 //              Expanded(child: Container()),
 //              Row(

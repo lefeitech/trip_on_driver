@@ -14,7 +14,7 @@ class DriverApp extends StatelessWidget {
         title: 'Trip on Driver',
         routes: NavigatorUtil.staticRoutes,
         navigatorKey: NavigatorUtil.navigatorKey,
-        home: TabPage(),
+        home: LoginPage(),
         theme: CustomTheme.getSystemTheme(context),
       ),
     );

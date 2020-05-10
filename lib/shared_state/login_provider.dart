@@ -1,4 +1,8 @@
+import 'package:driver/common/api/auth/auth.dart';
 import 'package:driver/common/config/config.dart';
+import 'package:driver/common/enums/auth.dart';
+import 'package:driver/common/local/local_storage.dart';
+import 'package:driver/common/utils/common_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:async';
@@ -18,10 +22,14 @@ class LoginProvider with ChangeNotifier {
 
   bool get agreed => _agreed;
 
+  int get loginMethod => _loginMethod;
+
+  int _loginMethod = LoginType.code;
+
   final TextEditingController _userNameCtrl = TextEditingController();
   final TextEditingController _userPwdCtrl = TextEditingController();
 
-  bool _agreed = false;
+  bool _agreed = true;
 
   int _secondDec = 0;
   bool _isWxInstall = false;
@@ -32,6 +40,18 @@ class LoginProvider with ChangeNotifier {
       _userNameCtrl.text = Config.TEST_ACCOUNT;
       _userPwdCtrl.text = Config.TEST_PWD;
     }
+  }
+
+  void loginTypeChanged() {
+    if (_loginMethod == LoginType.code) {
+      // todo stop counter , clear code , hide pwd
+      _loginMethod = LoginType.pwd;
+      _userPwdCtrl.clear();
+    } else if (_loginMethod == LoginType.pwd) {
+      _loginMethod = LoginType.code;
+    }
+    print(_loginMethod);
+    notifyListeners();
   }
 
   void agreeClicked() {
@@ -71,37 +91,52 @@ class LoginProvider with ChangeNotifier {
     return _userNameCtrl.text.length == 11;
   }
 
-  /// 手机号、密码登录
-  Future<void> smsValidateLoginCode(BuildContext context) async {
+  Future<bool> login(BuildContext context) async {
     if (!validatePhone()) {
-//      return CommonUtils.showMessage('请输入正确的手机号');
+      CommonUtils.showMessage('please a valid number');
+      return Future.value(false);
     }
 
     if (_userPwdCtrl.text == null || _userPwdCtrl.text == '') {
-//      return CommonUtils.showMessage('请输入验证码');
+      final msg = _loginMethod == LoginType.code ? 'please enter code' : 'please enter password';
+      CommonUtils.showMessage(msg);
+      return Future.value(false);
     }
 
-    if (_loading) return null;
+    var success = true;
+
     _loading = true;
-//    try {
-//      ResultWithTokenModel res;
-//      // 如果是测试账号，直接登录，否则校验验证码
-//      if (_userNameCtrl.text == '13867348879' && _userPwdCtrl.text == '888777') {
-//        res = await AuthApi.login(_userNameCtrl.text, LoginMethod.CELLPHONE);
-//      } else {
-//        res = await AuthApi.smsValidateLoginCode(_userNameCtrl.text, _userPwdCtrl.text);
-//      }
-//      if (res.status == 20000 && res.token is String && res.token.length > 0) {
-//        await LocalStorage.set(Config.LOGIN_METHOD, LoginMethod.CELLPHONE);
-//        await LocalStorage.set(Config.CELLPHONE, _userNameCtrl.text);
-//        await _saveToken(context, res.token);
-//      } else {
-//        CommonUtils.showMessage('验证码错误');
-//      }
-//    } catch (e) {
-//      CommonUtils.showMessage('请求异常');
-//    }
+    notifyListeners();
+
+    try {
+      final res = await AuthApi.login(
+        tel: _userNameCtrl.text,
+        loginMethod: _loginMethod,
+        code: _userPwdCtrl.text,
+        password: _userPwdCtrl.text,
+      );
+      if (res.code != 1) {
+        // failed
+        CommonUtils.showMessage(res.msg);
+        success = false;
+        return Future.value(false);
+      } else {
+        await _saveToken(res.data.token);
+        // todo save userInfo
+        CommonUtils.showMessage('login success');
+        success = true;
+      }
+    } catch (e) {
+      CommonUtils.showMessage('login error');
+      success = false;
+    }
     _loading = false;
+    notifyListeners();
+    return Future.value(success);
+  }
+
+  Future<void> _saveToken(String token) {
+    return LocalStorage.set(Config.TOKEN_KEY, token);
   }
 
   @override
