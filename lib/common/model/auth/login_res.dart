@@ -1,14 +1,6 @@
 import 'dart:convert' show json;
-
+import 'package:driver/common/model/common.dart' show asT;
 import 'package:driver/common/model/user/user_info.dart';
-
-T asT<T>(dynamic value) {
-  if (value is T) {
-    return value;
-  }
-
-  return null;
-}
 
 class LoginRes {
   LoginRes({

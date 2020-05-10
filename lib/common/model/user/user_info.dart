@@ -1,12 +1,5 @@
 import 'dart:convert' show json;
-
-T asT<T>(dynamic value) {
-  if (value is T) {
-    return value;
-  }
-
-  return null;
-}
+import 'package:driver/common/model/common.dart' show asT;
 
 class UserInfoModel {
   UserInfoModel({

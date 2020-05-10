@@ -6,4 +6,5 @@ class BaseUrl {
   static String userRegister = '$host/${Config.HTTP_VERSION}/user_register';
   static String userLogin = '$host/${Config.HTTP_VERSION}/user_login';
   static String userInfo = '$host/${Config.HTTP_VERSION}/user_info';
+  static String sendCode = '$host/${Config.HTTP_VERSION}/msg_send_code';
 }

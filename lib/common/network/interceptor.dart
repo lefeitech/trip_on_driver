@@ -34,7 +34,7 @@ class ZGSInterceptor extends Interceptor {
       final timeStamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       if (options.data != null) {
         options.data['sign'] = CommonUtils.generateMd5(timeStamp);
-        options.data['time'] = timeStamp;
+        options.data['time'] = timeStamp.toString();
         options.data['token'] = token;
       } else {
         options.data = {

@@ -1,15 +1,16 @@
 import 'package:dio/dio.dart' show Response;
 import 'package:driver/common/enums/auth.dart';
 import 'package:driver/common/model/auth/login_res.dart';
+import 'package:driver/common/model/auth/send_code.dart';
 import 'package:driver/common/network/base_url.dart';
 import 'package:driver/common/network/common_http.dart';
 
 class AuthApi {
   /// 获取验证码
-//  static Future<ResponseBaseModel> smsSendLoginCode(String phone) async {
-//    Response res = await CommonHttp().post('${BaseUrl.auth}/sms-login-code', data: {'phone': phone});
-//    return ResponseBaseModel.fromJson(res.data);
-//  }
+  static Future<SendCodeRes> smsSendLoginCode(String phone) async {
+    Response res = await CommonHttp().post(BaseUrl.sendCode, data: {'tel': phone});
+    return SendCodeRes.fromJson(res.data);
+  }
 
   /// 校验验证码
 //  static Future<ResultWithTokenModel> smsValidateLoginCode(String phone, String code) async {

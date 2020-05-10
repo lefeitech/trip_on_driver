@@ -2,6 +2,7 @@ import 'package:driver/common/api/auth/auth.dart';
 import 'package:driver/common/config/config.dart';
 import 'package:driver/common/enums/auth.dart';
 import 'package:driver/common/local/local_storage.dart';
+import 'package:driver/common/model/auth/send_code.dart';
 import 'package:driver/common/utils/common_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -61,20 +62,20 @@ class LoginProvider with ChangeNotifier {
 
   /// 发送验证码
   Future<void> sendCode(BuildContext context) async {
-//    if (!validatePhone()) {
-//      return CommonUtils.showMessage('请输入正确的手机号');
-//    }
-//    try {
-//      ResponseBaseModel res = await AuthApi.smsSendLoginCode(_userNameCtrl.text);
-//      if (res.status == 20000) {
-//        CommonUtils.showMessage('发送成功');
-//      } else {
-//        return CommonUtils.showMessage('发送失败');
-//      }
-//    } catch (e) {
-//      return CommonUtils.showMessage('发送失败');
-//    }
-//    _secondDec = 60;
+    if (!validatePhone()) {
+      return CommonUtils.showMessage('please a valid number');
+    }
+    try {
+      SendCodeRes res = await AuthApi.smsSendLoginCode(_userNameCtrl.text);
+      if (res.code == 1) {
+        CommonUtils.showMessage('send success');
+      } else {
+        return CommonUtils.showMessage('send failed');
+      }
+    } catch (e) {
+      return CommonUtils.showMessage('send failed');
+    }
+    _secondDec = 60;
     _autoDecSecond();
   }
 
