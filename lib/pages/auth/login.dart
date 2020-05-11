@@ -1,5 +1,6 @@
 import 'package:driver/common/enums/auth.dart';
 import 'package:driver/common/style/custom_theme.dart';
+import 'package:driver/common/utils/navigator_util.dart';
 import 'package:driver/pages/auth/register.dart';
 import 'package:driver/pages/tab.dart';
 import 'package:driver/shared_state/login_provider.dart';
@@ -149,12 +150,7 @@ class _LoginForm extends StatelessWidget {
             padding: const EdgeInsets.only(top: 12),
             child: FlatButton(
               child: Text('Register'),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (BuildContext context) => RegisterPage()),
-                );
-              },
+              onPressed: NavigatorUtil.goRegisterStep1,
             ),
           )
 //          Padding(
