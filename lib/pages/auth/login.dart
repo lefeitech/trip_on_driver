@@ -3,6 +3,7 @@ import 'package:driver/common/style/custom_theme.dart';
 import 'package:driver/pages/auth/register.dart';
 import 'package:driver/pages/tab.dart';
 import 'package:driver/shared_state/login_provider.dart';
+import 'package:driver/shared_state/user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -134,6 +135,9 @@ class _LoginForm extends StatelessWidget {
                     onPressed: () async {
                       final result = await provider.login(context);
                       if (result) {
+                        /// save user info to [UserInfoProvider]
+                        final userInfoProvider = Provider.of<UserInfoProvider>(context, listen: false);
+                        userInfoProvider.userInfo = provider.userInfo;
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(builder: (BuildContext context) => TabPage()),

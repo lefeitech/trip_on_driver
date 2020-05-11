@@ -14,6 +14,12 @@ class UserInfoProvider with ChangeNotifier {
   String get verifyStatus => _verifyStatus;
   String _verifyStatus = VerifyStatus.unregistered;
 
+  set userInfo(UserInfoModel info) {
+    if (info != null && info is UserInfoModel) {
+      _userInfo = info;
+    }
+  }
+
   bool get loading => _loading;
   var _loading = false;
 

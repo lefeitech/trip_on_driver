@@ -45,8 +45,13 @@ class __SplashBodyState extends State<_SplashBody> {
 
   Future<bool> _init() async {
     final token = await LocalStorage.get(Config.TOKEN_KEY);
-    if (token != null) {
-      _getUserInfo();
+    final driverIdStr = await LocalStorage.get(Config.USER_ID);
+    if (token != null && driverIdStr != null) {
+      widget.userInfoProvider.getUserInfo(int.parse(driverIdStr));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (BuildContext context) => TabPage()),
+      );
     } else {
       Navigator.pushReplacement(
         context,
@@ -54,22 +59,5 @@ class __SplashBodyState extends State<_SplashBody> {
       );
     }
     return Future.value(true);
-  }
-
-  Future<void> _getUserInfo() async {
-    var driverIdStr = await LocalStorage.get(Config.USER_ID);
-    if (driverIdStr == null) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
-      );
-    } else {
-      widget.userInfoProvider.getUserInfo(int.parse(driverIdStr));
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (BuildContext context) => TabPage()),
-      );
-    }
-    return Future.value();
   }
 }

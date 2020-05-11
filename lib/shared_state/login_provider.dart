@@ -30,6 +30,9 @@ class LoginProvider with ChangeNotifier {
 
   bool get loading => _loading;
 
+  UserInfoModel get userInfo => _userInfo;
+  UserInfoModel _userInfo;
+
   int _loginMethod = LoginType.code;
 
   final TextEditingController _userNameCtrl = TextEditingController();
@@ -127,9 +130,9 @@ class LoginProvider with ChangeNotifier {
         success = false;
         return Future.value(false);
       } else {
+        _userInfo = res.data.info;
         await _saveToken(res.data.token);
         await _saveUserInfo(res.data.info);
-        // todo save userInfo
         CommonUtils.showMessage('login success');
         success = true;
       }
