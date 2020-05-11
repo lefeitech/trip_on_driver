@@ -43,7 +43,7 @@ class __SplashBodyState extends State<_SplashBody> {
     _init();
   }
 
-  Future<void> _init() async {
+  Future<bool> _init() async {
     final token = await LocalStorage.get(Config.TOKEN_KEY);
     if (token != null) {
       _getUserInfo();
@@ -53,6 +53,7 @@ class __SplashBodyState extends State<_SplashBody> {
         MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
       );
     }
+    return Future.value(true);
   }
 
   Future<void> _getUserInfo() async {
@@ -69,5 +70,6 @@ class __SplashBodyState extends State<_SplashBody> {
         MaterialPageRoute(builder: (BuildContext context) => TabPage()),
       );
     }
+    return Future.value();
   }
 }
