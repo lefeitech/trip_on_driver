@@ -76,6 +76,14 @@ class CustomTheme {
             indicatorSize: TabBarIndicatorSize.label,
             indicator: UnderlineTabIndicator(insets: const EdgeInsets.only(bottom: 6)),
           ),
+      inputDecorationTheme: ThemeData.light().inputDecorationTheme.copyWith(
+            hintStyle: TextStyle(color: Color(0xFF999999)),
+            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(width: .4, color: Colors.grey[300])),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(width: .4, color: Color(0xFF00AFFF)),
+            ),
+            errorBorder: UnderlineInputBorder(borderSide: BorderSide(width: .4, color: Colors.red)),
+          ),
     );
   }
 

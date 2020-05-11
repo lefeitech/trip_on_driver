@@ -43,6 +43,7 @@ class __SplashBodyState extends State<_SplashBody> {
     _init();
   }
 
+  // todo get user info action move to some Provider
   Future<bool> _init() async {
     final token = await LocalStorage.get(Config.TOKEN_KEY);
     final driverIdStr = await LocalStorage.get(Config.USER_ID);

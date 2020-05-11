@@ -36,13 +36,6 @@ class _LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle hintStyle = TextStyle(color: Color(0xFF999999));
-    final InputBorder enabledBorder = UnderlineInputBorder(borderSide: BorderSide(width: .4, color: Colors.grey[300]));
-    final InputBorder focusedBorder = UnderlineInputBorder(
-      borderSide: BorderSide(width: .4, color: Theme.of(context).primaryColor),
-    );
-    final InputBorder errBorder = UnderlineInputBorder(borderSide: BorderSide(width: .4, color: Colors.red));
-
     String codeInfo = 'send code';
     if (provider.secondDec != 0) {
       codeInfo = 'send again(${provider.secondDec})';
@@ -76,10 +69,6 @@ class _LoginForm extends StatelessWidget {
                 contentPadding: const EdgeInsets.only(top: 14),
                 prefixIcon: Icon(Icons.phone_iphone),
                 hintText: 'please enter the phone number',
-                hintStyle: hintStyle,
-                enabledBorder: enabledBorder,
-                focusedBorder: focusedBorder,
-                errorBorder: errBorder,
               ),
             ),
           ),
@@ -94,7 +83,6 @@ class _LoginForm extends StatelessWidget {
                 prefixIcon: Icon(Icons.security),
                 hintText:
                     provider.loginMethod == LoginType.code ? 'please enter verification code' : 'please enter password',
-                hintStyle: hintStyle,
                 suffixIcon: provider.loginMethod == LoginType.code
                     ? GestureDetector(
                         onTap: () {
@@ -106,9 +94,6 @@ class _LoginForm extends StatelessWidget {
                         child: codeSuffix,
                       )
                     : null,
-                enabledBorder: enabledBorder,
-                focusedBorder: focusedBorder,
-                errorBorder: errBorder,
               ),
             ),
           ),
