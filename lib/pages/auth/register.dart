@@ -1,5 +1,7 @@
 import 'package:driver/common/style/custom_theme.dart';
+import 'package:driver/common/utils/validators.dart';
 import 'package:driver/shared_state/register_provider.dart';
+import 'package:driver/widgets/bottom_with_one_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,10 +25,13 @@ class Step1form extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget codeSuffix(String info) => Padding(
-          padding: const EdgeInsets.only(top: 14),
-          child: Text(info, style: TextStyle(color: CustomTheme.of(context).tipAlertColor)),
-        );
+    Widget codeSuffix(String info) => GestureDetector(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 14),
+        child: Text(info, style: TextStyle(color: CustomTheme.of(context).tipAlertColor)),
+      ),
+      onTap: provider.sendCode,
+    );
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -41,6 +46,7 @@ class Step1form extends StatelessWidget {
                   labelText: 'Full Name',
                   hintText: 'Full Name',
                 ),
+                validator: Validators.required('Name is required'),
               ),
               TextFormField(
                 controller: provider.enNameCtrl,
@@ -48,14 +54,16 @@ class Step1form extends StatelessWidget {
                   labelText: 'English Name',
                   hintText: 'English Name',
                 ),
+                validator: Validators.required('English name is required'),
               ),
               TextFormField(
                 controller: provider.telCtrl,
                 decoration: InputDecoration(
                   labelText: 'Phone number',
                   hintText: 'Phone number',
-                  suffixIcon: codeSuffix('send code'),
+                  suffixIcon: codeSuffix(provider.getCodeStr(context)),
                 ),
+                validator: Validators.required('Phone number is required'),
               ),
               TextFormField(
                 controller: provider.codeCtrl,
@@ -63,6 +71,7 @@ class Step1form extends StatelessWidget {
                   labelText: 'Verify code',
                   hintText: 'Verify code',
                 ),
+                validator: Validators.required('Verify code is required'),
               ),
               TextFormField(
                 controller: provider.pwdCtrl,
@@ -70,6 +79,7 @@ class Step1form extends StatelessWidget {
                   labelText: 'Password',
                   hintText: 'Password',
                 ),
+                validator: Validators.required('Password is required'),
               ),
               TextFormField(
                 controller: provider.rePwdCtrl,
@@ -77,6 +87,10 @@ class Step1form extends StatelessWidget {
                   labelText: 'Re-Password',
                   hintText: 'Re-Password',
                 ),
+                validator: (String pwd) {
+                  final result = Validators.required('Password is required')(pwd);
+                  return result ?? Validators.same(provider.pwdCtrl.text, 'Passwords entered twice are different')(pwd);
+                },
               ),
               TextFormField(
                 controller: provider.cardCtrl,
@@ -84,6 +98,7 @@ class Step1form extends StatelessWidget {
                   labelText: 'Driver\'s license number',
                   hintText: 'Driver\'s license number',
                 ),
+                validator: Validators.required('Driver\'s license number is required'),
               ),
               TextFormField(
                 controller: provider.emailCtrl,
@@ -91,6 +106,10 @@ class Step1form extends StatelessWidget {
                   labelText: 'Email',
                   hintText: 'Email',
                 ),
+                validator: (String email) {
+                  final result = Validators.required('Email is required')(email);
+                  return result ?? Validators.email('Email format is incorrect')(email);
+                },
               ),
               TextFormField(
                 controller: provider.bankNoCtrl,
@@ -98,13 +117,21 @@ class Step1form extends StatelessWidget {
                   labelText: 'Bank Number',
                   hintText: 'Bank Number',
                 ),
+                validator: Validators.required('Bank Number is required'),
               ),
               TextFormField(
                 controller: provider.tel2Ctrl,
                 decoration: InputDecoration(
-                  labelText: 'emergency contact\'s number',
-                  hintText: 'emergency contact\'s number',
+                  labelText: 'Emergency contact\'s number',
+                  hintText: 'Emergency contact\'s number',
                 ),
+                validator: Validators.required('Emergency contact\'s number is required'),
+              ),
+              SizedBox(height: 16),
+              BottomWithOneBtn(
+                onPress: provider.saveStep1,
+                padding: const EdgeInsets.all(0),
+                child: Text('Next step'),
               ),
             ],
           ),
@@ -113,6 +140,3 @@ class Step1form extends StatelessWidget {
     );
   }
 }
-
-// todo RegisterProvider
-// todo 服务协议

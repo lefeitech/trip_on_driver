@@ -1,5 +1,6 @@
 import 'package:driver/common/utils/route_helper.dart';
 import 'package:driver/pages/auth/register.dart';
+import 'package:driver/pages/auth/register_step2.dart';
 import 'package:driver/shared_state/register_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,14 @@ class NavigatorUtil {
     return RouteHelper().pushWidget<void>(ChangeNotifierProvider(
       create: (_) => RegisterProvider(),
       child: RegisterPage(),
+    ));
+  }
+
+  /// register page step 2
+  static Future<void> goRegisterStep2(RegisterProvider provider) {
+    return RouteHelper().pushWidget<void>(ChangeNotifierProvider.value(
+      value: provider,
+      child: RegisterStep2Page(),
     ));
   }
 }
