@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:driver/common/api/auth/auth.dart';
 import 'package:driver/common/model/auth/send_code.dart';
@@ -16,6 +17,9 @@ class RegisterProvider with ChangeNotifier {
   final step1key = GlobalKey<FormState>(debugLabel: 'step1key');
   final step2key = GlobalKey<FormState>(debugLabel: 'step2key');
   final step3key = GlobalKey<FormState>(debugLabel: 'step3key');
+
+  File card1;
+  File card2;
 
   // full name
   final nameCtrl = TextEditingController();
@@ -41,6 +45,9 @@ class RegisterProvider with ChangeNotifier {
   final tel2Ctrl = TextEditingController();
 
   void saveStep1() {
+    // todo delete blow 2 line when test end
+    NavigatorUtil.goRegisterStep2(this);
+    return;
     if (step1key.currentState.validate()) {
       step1key.currentState.save();
       // todo next step
