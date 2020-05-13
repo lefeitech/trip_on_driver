@@ -55,6 +55,14 @@ class RegisterProvider with ChangeNotifier {
     }
   }
 
+  void saveStep2() {
+    if (card1 == null || card2 == null) {
+      return CommonUtils.showMessage('Please pick driver liense photos');
+    } else {
+      NavigatorUtil.goRegisterStep3(this);
+    }
+  }
+
   /// 发送验证码
   Future<void> sendCode() async {
     if (validatePhone(telCtrl.text)) {

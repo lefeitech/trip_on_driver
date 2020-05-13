@@ -1,7 +1,6 @@
 import 'dart:io';
-
-import 'package:driver/common/style/custom_theme.dart';
 import 'package:driver/shared_state/register_provider.dart';
+import 'package:driver/widgets/bottom_with_one_btn.dart';
 import 'package:driver/widgets/info_photo_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,8 +17,6 @@ class RegisterStep2Page extends StatelessWidget {
     );
   }
 }
-// todo RegisterProvider
-// todo 服务协议
 
 class Step2form extends StatelessWidget {
   Step2form(this.provider);
@@ -32,7 +29,7 @@ class Step2form extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(right: 50) ,
+          padding: const EdgeInsets.only(right: 50),
           child: InfoPhotoPicker(
             title: 'Positive',
             onFileChanged: (File image) {
@@ -41,13 +38,18 @@ class Step2form extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 50) ,
+          padding: const EdgeInsets.only(right: 50),
           child: InfoPhotoPicker(
             title: 'Back',
             onFileChanged: (File image) {
               provider.card2 = image;
             },
           ),
+        ),
+        BottomWithOneBtn(
+          onPress: provider.saveStep2,
+          padding: const EdgeInsets.all(0),
+          child: Text('Next step'),
         ),
       ],
     );
