@@ -32,6 +32,7 @@ class Step2form extends StatelessWidget {
           padding: const EdgeInsets.only(right: 50),
           child: InfoPhotoPicker(
             title: 'Positive',
+            initImage: provider.card1,
             onFileChanged: (File image) {
               provider.card1 = image;
             },
@@ -41,6 +42,7 @@ class Step2form extends StatelessWidget {
           padding: const EdgeInsets.only(right: 50),
           child: InfoPhotoPicker(
             title: 'Back',
+            initImage: provider.card2,
             onFileChanged: (File image) {
               provider.card2 = image;
             },

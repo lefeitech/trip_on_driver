@@ -13,6 +13,7 @@ class UserInfoModel {
     this.card1,
     this.card2,
     this.carNo,
+    this.carColor,
     this.carMake,
     this.carSlide,
     this.state,
@@ -29,6 +30,7 @@ class UserInfoModel {
     this.wechat,
     this.bankNo,
     this.tel2,
+    this.code,
   });
 
   factory UserInfoModel.fromJson(Map<String, dynamic> jsonRes) {
@@ -55,6 +57,7 @@ class UserInfoModel {
       card1: asT<String>(jsonRes['card_1']),
       card2: asT<String>(jsonRes['card_2']),
       carNo: asT<String>(jsonRes['car_no']),
+      carColor: asT<String>(jsonRes['car_color']),
       carMake: asT<String>(jsonRes['car_make']),
       carSlide: carSlide,
       state: asT<int>(jsonRes['state']),
@@ -71,6 +74,7 @@ class UserInfoModel {
       wechat: asT<String>(jsonRes['wechat']),
       bankNo: asT<String>(jsonRes['bank_no']),
       tel2: asT<String>(jsonRes['tel2']),
+      code: asT<int>(jsonRes['code']),
     );
   }
 
@@ -84,6 +88,7 @@ class UserInfoModel {
   String card1;
   String card2;
   String carNo;
+  String carColor;
   String carMake;
   List<String> carSlide;
   int state;
@@ -100,6 +105,7 @@ class UserInfoModel {
   String wechat;
   String bankNo;
   String tel2;
+  int code;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
@@ -112,6 +118,7 @@ class UserInfoModel {
         'card_1': card1,
         'card_2': card2,
         'car_no': carNo,
+        'car_color': carColor,
         'car_make': carMake,
         'car_slide': carSlide,
         'state': state,
@@ -128,6 +135,7 @@ class UserInfoModel {
         'wechat': wechat,
         'bank_no': bankNo,
         'tel2': tel2,
+        'code': code,
       };
 
   @override

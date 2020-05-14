@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:driver/common/local/local_storage.dart';
 import 'package:driver/common/network/code.dart';
+import 'package:driver/common/network/common_http.dart';
 import 'package:driver/common/report/report.dart';
 import 'package:driver/common/utils/common_util.dart';
 import '../config/config.dart';
@@ -29,20 +30,18 @@ class ZGSInterceptor extends Interceptor {
 //        // todo refresh error back to login
 //        dio.unlock();
 //      }
-      options.headers["AccessToken"] = '$token';
+    }
+    options.headers["AccessToken"] = '$token';
 
-      final timeStamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-      final Map<dynamic, Object> extraInfo = {
-        'sign': CommonUtils.generateMd5(timeStamp),
-        'time': timeStamp,
-        'token': token,
-      };
-      if (options.data != null) {
+    final Map<String, dynamic> extraInfo = await CommonHttp.getExtraBody();
+    if (options.data != null) {
+      if (options.data is Map) {
         extraInfo.addAll(options.data);
         options.data = Map.from(extraInfo);
-      } else {
-        options.data = extraInfo;
+//          (options.data as Map<dynamic, Object>).addAll(extraInfo);
       }
+    } else {
+      options.data = extraInfo;
     }
     return options;
   }

@@ -1,25 +1,39 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:driver/pages/auth/login.dart';
+import 'package:flutter/material.dart';
 
 import 'package:driver/common/api/auth/auth.dart';
+import 'package:driver/common/api/auth/file.dart';
 import 'package:driver/common/model/auth/send_code.dart';
 import 'package:driver/common/model/user/user_info.dart';
 import 'package:driver/common/utils/common_util.dart';
 import 'package:driver/common/utils/navigator_util.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class RegisterProvider with ChangeNotifier {
   var userInfo = UserInfoModel();
   var secondsCount = 60;
 
+  bool get loading => _loading;
+  bool _loading = false;
+
+  bool get agreed => _agree;
+  bool _agree = false;
+
+  // timer id
   Timer _timer;
 
   final step1key = GlobalKey<FormState>(debugLabel: 'step1key');
-  final step2key = GlobalKey<FormState>(debugLabel: 'step2key');
-  final step3key = GlobalKey<FormState>(debugLabel: 'step3key');
 
   File card1;
   File card2;
+
+  String _card1str;
+  String _card2str;
+
+  List<File> carsImage = List<File>(3);
+  List<String> _carsImageStr = List<String>(3);
 
   // full name
   final nameCtrl = TextEditingController();
@@ -37,6 +51,10 @@ class RegisterProvider with ChangeNotifier {
 
   // driver's license
   final cardCtrl = TextEditingController();
+  final carCtrl = TextEditingController();
+  final carColor = TextEditingController();
+  final carNum = TextEditingController();
+  final carNo = TextEditingController();
   final emailCtrl = TextEditingController();
   final weChatCtrl = TextEditingController();
   final bankNoCtrl = TextEditingController();
@@ -45,12 +63,8 @@ class RegisterProvider with ChangeNotifier {
   final tel2Ctrl = TextEditingController();
 
   void saveStep1() {
-    // todo delete blow 2 line when test end
-    NavigatorUtil.goRegisterStep2(this);
-    return;
     if (step1key.currentState.validate()) {
       step1key.currentState.save();
-      // todo next step
       NavigatorUtil.goRegisterStep2(this);
     }
   }
@@ -63,9 +77,93 @@ class RegisterProvider with ChangeNotifier {
     }
   }
 
+  Future<void> finish(BuildContext context) async {
+    bool completed = true;
+
+    if (_loading) {
+      return;
+    }
+
+    carsImage.forEach((image) => completed = completed && (image != null));
+    if (!completed) {
+      return CommonUtils.showMessage('Please pick three side car photos');
+    }
+
+    if (carCtrl.text == null) {
+      return CommonUtils.showMessage('Please type car\'s number');
+    }
+
+    if (_agree == false) {
+      return CommonUtils.showMessage('Please agree the \'User Services Agreement\'');
+    }
+
+    _loading = true;
+    EasyLoading.show(status: 'loading');
+
+    try {
+      _carsImageStr = await _uploadImages(carsImage);
+      var cardImageStr = await _uploadImages([card1, card2]);
+      _card1str = cardImageStr[0];
+      _card2str = cardImageStr[1];
+      if (await _register()) {
+        CommonUtils.showMessage('register success');
+        Navigator.popUntil(context, ModalRoute.withName('/'));
+        Navigator.pushReplacementNamed(context, LoginPage.routeName);
+      } else {
+        return CommonUtils.showMessage('some bad thing happend');
+      }
+    } catch (e) {
+      return CommonUtils.showMessage('some bad thing happend');
+    } finally {
+      EasyLoading.dismiss();
+      _loading = false;
+    }
+  }
+
+  Future<List<String>> _uploadImages(List<File> files) async {
+    final res = await Future.wait(files.map((image) => FileApi.uploadOneImage(image)));
+    List<String> imagesUrl;
+    if (res[0].code == 1) {
+      imagesUrl = res.map((item) => item.data.baseUrl).toList();
+      return Future.value(imagesUrl);
+    } else {
+      return Future.value(null);
+    }
+  }
+
+  Future<bool> _register() async {
+    var userInfo = UserInfoModel(
+      driverTel: telCtrl.text,
+      driverName: nameCtrl.text,
+      driverNameEn: enNameCtrl.text,
+      card1: _card1str,
+      card2: _card2str,
+      cardNo: cardCtrl.text,
+      carNo: carNo.text,
+      carColor: carCtrl.text,
+      carSlide: _carsImageStr,
+      carNum: int.tryParse(carNum.text),
+      password: pwdCtrl.text,
+      emall: emailCtrl.text,
+      bankNo: bankNoCtrl.text,
+      tel2: tel2Ctrl.text,
+      code: int.tryParse(codeCtrl.text),
+    );
+    try {
+      var res = await AuthApi.register(userInfo);
+      if (res.code == 1) {
+        return Future.value(true);
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    return Future.value(false);
+  }
+
   /// 发送验证码
   Future<void> sendCode() async {
-    if (validatePhone(telCtrl.text)) {
+    if (!validatePhone(telCtrl.text)) {
       return CommonUtils.showMessage('please a valid number');
     }
     if (_timer != null) {
@@ -103,6 +201,11 @@ class RegisterProvider with ChangeNotifier {
     });
   }
 
+  void agreeClicked() {
+    _agree = !_agree;
+    notifyListeners();
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -113,6 +216,10 @@ class RegisterProvider with ChangeNotifier {
     pwdCtrl.dispose();
     rePwdCtrl.dispose();
     cardCtrl.dispose();
+    carCtrl.dispose();
+    carNo.dispose();
+    carColor.dispose();
+    carNum.dispose();
     emailCtrl.dispose();
     weChatCtrl.dispose();
     bankNoCtrl.dispose();

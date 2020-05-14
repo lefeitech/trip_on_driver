@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:driver/common/config/config.dart';
+import 'package:driver/common/local/local_storage.dart';
+import 'package:driver/common/utils/common_util.dart';
 import 'dart:async';
 
 import 'interceptor.dart';
@@ -19,6 +21,17 @@ class CommonHttp {
 
   static Dio _dio = Dio();
 
+  static Future<Map<String, dynamic>> getExtraBody() async {
+    String token = await LocalStorage.get(Config.TOKEN_KEY);
+    final timeStamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+    final Map<String, dynamic> extraInfo = {
+      'sign': CommonUtils.generateMd5(timeStamp),
+      'time': timeStamp,
+      'token': token,
+    };
+    return Future.value(extraInfo);
+  }
+
   Options _mergeOptions(Options options, Map<String, dynamic> config) {
     Options _options;
     if (options == null) {
@@ -31,13 +44,13 @@ class CommonHttp {
   }
 
   Future<Response<T>> get<T>(
-      String path, {
-        Map<String, dynamic> queryParameters,
-        Options options,
-        CancelToken cancelToken,
-        ProgressCallback onReceiveProgress,
-        bool showTip = false,
-      }) async {
+    String path, {
+    Map<String, dynamic> queryParameters,
+    Options options,
+    CancelToken cancelToken,
+    ProgressCallback onReceiveProgress,
+    bool showTip = false,
+  }) async {
     Map<String, dynamic> config = {'showTip': showTip};
     return _dio.get<T>(path,
         queryParameters: queryParameters,
@@ -47,15 +60,15 @@ class CommonHttp {
   }
 
   Future<Response<T>> post<T>(
-      String path, {
-        data,
-        Map<String, dynamic> queryParameters,
-        Options options,
-        CancelToken cancelToken,
-        ProgressCallback onSendProgress,
-        ProgressCallback onReceiveProgress,
-        bool showTip = false,
-      }) {
+    String path, {
+    data,
+    Map<String, dynamic> queryParameters,
+    Options options,
+    CancelToken cancelToken,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+    bool showTip = false,
+  }) {
     Map<String, dynamic> config = {'showTip': showTip};
     return _dio.post<T>(
       path,
@@ -69,15 +82,15 @@ class CommonHttp {
   }
 
   Future<Response<T>> put<T>(
-      String path, {
-        data,
-        Map<String, dynamic> queryParameters,
-        Options options,
-        CancelToken cancelToken,
-        ProgressCallback onSendProgress,
-        ProgressCallback onReceiveProgress,
-        bool showTip = false,
-      }) {
+    String path, {
+    data,
+    Map<String, dynamic> queryParameters,
+    Options options,
+    CancelToken cancelToken,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+    bool showTip = false,
+  }) {
     Map<String, dynamic> config = {'showTip': showTip};
     return _dio.put<T>(
       path,
@@ -91,13 +104,13 @@ class CommonHttp {
   }
 
   Future<Response<T>> delete<T>(
-      String path, {
-        data,
-        Map<String, dynamic> queryParameters,
-        Options options,
-        CancelToken cancelToken,
-        bool showTip = false,
-      }) {
+    String path, {
+    data,
+    Map<String, dynamic> queryParameters,
+    Options options,
+    CancelToken cancelToken,
+    bool showTip = false,
+  }) {
     Map<String, dynamic> config = {'showTip': showTip};
     return _dio.delete<T>(
       path,
@@ -121,10 +134,10 @@ class CommonHttp {
 
   void _addProxy(Dio dio) {
     /// 尴尬，我的postman开代理会崩
-//    if (Config.DEBUG) {
+//    if (Config.debugMode) {
 //      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
 //        client.findProxy = (uri) {
-//          return "PROXY localhost:1011";
+//          return "PROXY 192.168.123.154:5555";
 //        };
 //      };
 //    }

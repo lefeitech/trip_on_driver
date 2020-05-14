@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class InfoPhotoPicker extends StatefulWidget {
-  InfoPhotoPicker({Key key, @required this.title, @required this.onFileChanged}) : super(key: key);
+  InfoPhotoPicker({Key key, @required this.title, @required this.onFileChanged, this.initImage}) : super(key: key);
   final String title;
+  final File initImage;
   final void Function(File image) onFileChanged;
 
   @override
@@ -15,6 +16,14 @@ class InfoPhotoPicker extends StatefulWidget {
 class _InfoPhotoPickerState extends State<InfoPhotoPicker> {
   File _image;
   final _aspectRatio = 5 / 3;
+
+  @override
+  void didUpdateWidget(InfoPhotoPicker oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initImage != null) {
+      _image = widget.initImage;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

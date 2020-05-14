@@ -2,6 +2,7 @@ import 'package:dio/dio.dart' show Response;
 import 'package:driver/common/enums/auth.dart';
 import 'package:driver/common/model/auth/login_res.dart';
 import 'package:driver/common/model/auth/send_code.dart';
+import 'package:driver/common/model/user/user_info.dart';
 import 'package:driver/common/model/user/user_info_res.dart';
 import 'package:driver/common/network/base_url.dart';
 import 'package:driver/common/network/common_http.dart';
@@ -18,6 +19,12 @@ class AuthApi {
   /// 获取用户信息
   static Future<UserInfoRes> getUserInfo(int driverId) async {
     Response res = await http.post(BaseUrl.userInfo, data: {'driver_id': driverId});
+    return UserInfoRes.fromJson(res.data);
+  }
+
+  /// 注册
+  static Future<UserInfoRes> register(UserInfoModel userInfo) async {
+    Response res = await http.post(BaseUrl.userRegister, data: userInfo.toJson());
     return UserInfoRes.fromJson(res.data);
   }
 
