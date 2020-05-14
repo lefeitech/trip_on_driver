@@ -51,9 +51,11 @@ class RegisterProvider with ChangeNotifier {
 
   // driver's license
   final cardCtrl = TextEditingController();
-  final carCtrl = TextEditingController();
+  // car's color
   final carColor = TextEditingController();
+  // car seats number
   final carNum = TextEditingController();
+  // car's number
   final carNo = TextEditingController();
   final emailCtrl = TextEditingController();
   final weChatCtrl = TextEditingController();
@@ -89,8 +91,12 @@ class RegisterProvider with ChangeNotifier {
       return CommonUtils.showMessage('Please pick three side car photos');
     }
 
-    if (carCtrl.text == null) {
+    if (carNo.text == null) {
       return CommonUtils.showMessage('Please type car\'s number');
+    }
+
+    if (carNum.text == null) {
+      return CommonUtils.showMessage('Please type car\'s seats number');
     }
 
     if (_agree == false) {
@@ -140,7 +146,7 @@ class RegisterProvider with ChangeNotifier {
       card2: _card2str,
       cardNo: cardCtrl.text,
       carNo: carNo.text,
-      carColor: carCtrl.text,
+      carColor: carColor.text,
       carSlide: _carsImageStr,
       carNum: int.tryParse(carNum.text),
       password: pwdCtrl.text,
@@ -216,7 +222,6 @@ class RegisterProvider with ChangeNotifier {
     pwdCtrl.dispose();
     rePwdCtrl.dispose();
     cardCtrl.dispose();
-    carCtrl.dispose();
     carNo.dispose();
     carColor.dispose();
     carNum.dispose();
