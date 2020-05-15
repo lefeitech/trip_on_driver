@@ -4,8 +4,8 @@ import 'package:sentry/sentry.dart';
 final SentryClient _sentry = SentryClient(dsn: Config.SENTRY_DSN);
 
 Future<Null> reportError(dynamic error, dynamic stackTrace) async {
-  print('Caught error: $error');
   if (!Config.debugMode) {
+    print('Caught error: $error');
     final SentryResponse response = await _sentry.captureException(
       exception: error,
       stackTrace: stackTrace,

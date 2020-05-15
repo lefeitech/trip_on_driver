@@ -13,7 +13,7 @@ Future<Null> main() async {
     reportError(details.exception, details.stack);
   };
 
-  runZoned<Future<Null>>(() async {
+  Future<void> _runApp() async {
     WidgetsFlutterBinding.ensureInitialized();
 
     await GlobalConfig.getDefaultConfig();
@@ -29,7 +29,7 @@ Future<Null> main() async {
         child: DriverApp(),
       ),
     ));
-  }, onError: (error, stackTrace) async {
-    await reportError(error, stackTrace);
-  });
+  }
+
+  runZonedGuarded<Future<void>>(_runApp, reportError);
 }

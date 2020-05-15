@@ -70,6 +70,14 @@ class Step3form extends StatelessWidget {
           validator: Validators.required('Car\'s number is required'),
         ),
         TextFormField(
+          controller: provider.carMake,
+          decoration: InputDecoration(
+            labelText: 'Vehicle Brands',
+            hintText: 'Vehicle Brands',
+          ),
+          validator: Validators.required('Vehicle Brands is required'),
+        ),
+        TextFormField(
           controller: provider.carColor,
           decoration: InputDecoration(
             labelText: 'Color',

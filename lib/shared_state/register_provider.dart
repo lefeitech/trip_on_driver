@@ -57,6 +57,8 @@ class RegisterProvider with ChangeNotifier {
   final carNum = TextEditingController();
   // car's number
   final carNo = TextEditingController();
+  // car make
+  final carMake = TextEditingController();
   final emailCtrl = TextEditingController();
   final weChatCtrl = TextEditingController();
   final bankNoCtrl = TextEditingController();
@@ -113,8 +115,7 @@ class RegisterProvider with ChangeNotifier {
       _card2str = cardImageStr[1];
       if (await _register()) {
         CommonUtils.showMessage('register success');
-        Navigator.popUntil(context, ModalRoute.withName('/'));
-        Navigator.pushReplacementNamed(context, LoginPage.routeName);
+        Navigator.popUntil(context, ModalRoute.withName(LoginPage.routeName));
       } else {
         return CommonUtils.showMessage('some bad thing happend');
       }
@@ -146,6 +147,7 @@ class RegisterProvider with ChangeNotifier {
       card2: _card2str,
       cardNo: cardCtrl.text,
       carNo: carNo.text,
+      carMake: carMake.text,
       carColor: carColor.text,
       carSlide: _carsImageStr,
       carNum: int.tryParse(carNum.text),
@@ -225,6 +227,7 @@ class RegisterProvider with ChangeNotifier {
     carNo.dispose();
     carColor.dispose();
     carNum.dispose();
+    carMake.dispose();
     emailCtrl.dispose();
     weChatCtrl.dispose();
     bankNoCtrl.dispose();
