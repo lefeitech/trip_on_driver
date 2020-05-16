@@ -8,4 +8,6 @@ class BaseUrl {
   static String userInfo = '$host/${Config.HTTP_VERSION}/user_info';
   static String sendCode = '$host/${Config.HTTP_VERSION}/msg_send_code';
   static String imageUploadOne = '$host/${Config.HTTP_VERSION}/image_upload_one';
+  static String orderList = '$host/${Config.HTTP_VERSION}/order_list';
+  static String orderDetail = '$host/${Config.HTTP_VERSION}/order_detail';
 }

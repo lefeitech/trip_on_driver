@@ -4,7 +4,7 @@ import 'package:driver/pages/auth/login.dart';
 import 'package:flutter/material.dart';
 
 import 'package:driver/common/api/auth/auth.dart';
-import 'package:driver/common/api/auth/file.dart';
+import 'package:driver/common/api/file.dart';
 import 'package:driver/common/model/auth/send_code.dart';
 import 'package:driver/common/model/user/user_info.dart';
 import 'package:driver/common/utils/common_util.dart';

@@ -47,9 +47,9 @@ class _OrderListPageState extends State<OrderListPage> with SingleTickerProvider
               child: TabBarView(
                 controller: _tabCtrl,
                 children: <Widget>[
-                  OrderList(status: OrderStatus.pending),
-                  OrderList(status: OrderStatus.done),
-                  OrderList(status: OrderStatus.canceled),
+                  OrderList(status: OrderState.picked),
+                  OrderList(status: OrderState.done),
+                  OrderList(status: OrderState.canceled),
                 ],
               ),
             )
@@ -100,14 +100,16 @@ class OrderListTab extends StatelessWidget {
 class OrderList extends StatelessWidget {
   OrderList({this.status});
 
-  final OrderStatus status;
+  final int status;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemBuilder: (BuildContext context, int index) => OrderListItem(onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => OrderDetailPage()));
-      },),
+      itemBuilder: (BuildContext context, int index) => OrderListItem(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => OrderDetailPage()));
+        },
+      ),
     );
   }
 }
