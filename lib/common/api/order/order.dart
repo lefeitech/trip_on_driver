@@ -2,17 +2,18 @@ import 'package:dio/dio.dart' show Response;
 import 'package:driver/common/enums/auth.dart';
 import 'package:driver/common/model/auth/login_res.dart';
 import 'package:driver/common/model/auth/send_code.dart';
+import 'package:driver/common/model/order/order_list_res.dart';
 import 'package:driver/common/model/user/user_info.dart';
 import 'package:driver/common/model/user/user_info_res.dart';
 import 'package:driver/common/network/base_url.dart';
 import 'package:driver/common/network/common_http.dart';
 
-class AuthApi {
+class OrderApi {
 
   static  CommonHttp http = CommonHttp();
 
   /// 获取订单列表
-  static Future<SendCodeRes> getOrderList(String driverId, {int start = 0, count = 20, int state = -1}) async {
+  static Future<OrderListRes> getOrderList(String driverId, {int start = 0, count = 20, int state = -1}) async {
     final body = {
       'driver_id': driverId,
       'start': start,
@@ -20,7 +21,7 @@ class AuthApi {
       'state': state,
     };
     Response res = await http.post(BaseUrl.orderList, data: body);
-    return SendCodeRes.fromJson(res.data);
+    return OrderListRes.fromJson(res.data);
   }
 
   /// 获取订单详情

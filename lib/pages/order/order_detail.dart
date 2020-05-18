@@ -5,6 +5,9 @@ import 'package:driver/widgets/to_card.dart';
 import 'package:flutter/material.dart';
 
 class OrderDetailPage extends StatefulWidget {
+  OrderDetailPage(this.id);
+
+  final int id;
   @override
   _OrderDetailPageState createState() => _OrderDetailPageState();
 }

@@ -1,3 +1,4 @@
+import 'package:driver/common/model/order/order_list_res.dart';
 import 'package:driver/common/style/custom_theme.dart';
 import 'package:driver/common/style/trip_on_icons.dart';
 import 'package:driver/widgets/start_arrive_widget.dart';
@@ -5,8 +6,9 @@ import 'package:driver/widgets/to_card.dart';
 import 'package:flutter/material.dart';
 
 class OrderListItem extends StatelessWidget {
-  OrderListItem({Key key, this.onTap});
+  OrderListItem(this.info, {Key key, this.onTap}) : super(key: key);
 
+  final OrderInfoModel info;
   final VoidCallback onTap;
   final _bodyFontColor = Color(0xFFA2A0A0);
 

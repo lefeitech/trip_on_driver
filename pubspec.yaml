@@ -32,6 +32,7 @@ dependencies:
   sentry: ^3.0.1
   image_picker: ^0.6.6+1
   flutter_easyloading: ^1.1.4
+  loading_more_list: ^1.0.5
 
 dev_dependencies:
   flutter_test:

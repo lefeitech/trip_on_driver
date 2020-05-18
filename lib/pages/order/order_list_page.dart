@@ -1,7 +1,13 @@
 import 'package:driver/common/enums/order.dart';
+import 'package:driver/common/model/order/order_list_res.dart';
+import 'package:driver/common/utils/navigator_util.dart';
 import 'package:driver/pages/order/order_list_item.dart';
 import 'package:driver/pages/order/order_detail.dart';
+import 'package:driver/pages/order/order_list_repo.dart';
+import 'package:driver/shared_state/order_detail_provider.dart';
+import 'package:driver/widgets/load_more_list_indicators.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_more_list/loading_more_list.dart';
 
 class OrderListPage extends StatefulWidget {
   @override
@@ -97,19 +103,39 @@ class OrderListTab extends StatelessWidget {
   }
 }
 
-class OrderList extends StatelessWidget {
+class OrderList extends StatefulWidget {
   OrderList({this.status});
 
   final int status;
 
   @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) => OrderListItem(
+  _OrderListState createState() => _OrderListState();
+}
+
+class _OrderListState extends State<OrderList> {
+  final _repo = OrderListRepo();
+
+  @override
+  void initState() {
+    super.initState();
+    _repo.orderStatus = widget.status;
+  }
+
+  Widget _itemBuilder(BuildContext context, OrderInfoModel item, int index) => GestureDetector(
+        child: OrderListItem(item),
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => OrderDetailPage()));
+          NavigatorUtil.goOrderDetailPage(item.id);
         },
-      ),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    ListConfig config = ListConfig<OrderInfoModel>(
+      padding: EdgeInsets.zero,
+      sourceList: _repo,
+      indicatorBuilder: ListStatus(context: context, repo: _repo).indicatorBuilder,
+      itemBuilder: _itemBuilder,
     );
+    return LoadingMoreList(config);
   }
 }

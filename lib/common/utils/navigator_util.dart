@@ -2,6 +2,7 @@ import 'package:driver/common/utils/route_helper.dart';
 import 'package:driver/pages/auth/register.dart';
 import 'package:driver/pages/auth/register_step2.dart';
 import 'package:driver/pages/auth/register_step3.dart';
+import 'package:driver/pages/order/order_detail.dart';
 import 'package:driver/shared_state/register_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,13 @@ class NavigatorUtil {
     return RouteHelper().pushWidget<void>(ChangeNotifierProvider.value(
       value: provider,
       child: RegisterStep3Page(),
+    ));
+  }
+
+  /// order detail
+  static Future<bool> goOrderDetailPage(int id) {
+    return RouteHelper().pushRoute<bool>(MaterialPageRoute(
+      builder: (BuildContext context) => OrderDetailPage(id),
     ));
   }
 }
