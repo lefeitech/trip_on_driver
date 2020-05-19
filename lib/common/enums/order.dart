@@ -22,3 +22,11 @@ class OrderState {
   // 已完成
   static const int done = 8;
 }
+
+class TransformType {
+  // 接机
+  static const int pickUp = 1;
+
+  // 送机
+  static const int dropUp = 1;
+}

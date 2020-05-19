@@ -2,12 +2,13 @@ import 'package:driver/common/enums/order.dart';
 import 'package:driver/common/model/order/order_list_res.dart';
 import 'package:driver/common/utils/navigator_util.dart';
 import 'package:driver/pages/order/order_list_item.dart';
-import 'package:driver/pages/order/order_detail.dart';
 import 'package:driver/pages/order/order_list_repo.dart';
-import 'package:driver/shared_state/order_detail_provider.dart';
+import 'package:driver/shared_state/user_info.dart';
+import 'package:driver/widgets/data_indicators.dart';
 import 'package:driver/widgets/load_more_list_indicators.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_more_list/loading_more_list.dart';
+import 'package:provider/provider.dart';
 
 class OrderListPage extends StatefulWidget {
   @override
@@ -50,15 +51,16 @@ class _OrderListPageState extends State<OrderListPage> with SingleTickerProvider
           children: <Widget>[
             OrderListTab(controller: _tabCtrl),
             Expanded(
-              child: TabBarView(
+                child: Consumer<UserInfoProvider>(
+              builder: (_, UserInfoProvider userInfoProvider, __) => TabBarView(
                 controller: _tabCtrl,
                 children: <Widget>[
-                  OrderList(status: OrderState.picked),
-                  OrderList(status: OrderState.done),
-                  OrderList(status: OrderState.canceled),
+                  OrderList(status: OrderState.picked, driverId: userInfoProvider.userInfo?.id),
+                  OrderList(status: OrderState.done, driverId: userInfoProvider.userInfo?.id),
+                  OrderList(status: OrderState.canceled, driverId: userInfoProvider.userInfo?.id),
                 ],
               ),
-            )
+            ))
           ],
         ),
       ),
@@ -104,9 +106,10 @@ class OrderListTab extends StatelessWidget {
 }
 
 class OrderList extends StatefulWidget {
-  OrderList({this.status});
+  OrderList({this.status, this.driverId});
 
   final int status;
+  final int driverId;
 
   @override
   _OrderListState createState() => _OrderListState();
@@ -116,9 +119,17 @@ class _OrderListState extends State<OrderList> {
   final _repo = OrderListRepo();
 
   @override
+  void didUpdateWidget(OrderList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _repo.orderStatus = widget.status;
+    _repo.driverId = widget.driverId.toString();
+  }
+
+  @override
   void initState() {
     super.initState();
     _repo.orderStatus = widget.status;
+    _repo.driverId = widget.driverId.toString();
   }
 
   Widget _itemBuilder(BuildContext context, OrderInfoModel item, int index) => GestureDetector(
@@ -130,6 +141,9 @@ class _OrderListState extends State<OrderList> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.driverId == null) {
+      return LoadingWidget(isFullPage: true);
+    }
     ListConfig config = ListConfig<OrderInfoModel>(
       padding: EdgeInsets.zero,
       sourceList: _repo,

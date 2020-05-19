@@ -11,16 +11,6 @@ import 'package:crypto/crypto.dart' show md5;
 /// 通用逻辑
 
 class CommonUtils {
-  static String formatTimeFromMill(int mill, [String format = 'yyyy-MM-dd HH:mm']) {
-    DateFormat formatter = DateFormat(format);
-    return formatter.format(DateTime.fromMillisecondsSinceEpoch(mill));
-  }
-
-  static String formatTimeFromDateTime(DateTime time, [String format = 'yyyy-MM-dd HH:mm']) {
-    DateFormat formatter = DateFormat(format);
-    return formatter.format(DateTime.fromMillisecondsSinceEpoch(time.millisecondsSinceEpoch));
-  }
-
   static void showMessage(String msg) {
     showToast(
       msg,

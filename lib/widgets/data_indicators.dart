@@ -47,7 +47,7 @@ class LoadErrorWidget extends StatelessWidget {
   @override
   Widget build(context) {
     Color color = Colors.grey;
-    String text = 'Load data error, pull to retry';
+    String text = 'Load data error, tap to retry';
 
     Widget inline = Row(
       mainAxisAlignment: MainAxisAlignment.center,

@@ -1,6 +1,8 @@
+import 'package:driver/common/enums/order.dart';
 import 'package:driver/common/model/order/order_list_res.dart';
 import 'package:driver/common/style/custom_theme.dart';
 import 'package:driver/common/style/trip_on_icons.dart';
+import 'package:driver/common/utils/order.dart';
 import 'package:driver/widgets/start_arrive_widget.dart';
 import 'package:driver/widgets/to_card.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ class OrderListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final transformType = OrderUtil.getTransformType(info.other.type);
     return GestureDetector(
       onTap: onTap ?? () {},
       child: TOCard(
@@ -24,15 +27,15 @@ class OrderListItem extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('接机', style: Theme.of(context).textTheme.subtitle.copyWith(fontSize: 18)),
+                Text(transformType, style: Theme.of(context).textTheme.subtitle2.copyWith(fontSize: 18)),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       const SizedBox(height: 10),
-                      Text('2020-03-01 08:24', style: TextStyle(color: _bodyFontColor, fontSize: 12)),
+                      Text(info.createTime ?? '', style: TextStyle(color: _bodyFontColor, fontSize: 12)),
                       const SizedBox(height: 2),
-                      Text('No.009620200301', style: TextStyle(color: _bodyFontColor, fontSize: 10)),
+                      Text('No.${info.id}', style: TextStyle(color: _bodyFontColor, fontSize: 10)),
                     ],
                   ),
                 )
@@ -44,12 +47,18 @@ class OrderListItem extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 15, top: 6, bottom: 6, right: 10),
                   child: Icon(TripOnIcons.shijian, color: _bodyFontColor, size: 20),
                 ),
-                Text(' AE86E86 航班实际到达后用车', style: TextStyle(color: _bodyFontColor, fontSize: 12)),
+                Text(' ${info.other.flight}', style: TextStyle(color: _bodyFontColor, fontSize: 12)),
               ],
             ),
             // start point and arrive point
-            StartArriveWidget(title: Text('吉隆坡国际机场（吉隆坡）')),
-            StartArriveWidget(title: Text('马来西亚国际伊斯兰大学'), isStart: false),
+            if (info.other.type == TransformType.pickUp) ...[
+              StartArriveWidget(title: Text(info.other.airport)),
+              StartArriveWidget(title: Text(info.other.destination), isStart: false),
+            ] else ...[
+              StartArriveWidget(title: Text(info.other.destination)),
+              StartArriveWidget(title: Text(info.other.airport), isStart: false),
+            ],
+
             SizedBox(height: 20),
             // sum
             Padding(
@@ -60,7 +69,7 @@ class OrderListItem extends StatelessWidget {
                   style: TextStyle(color: _bodyFontColor, fontSize: 12),
                   children: [
                     TextSpan(
-                      text: '850',
+                      text: '${info.payTotalMoney}',
                       style: TextStyle(
                         color: CustomTheme.of(context).tipAlertColor,
                         fontSize: 18,

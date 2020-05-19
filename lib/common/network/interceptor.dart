@@ -3,7 +3,6 @@ import 'package:driver/common/local/local_storage.dart';
 import 'package:driver/common/network/code.dart';
 import 'package:driver/common/network/common_http.dart';
 import 'package:driver/common/report/report.dart';
-import 'package:driver/common/utils/common_util.dart';
 import '../config/config.dart';
 
 /// 拦截器
