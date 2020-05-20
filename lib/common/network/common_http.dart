@@ -122,6 +122,7 @@ class CommonHttp {
   }
 
   void _initInterceptor(Dio dio) {
+    dio.interceptors.add(ZGSInterceptor(dio));
     if (Config.debugMode) {
       dio.interceptors.add(LogInterceptor(
         request: true,
@@ -129,7 +130,6 @@ class CommonHttp {
         responseBody: true,
       ));
     }
-    dio.interceptors.add(ZGSInterceptor(dio));
   }
 
   void _addProxy(Dio dio) {

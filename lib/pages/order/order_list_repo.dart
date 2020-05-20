@@ -1,5 +1,6 @@
 import 'package:driver/common/api/order/order.dart';
 import 'package:driver/common/enums/order.dart';
+import 'package:driver/common/model/order/order_detail.dart';
 import 'package:driver/common/model/order/order_list_res.dart';
 import 'package:loading_more_list/loading_more_list.dart' show LoadingMoreBase;
 

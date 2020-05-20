@@ -1,3 +1,4 @@
+import 'package:driver/common/model/order/order_detail.dart';
 import 'package:driver/common/utils/route_helper.dart';
 import 'package:driver/pages/auth/register.dart';
 import 'package:driver/pages/auth/register_step2.dart';
@@ -40,9 +41,7 @@ class NavigatorUtil {
   }
 
   /// order detail
-  static Future<bool> goOrderDetailPage(int id) {
-    return RouteHelper().pushRoute<bool>(MaterialPageRoute(
-      builder: (BuildContext context) => OrderDetailPage(id),
-    ));
+  static Future<bool> goOrderDetailPage(OrderInfoModel order) {
+    return RouteHelper().pushWidget<bool>(OrderDetailPage(order));
   }
 }

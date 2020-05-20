@@ -1,4 +1,5 @@
 import 'package:driver/common/enums/order.dart';
+import 'package:driver/common/model/order/order_detail.dart';
 import 'package:driver/common/model/order/order_list_res.dart';
 import 'package:driver/common/utils/navigator_util.dart';
 import 'package:driver/pages/order/order_list_item.dart';
@@ -33,7 +34,7 @@ class _OrderListPageState extends State<OrderListPage> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('订单中心')),
+      appBar: AppBar(title: Text('Order Center')),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -88,9 +89,9 @@ class OrderListTab extends StatelessWidget {
         child: TabBar(
           controller: controller,
           tabs: <Widget>[
-            Tab(text: '待服务'),
-            Tab(text: '已完成'),
-            Tab(text: '已取消'),
+            Tab(text: 'To be served'),
+            Tab(text: 'Completed'),
+            Tab(text: 'Canceled'),
           ],
           labelColor: Color(0xFF222222),
           labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -132,10 +133,10 @@ class _OrderListState extends State<OrderList> {
     _repo.driverId = widget.driverId.toString();
   }
 
-  Widget _itemBuilder(BuildContext context, OrderInfoModel item, int index) => GestureDetector(
-        child: OrderListItem(item),
+  Widget _itemBuilder(BuildContext context, OrderInfoModel item, int index) => OrderListItem(
+        item,
         onTap: () {
-          NavigatorUtil.goOrderDetailPage(item.id);
+          NavigatorUtil.goOrderDetailPage(item);
         },
       );
 
@@ -150,6 +151,9 @@ class _OrderListState extends State<OrderList> {
       indicatorBuilder: ListStatus(context: context, repo: _repo).indicatorBuilder,
       itemBuilder: _itemBuilder,
     );
-    return LoadingMoreList(config);
+    return RefreshIndicator(
+      onRefresh: _repo.refresh,
+      child: LoadingMoreList(config),
+    );
   }
 }

@@ -1,23 +1,23 @@
+import 'package:driver/common/enums/order.dart';
+import 'package:driver/common/model/order/order_detail.dart';
 import 'package:driver/common/style/custom_theme.dart';
 import 'package:driver/common/style/trip_on_icons.dart';
+import 'package:driver/common/utils/order.dart';
 import 'package:driver/widgets/start_arrive_widget.dart';
 import 'package:driver/widgets/to_card.dart';
 import 'package:flutter/material.dart';
 
-class OrderDetailPage extends StatefulWidget {
-  OrderDetailPage(this.id);
+/// 订单详情
+class OrderDetailPage extends StatelessWidget {
+  OrderDetailPage(this.order);
 
-  final int id;
-  @override
-  _OrderDetailPageState createState() => _OrderDetailPageState();
-}
+  final OrderInfoModel order;
 
-class _OrderDetailPageState extends State<OrderDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      appBar: AppBar(title: Text("订单详情")),
+      appBar: AppBar(title: Text("Order Detail")),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -34,72 +34,22 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 8),
           children: <Widget>[
-            _PriceWidget(),
-            _TravelInfoWidget(),
+            _PriceWidget(order),
+            _TravelInfoWidget(order),
             _PassengerInfoEditWidget(),
-            additionalRequireWidget,
+            _AdditionalWidget(),
           ],
         ),
       ),
     );
   }
-
-  get additionalRequireWidget => TOCard(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-          child: IconTheme(
-            data: IconThemeData(size: 18.0, color: Colors.black38),
-            child: DefaultTextStyle(
-              style: _additionalStyle,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text("附加要求", style: Theme.of(context).textTheme.title.copyWith(fontSize: 18)),
-                  SizedBox(height: 10.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Icon(TripOnIcons.brand),
-                      Text("举牌接机"),
-                      Text("¥ 20/一次"),
-                      IconButton(
-                        icon: Icon(Icons.radio_button_unchecked),
-                        iconSize: 18.0,
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                  Divider(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Icon(TripOnIcons.ertongzuoyijiekoux),
-                      Text("儿童座椅"),
-                      Text("¥ 20/一次"),
-                      IconButton(
-                        icon: Icon(Icons.radio_button_unchecked),
-                        iconSize: 18.0,
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-
-  final _additionalStyle = TextStyle(
-    color: Color(0xFFD5D5D5),
-    fontSize: 14.0,
-  );
 }
 
 class _PriceWidget extends StatelessWidget {
+  _PriceWidget(this.order);
+
+  final OrderInfoModel order;
+
   @override
   Widget build(BuildContext context) {
     return TOCard(
@@ -113,26 +63,27 @@ class _PriceWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text("待服务", style: Theme.of(context).textTheme.title.copyWith(fontSize: 18)),
-                  RichText(
-                    text: TextSpan(
-                      text: "¥ ",
-                      style: TextStyle(
-                        color: Colors.black38,
-                        fontSize: 12.0,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: "850",
-                          style: TextStyle(
-                            color: CustomTheme.of(context).tipAlertColor,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
+                  Text(
+                    OrderUtil.mapOrderStatus(order.state),
+                    style: Theme.of(context).textTheme.subtitle1.copyWith(fontSize: 18),
                   ),
+                  if (order.payTotalMoney != null)
+                    RichText(
+                      text: TextSpan(
+                        text: "¥ ",
+                        style: TextStyle(color: Colors.black38, fontSize: 12.0),
+                        children: [
+                          TextSpan(
+                            text: '${order.payTotalMoney ?? ''}',
+                            style: TextStyle(
+                              color: CustomTheme.of(context).tipAlertColor,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -144,8 +95,8 @@ class _PriceWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text("2020-03-01 08:24"),
-                  Text("No.0096201548564"),
+                  Text(order.createTime ?? ''),
+                  Text('No.${order.outTradeNo}'),
                 ],
               ),
             ),
@@ -157,6 +108,10 @@ class _PriceWidget extends StatelessWidget {
 }
 
 class _TravelInfoWidget extends StatelessWidget {
+  _TravelInfoWidget(this.order);
+
+  final OrderInfoModel order;
+
   @override
   Widget build(BuildContext context) {
     return TOCard(
@@ -176,49 +131,62 @@ class _TravelInfoWidget extends StatelessWidget {
                 children: <Widget>[
                   Icon(TripOnIcons.hangcheng),
                   SizedBox(width: 10.0),
-                  Text("紧凑五座-丰田corolla等级同车"),
+                  Text(order.carInfo?.carName ?? ''),
                 ],
               ),
               SizedBox(height: 10.0),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Icon(Icons.check_box),
-                  SizedBox(width: 10.0),
-                  Expanded(child: Text("TOVOTA-丰田COASTER-15 seats")),
-                ],
-              ),
-              SizedBox(height: 10.0),
+//              Row(
+//                crossAxisAlignment: CrossAxisAlignment.center,
+//                children: <Widget>[
+//                  Icon(Icons.check_box),
+//                  SizedBox(width: 10.0),
+//                  Expanded(child: Text("TOVOTA-丰田COASTER-15 seats")),
+//                ],
+//              ),
+//              SizedBox(height: 10.0),
               // start point and arrive point
-              StartArriveWidget(
-                title: Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text('吉隆坡国际机场（吉隆坡）'),
+              if (order.other.type == TransformType.pickUp) ...[
+                StartArriveWidget(
+                  title: Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Text(order.other.airport),
+                  ),
+                  preferredWidth: 10,
                 ),
-                preferredWidth: 20,
-              ),
-              StartArriveWidget(
-                title: Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text('马来西亚国际伊斯兰大学'),
+                StartArriveWidget(
+                  title: Padding(padding: const EdgeInsets.only(left: 20), child: Text(order.other.destination)),
+                  isStart: false,
+                  preferredWidth: 10,
                 ),
-                isStart: false,
-                preferredWidth: 20,
-              ),
+              ] else ...[
+                StartArriveWidget(
+                  title: Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Text(order.other.destination),
+                  ),
+                  preferredWidth: 10,
+                ),
+                StartArriveWidget(
+                  title: Padding(padding: const EdgeInsets.only(left: 20), child: Text(order.other.airport)),
+                  isStart: false,
+                  preferredWidth: 10,
+                ),
+              ],
               SizedBox(height: 10.0),
-              Row(
-                children: <Widget>[
-                  Icon(TripOnIcons.juli),
-                  SizedBox(width: 10.0),
-                  Expanded(child: Text("65km")),
-                ],
-              ),
+              if (order.other?.distance != null)
+                Row(
+                  children: <Widget>[
+                    Icon(TripOnIcons.juli),
+                    SizedBox(width: 10.0),
+                    Expanded(child: Text('${order.other.distance} km')),
+                  ],
+                ),
               SizedBox(height: 10.0),
               Row(
                 children: <Widget>[
                   Icon(TripOnIcons.feiji),
                   SizedBox(width: 10.0),
-                  Expanded(child: Text("D7539")),
+                  Expanded(child: Text(order.other?.flight ?? '')),
                 ],
               ),
             ],
@@ -250,7 +218,7 @@ class _PassengerInfoEditWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("乘客信息", style: Theme.of(context).textTheme.title.copyWith(fontSize: 18)),
+          Text("乘客信息", style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 18)),
           SizedBox(height: 10.0),
           DefaultTextStyle(
             style: _passengerStyle,
@@ -333,6 +301,63 @@ class _PassengerInfoEditWidget extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _AdditionalWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return TOCard(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+        child: IconTheme(
+          data: IconThemeData(size: 18.0, color: Colors.black38),
+          child: DefaultTextStyle(
+            style: TextStyle(
+              color: Color(0xFFD5D5D5),
+              fontSize: 14.0,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text("附加要求", style: Theme.of(context).textTheme.title.copyWith(fontSize: 18)),
+                SizedBox(height: 10.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Icon(TripOnIcons.brand),
+                    Text("举牌接机"),
+                    Text("¥ 20/一次"),
+                    IconButton(
+                      icon: Icon(Icons.radio_button_unchecked),
+                      iconSize: 18.0,
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+                Divider(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Icon(TripOnIcons.ertongzuoyijiekoux),
+                    Text("儿童座椅"),
+                    Text("¥ 20/一次"),
+                    IconButton(
+                      icon: Icon(Icons.radio_button_unchecked),
+                      iconSize: 18.0,
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

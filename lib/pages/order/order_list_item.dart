@@ -1,5 +1,5 @@
 import 'package:driver/common/enums/order.dart';
-import 'package:driver/common/model/order/order_list_res.dart';
+import 'package:driver/common/model/order/order_detail.dart';
 import 'package:driver/common/style/custom_theme.dart';
 import 'package:driver/common/style/trip_on_icons.dart';
 import 'package:driver/common/utils/order.dart';
@@ -16,7 +16,7 @@ class OrderListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final transformType = OrderUtil.getTransformType(info.other.type);
+    final transformType = OrderUtil.mapTransformType(info.other.type);
     return GestureDetector(
       onTap: onTap ?? () {},
       child: TOCard(
@@ -35,7 +35,7 @@ class OrderListItem extends StatelessWidget {
                       const SizedBox(height: 10),
                       Text(info.createTime ?? '', style: TextStyle(color: _bodyFontColor, fontSize: 12)),
                       const SizedBox(height: 2),
-                      Text('No.${info.id}', style: TextStyle(color: _bodyFontColor, fontSize: 10)),
+                      Text('No.${info.outTradeNo}', style: TextStyle(color: _bodyFontColor, fontSize: 10)),
                     ],
                   ),
                 )
@@ -65,11 +65,11 @@ class OrderListItem extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20),
               child: Text.rich(
                 TextSpan(
-                  text: '总额：￥',
+                  text: 'lump sum：￥',
                   style: TextStyle(color: _bodyFontColor, fontSize: 12),
                   children: [
                     TextSpan(
-                      text: '${info.payTotalMoney}',
+                      text: '${info.payTotalMoney ?? ''}',
                       style: TextStyle(
                         color: CustomTheme.of(context).tipAlertColor,
                         fontSize: 18,
