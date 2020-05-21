@@ -36,7 +36,7 @@ class OrderDetailPage extends StatelessWidget {
           children: <Widget>[
             _PriceWidget(order),
             _TravelInfoWidget(order),
-            _PassengerInfoEditWidget(),
+            _PassengerInfoDisplayWidget(order),
             _AdditionalWidget(),
           ],
         ),
@@ -192,6 +192,57 @@ class _TravelInfoWidget extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _PassengerInfoDisplayWidget extends StatelessWidget {
+  _PassengerInfoDisplayWidget(this.order);
+
+  final OrderInfoModel order;
+
+  final _passengerStyle = TextStyle(
+    color: Color(0xFFA2A0A0),
+    fontSize: 14.0,
+  );
+
+  final _htiStyle = TextStyle(
+    color: Color(0xFFAD5D5D5),
+    fontSize: 14.0,
+  );
+
+  final _divider = Divider(height: 16);
+
+  Widget _buildFormLine(String left, String right) {
+    return Row(
+      children: <Widget>[
+        Expanded(child: Text(left, style: _passengerStyle), flex: 1),
+        Expanded(child: Text(right), flex: 2)
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TOCard(
+      padding: const EdgeInsets.only(top: 20, left: 36, right: 20, bottom: 26),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text("Passenger information", style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 18)),
+          SizedBox(height: 16.0),
+          Column(
+              children: <Widget>[
+                _buildFormLine('passenger', order.rideName),
+                _divider,
+                _buildFormLine('phone', order.rideTel),
+                _divider,
+                _buildFormLine('requirements', order.remark ?? ''),
+              ],
+            ),
+        ],
       ),
     );
   }
