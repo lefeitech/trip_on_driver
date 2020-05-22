@@ -30,3 +30,8 @@ class TransformType {
   // 送机
   static const int dropUp = 1;
 }
+
+class ServiceType {
+  static const int pickUpBand = 1;
+  static const int dropUp = 2;
+}

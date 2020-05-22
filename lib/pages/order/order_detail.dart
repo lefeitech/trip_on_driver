@@ -37,7 +37,7 @@ class OrderDetailPage extends StatelessWidget {
             _PriceWidget(order),
             _TravelInfoWidget(order),
             _PassengerInfoDisplayWidget(order),
-            _AdditionalWidget(),
+            _AdditionalWidget(order.serviceInfo),
           ],
         ),
       ),
@@ -197,31 +197,10 @@ class _TravelInfoWidget extends StatelessWidget {
   }
 }
 
-class _PassengerInfoDisplayWidget extends StatelessWidget {
+class _PassengerInfoDisplayWidget extends StatelessWidget with _FormLineMixin {
   _PassengerInfoDisplayWidget(this.order);
 
   final OrderInfoModel order;
-
-  final _passengerStyle = TextStyle(
-    color: Color(0xFFA2A0A0),
-    fontSize: 14.0,
-  );
-
-  final _htiStyle = TextStyle(
-    color: Color(0xFFAD5D5D5),
-    fontSize: 14.0,
-  );
-
-  final _divider = Divider(height: 16);
-
-  Widget _buildFormLine(String left, String right) {
-    return Row(
-      children: <Widget>[
-        Expanded(child: Text(left, style: _passengerStyle), flex: 1),
-        Expanded(child: Text(right), flex: 2)
-      ],
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -232,21 +211,76 @@ class _PassengerInfoDisplayWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text("Passenger information", style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 18)),
-          SizedBox(height: 16.0),
+          SizedBox(height: 16),
           Column(
-              children: <Widget>[
-                _buildFormLine('passenger', order.rideName),
-                _divider,
-                _buildFormLine('phone', order.rideTel),
-                _divider,
-                _buildFormLine('requirements', order.remark ?? ''),
-              ],
-            ),
+            children: <Widget>[
+              _buildFormLine('passenger', order.rideName),
+              _divider,
+              _buildFormLine('phone', order.rideTel),
+              _divider,
+              _buildFormLine('requirements', order.remark ?? ''),
+            ],
+          ),
         ],
       ),
     );
   }
 }
+
+class _AdditionalWidget extends StatelessWidget with _FormLineMixin {
+  _AdditionalWidget(this.info);
+
+  final ServiceInfo info;
+
+  @override
+  Widget build(BuildContext context) {
+    return TOCard(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+        child: IconTheme(
+          data: IconThemeData(size: 18.0, color: Colors.black38),
+          child: DefaultTextStyle(
+            style: TextStyle(
+              color: Color(0xFFD5D5D5),
+              fontSize: 14.0,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text("Additional services", style: Theme.of(context).textTheme.subtitle2.copyWith(fontSize: 18)),
+                SizedBox(height: 10.0),
+                _buildFormLine(info.serviceName, '\$${info.serviceMoney}'),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _FormLineMixin {
+  final _divider = Divider(height: 16);
+
+  final _passengerStyle = TextStyle(
+    color: Color(0xFFA2A0A0),
+    fontSize: 14.0,
+  );
+
+  Widget _buildFormLine(String left, String right) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Expanded(child: Text(left, style: _passengerStyle), flex: 1),
+        Expanded(child: Text(right), flex: 2)
+      ],
+    );
+  }
+}
+
 
 class _PassengerInfoEditWidget extends StatelessWidget {
   final _passengerStyle = TextStyle(
@@ -352,63 +386,6 @@ class _PassengerInfoEditWidget extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _AdditionalWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return TOCard(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-        child: IconTheme(
-          data: IconThemeData(size: 18.0, color: Colors.black38),
-          child: DefaultTextStyle(
-            style: TextStyle(
-              color: Color(0xFFD5D5D5),
-              fontSize: 14.0,
-            ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text("附加要求", style: Theme.of(context).textTheme.title.copyWith(fontSize: 18)),
-                SizedBox(height: 10.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Icon(TripOnIcons.brand),
-                    Text("举牌接机"),
-                    Text("¥ 20/一次"),
-                    IconButton(
-                      icon: Icon(Icons.radio_button_unchecked),
-                      iconSize: 18.0,
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-                Divider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Icon(TripOnIcons.ertongzuoyijiekoux),
-                    Text("儿童座椅"),
-                    Text("¥ 20/一次"),
-                    IconButton(
-                      icon: Icon(Icons.radio_button_unchecked),
-                      iconSize: 18.0,
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
       ),
     );
   }
