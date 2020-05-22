@@ -30,4 +30,9 @@ class NumUtil {
     }
     return decimal;
   }
+
+  /// 精确到小数点后几位
+  static String stringAsFixed(double num, [int fractionDigits = 2]) {
+    return num.toStringAsFixed(fractionDigits);
+  }
 }

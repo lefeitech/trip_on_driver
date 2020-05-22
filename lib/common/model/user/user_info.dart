@@ -49,8 +49,8 @@ class UserInfoModel {
     return UserInfoModel(
       id: asT<int>(jsonRes['id']),
       driverTel: asT<String>(jsonRes['driver_tel']),
-      openid: asT<Object>(jsonRes['openid']),
-      score: asT<int>(jsonRes['score']),
+      openid: asT<int>(jsonRes['openid']),
+      score: asT<double>(jsonRes['score']),
       driverName: asT<String>(jsonRes['driver_name']),
       driverNameEn: asT<String>(jsonRes['driver_name_en']),
       totalMoney: asT<int>(jsonRes['total_money']),
@@ -80,8 +80,8 @@ class UserInfoModel {
 
   int id;
   String driverTel;
-  Object openid;
-  int score;
+  int openid;
+  double score;
   String driverName;
   String driverNameEn;
   int totalMoney;

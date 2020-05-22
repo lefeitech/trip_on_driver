@@ -230,7 +230,7 @@ class _PassengerInfoDisplayWidget extends StatelessWidget with _FormLineMixin {
 class _AdditionalWidget extends StatelessWidget with _FormLineMixin {
   _AdditionalWidget(this.info);
 
-  final ServiceInfo info;
+  final List<ServiceInfo> info;
 
   @override
   Widget build(BuildContext context) {
@@ -250,8 +250,7 @@ class _AdditionalWidget extends StatelessWidget with _FormLineMixin {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text("Additional services", style: Theme.of(context).textTheme.subtitle2.copyWith(fontSize: 18)),
-                SizedBox(height: 10.0),
-                _buildFormLine(info.serviceName, '\$${info.serviceMoney}'),
+                for (var i in info) ...[SizedBox(height: 10.0), _buildFormLine(i.serviceName, '\$${i.serviceMoney}')],
               ],
             ),
           ),
@@ -279,7 +278,6 @@ class _FormLineMixin {
     );
   }
 }
-
 
 class _PassengerInfoEditWidget extends StatelessWidget {
   final _passengerStyle = TextStyle(

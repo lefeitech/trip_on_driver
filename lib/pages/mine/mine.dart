@@ -1,9 +1,13 @@
+import 'package:driver/common/model/user/user_info.dart';
 import 'package:driver/common/style/custom_theme.dart';
 import 'package:driver/common/style/trip_on_icons.dart';
 import 'package:driver/pages/mine/my_info_card.dart';
+import 'package:driver/shared_state/user_info.dart';
 import 'package:driver/widgets/gradient_icon.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui show PlaceholderAlignment;
+
+import 'package:provider/provider.dart';
 
 class MinePage extends StatefulWidget {
   @override
@@ -26,48 +30,50 @@ class _MinePageState extends State<MinePage> {
     final double contentHeight = _introCardHeight + _introCardPadding.top + _introCardPadding.bottom;
 
     return Scaffold(
-      body: NotificationListener(
-        onNotification: (ScrollNotification value) {
-          final offset = value.metrics.pixels;
-          final opt = 1 - ((contentHeight - offset) / kToolbarHeight).clamp(0.0, 1.0);
-          if (contentHeight - offset < kToolbarHeight && _titleOpt != opt) {
-            setState(() {
-              _titleOpt = opt;
-            });
-          }
-          return false;
-        },
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              pinned: true,
-              expandedHeight: contentHeight - safePadding + paddingTop + _bottomHeight + kToolbarHeight,
-              title: Opacity(
-                opacity: _titleOpt,
-                child: Text('张师傅'),
-              ),
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(TripOnIcons.shezhi),
-                  onPressed: () {},
+      body: Consumer<UserInfoProvider>(
+        builder: (_, UserInfoProvider infoProvider, __) => NotificationListener(
+          onNotification: (ScrollNotification value) {
+            final offset = value.metrics.pixels;
+            final opt = 1 - ((contentHeight - offset) / kToolbarHeight).clamp(0.0, 1.0);
+            if (contentHeight - offset < kToolbarHeight && _titleOpt != opt) {
+              setState(() {
+                _titleOpt = opt;
+              });
+            }
+            return false;
+          },
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                pinned: true,
+                expandedHeight: contentHeight - safePadding + paddingTop + _bottomHeight + kToolbarHeight,
+                title: Opacity(
+                  opacity: _titleOpt,
+                  child: Text(infoProvider.userInfo.driverName),
                 ),
-                IconButton(
-                  icon: Icon(TripOnIcons.xiaoxi1),
-                  onPressed: () {},
-                )
-              ],
-              flexibleSpace: FlexibleSpaceBar(
-                background: Container(
-                  margin: EdgeInsets.only(top: paddingTop),
-                  padding: _introCardPadding,
-                  alignment: Alignment.topCenter,
-                  child: UserInfoCard(height: _introCardHeight),
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(TripOnIcons.shezhi),
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    icon: Icon(TripOnIcons.xiaoxi1),
+                    onPressed: () {},
+                  )
+                ],
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Container(
+                    margin: EdgeInsets.only(top: paddingTop),
+                    padding: _introCardPadding,
+                    alignment: Alignment.topCenter,
+                    child: UserInfoCard(infoProvider.userInfo, height: _introCardHeight),
+                  ),
                 ),
+                bottom: _BottomInfo(_bottomHeight, infoProvider.userInfo),
               ),
-              bottom: _BottomInfo(_bottomHeight),
-            ),
-            SliverToBoxAdapter(child: MineInfoCard()),
-          ],
+              SliverToBoxAdapter(child: MineInfoCard()),
+            ],
+          ),
         ),
       ),
     );
@@ -75,9 +81,9 @@ class _MinePageState extends State<MinePage> {
 }
 
 class UserInfoCard extends StatelessWidget {
-  UserInfoCard({this.height});
+  UserInfoCard(this.info, {this.height});
 
-  // todo add param userInfo
+  final UserInfoModel info;
   final double height;
 
   @override
@@ -103,17 +109,23 @@ class UserInfoCard extends StatelessWidget {
           SizedBox(
             width: height,
             height: height,
-            child: CircleAvatar(backgroundColor: Colors.black12),
+            child: CircleAvatar(
+              backgroundColor: Colors.black12,
+              child: Text(
+                info.driverName.substring(0, 1).toUpperCase(),
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
           SizedBox(width: 16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('张师傅', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500)),
+              Text(info.driverName, style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500)),
               SizedBox(height: 4),
               Text.rich(
-                TextSpan(text: '服务指数: ', children: stars),
+                TextSpan(text: 'Service index: ', children: stars),
                 style: TextStyle(color: Colors.white.withOpacity(.8)),
               ),
             ],
@@ -126,8 +138,9 @@ class UserInfoCard extends StatelessWidget {
 
 class _BottomInfo extends StatelessWidget implements PreferredSizeWidget {
   final double _bottomHeight;
+  final UserInfoModel info;
 
-  _BottomInfo(this._bottomHeight);
+  _BottomInfo(this._bottomHeight, this.info);
 
   final _iconSize = 26.0;
 
@@ -164,9 +177,9 @@ class _BottomInfo extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     alignment: ui.PlaceholderAlignment.middle,
                   ),
-                  TextSpan(text: ' 总资产：'),
+                  TextSpan(text: ' Total assets：'),
                   TextSpan(
-                    text: '5680',
+                    text: (info.totalMoney ?? 0).toString(),
                     style: TextStyle(color: CustomTheme.of(context).tipAlertColor, fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -174,7 +187,7 @@ class _BottomInfo extends StatelessWidget implements PreferredSizeWidget {
               FlatButton(
                 child: Text.rich(
                   TextSpan(
-                    text: '明细  ',
+                    text: 'Detail  ',
                     style: Theme.of(context).textTheme.caption,
                     children: [
                       WidgetSpan(

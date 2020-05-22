@@ -47,50 +47,62 @@ class OrderInfoModel {
     this.other,
   });
 
-  factory OrderInfoModel.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
-      ? null
-      : OrderInfoModel(
-          id: asT<int>(jsonRes['id']),
-          openid: asT<String>(jsonRes['openid']),
-          adultNumber: asT<int>(jsonRes['adult_number']),
-          childrenNumber: asT<int>(jsonRes['children_number']),
-          luggageNumber: asT<int>(jsonRes['luggage_number']),
-          rideName: asT<String>(jsonRes['ride_name']),
-          rideTel: asT<String>(jsonRes['ride_tel']),
-          rideWechat: asT<String>(jsonRes['ride_wechat']),
-          rideTel2: asT<String>(jsonRes['ride_tel2']),
-          state: asT<int>(jsonRes['state']),
-          wxId: asT<String>(jsonRes['wx_id']),
-          prepayId: asT<String>(jsonRes['prepay_id']),
-          outTradeNo: asT<String>(jsonRes['out_trade_no']),
-          createTime: asT<String>(jsonRes['create_time']),
-          updateTime: asT<int>(jsonRes['update_time']),
-          oncarTime: asT<int>(jsonRes['oncar_time']),
-          payTime: asT<int>(jsonRes['pay_time']),
-          confirmTime: asT<String>(jsonRes['confirm_time']),
-          finishTime: asT<int>(jsonRes['finish_time']),
-          refundTime: asT<int>(jsonRes['refund_time']),
-          cancelTime: asT<int>(jsonRes['cancel_time']),
-          carId: asT<int>(jsonRes['car_id']),
-          carMoney: asT<int>(jsonRes['car_money']),
-          couponId: asT<int>(jsonRes['coupon_id']),
-          couponMoney: asT<int>(jsonRes['coupon_money']),
-          serviceId: asT<String>(jsonRes['service_id']),
-          serviceMoney: asT<int>(jsonRes['service_money']),
-          payTotalMoney: asT<double>(jsonRes['pay_total_money']),
-          remark: asT<String>(jsonRes['remark']),
-          driverId: asT<int>(jsonRes['driver_id']),
-          score: asT<int>(jsonRes['score']),
-          orderTypeId: asT<int>(jsonRes['order_type_id']),
-          destinationId: asT<int>(jsonRes['destination_id']),
-          includeId: asT<int>(jsonRes['include_id']),
-          planeId: asT<int>(jsonRes['plane_id']),
-          rentId: asT<int>(jsonRes['rent_id']),
-          carInfo: CarInfoModel.fromJson(asT<Map<String, dynamic>>(jsonRes['car_info'])),
-          serviceInfo: ServiceInfo.fromJson(asT<Map<String, dynamic>>(jsonRes['service_info'])),
-          driverInfo: UserInfoModel.fromJson(asT<Map<String, dynamic>>(jsonRes['driver_info'])),
-          other: Other.fromJson(asT<Map<String, dynamic>>(jsonRes['other'])),
-        );
+  factory OrderInfoModel.fromJson(Map<String, dynamic> jsonRes) {
+    if (jsonRes == null) {
+      return null;
+    }
+
+    final List<ServiceInfo> serviceInfo = jsonRes['service_info'] is List ? <ServiceInfo>[] : null;
+    if (serviceInfo != null) {
+      for (final dynamic item in jsonRes['service_info']) {
+        if (item != null) {
+          serviceInfo.add(ServiceInfo.fromJson(asT<Map<String, dynamic>>(item)));
+        }
+      }
+    }
+    return OrderInfoModel(
+      id: asT<int>(jsonRes['id']),
+      openid: asT<String>(jsonRes['openid']),
+      adultNumber: asT<int>(jsonRes['adult_number']),
+      childrenNumber: asT<int>(jsonRes['children_number']),
+      luggageNumber: asT<int>(jsonRes['luggage_number']),
+      rideName: asT<String>(jsonRes['ride_name']),
+      rideTel: asT<String>(jsonRes['ride_tel']),
+      rideWechat: asT<String>(jsonRes['ride_wechat']),
+      rideTel2: asT<String>(jsonRes['ride_tel2']),
+      state: asT<int>(jsonRes['state']),
+      wxId: asT<String>(jsonRes['wx_id']),
+      prepayId: asT<String>(jsonRes['prepay_id']),
+      outTradeNo: asT<String>(jsonRes['out_trade_no']),
+      createTime: asT<String>(jsonRes['create_time']),
+      updateTime: asT<int>(jsonRes['update_time']),
+      oncarTime: asT<int>(jsonRes['oncar_time']),
+      payTime: asT<int>(jsonRes['pay_time']),
+      confirmTime: asT<String>(jsonRes['confirm_time']),
+      finishTime: asT<int>(jsonRes['finish_time']),
+      refundTime: asT<int>(jsonRes['refund_time']),
+      cancelTime: asT<int>(jsonRes['cancel_time']),
+      carId: asT<int>(jsonRes['car_id']),
+      carMoney: asT<int>(jsonRes['car_money']),
+      couponId: asT<int>(jsonRes['coupon_id']),
+      couponMoney: asT<int>(jsonRes['coupon_money']),
+      serviceId: asT<String>(jsonRes['service_id']),
+      serviceMoney: asT<int>(jsonRes['service_money']),
+      payTotalMoney: asT<double>(jsonRes['pay_total_money']),
+      remark: asT<String>(jsonRes['remark']),
+      driverId: asT<int>(jsonRes['driver_id']),
+      score: asT<int>(jsonRes['score']),
+      orderTypeId: asT<int>(jsonRes['order_type_id']),
+      destinationId: asT<int>(jsonRes['destination_id']),
+      includeId: asT<int>(jsonRes['include_id']),
+      planeId: asT<int>(jsonRes['plane_id']),
+      rentId: asT<int>(jsonRes['rent_id']),
+      carInfo: CarInfoModel.fromJson(asT<Map<String, dynamic>>(jsonRes['car_info'])),
+      serviceInfo: serviceInfo,
+      driverInfo: UserInfoModel.fromJson(asT<Map<String, dynamic>>(jsonRes['driver_info'])),
+      other: Other.fromJson(asT<Map<String, dynamic>>(jsonRes['other'])),
+    );
+  }
 
   int id;
   String openid;
@@ -129,7 +141,7 @@ class OrderInfoModel {
   int planeId;
   int rentId;
   CarInfoModel carInfo;
-  ServiceInfo serviceInfo;
+  List<ServiceInfo> serviceInfo;
   UserInfoModel driverInfo;
   Other other;
 

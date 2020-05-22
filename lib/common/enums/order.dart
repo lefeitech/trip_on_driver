@@ -1,5 +1,6 @@
 enum OrderType { pickup, dropOff }
 
+/// 订单状态
 class OrderState {
   // all
   static const int all = -1;
@@ -23,6 +24,7 @@ class OrderState {
   static const int done = 8;
 }
 
+/// 行程类型
 class TransformType {
   // 接机
   static const int pickUp = 1;
@@ -31,6 +33,7 @@ class TransformType {
   static const int dropUp = 1;
 }
 
+// TODO: service type
 class ServiceType {
   static const int pickUpBand = 1;
   static const int dropUp = 2;
