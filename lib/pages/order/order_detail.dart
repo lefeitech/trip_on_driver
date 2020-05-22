@@ -247,7 +247,6 @@ class _AdditionalWidget extends StatelessWidget with _FormLineMixin {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text("Additional services", style: Theme.of(context).textTheme.subtitle2.copyWith(fontSize: 18)),
@@ -275,7 +274,7 @@ class _FormLineMixin {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Expanded(child: Text(left, style: _passengerStyle), flex: 1),
-        Expanded(child: Text(right), flex: 2)
+        Expanded(child: Text(right, textAlign: TextAlign.end), flex: 2)
       ],
     );
   }
