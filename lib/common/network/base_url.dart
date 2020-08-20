@@ -10,4 +10,6 @@ class BaseUrl {
   static String imageUploadOne = '$host/${Config.HTTP_VERSION}/image_upload_one';
   static String orderList = '$host/${Config.HTTP_VERSION}/order_list';
   static String orderDetail = '$host/${Config.HTTP_VERSION}/order_detail';
+  static String robList = '$host/${Config.HTTP_VERSION}/rob_list';
+  static String robState = '$host/${Config.HTTP_VERSION}/rob_state';
 }

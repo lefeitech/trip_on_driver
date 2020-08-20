@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 class TabPage extends StatelessWidget {
   final _tabs = [
     HomePage(),
-    MessagePage(),
+    // MessagePage(),
     OrderListPage(),
     MinePage(),
   ];
@@ -39,20 +39,20 @@ class TabPage extends StatelessWidget {
     final TextStyle textStyle = TextStyle(fontSize: 12);
     return [
       BottomNavigationBarItem(
-        title: Text('首页', style: textStyle),
+        title: Text('Home', style: textStyle),
         icon: Icon(TripOnIcons.shouye2),
         activeIcon: Icon(TripOnIcons.shouye1),
       ),
+      // BottomNavigationBarItem(
+      //   title: Text('Message', style: textStyle),
+      //   icon: Icon(TripOnIcons.xiaoxi),
+      // ),
       BottomNavigationBarItem(
-        title: Text('消息', style: textStyle),
-        icon: Icon(TripOnIcons.xiaoxi),
-      ),
-      BottomNavigationBarItem(
-        title: Text('订单', style: textStyle),
+        title: Text('Order', style: textStyle),
         icon: Icon(TripOnIcons.order_copy),
       ),
       BottomNavigationBarItem(
-        title: Text('我的', style: textStyle),
+        title: Text('My', style: textStyle),
         icon: Icon(TripOnIcons.wode1),
         activeIcon: Icon(TripOnIcons.wode2),
       ),

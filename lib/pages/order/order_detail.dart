@@ -250,7 +250,7 @@ class _AdditionalWidget extends StatelessWidget with _FormLineMixin {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text("Additional services", style: Theme.of(context).textTheme.subtitle2.copyWith(fontSize: 18)),
-                for (var i in info) ...[SizedBox(height: 10.0), _buildFormLine(i.serviceName, '\$${i.serviceMoney}')],
+                // for (var i in info) ...[SizedBox(height: 10.0), _buildFormLine(i.serviceName, '\$${i.serviceMoney}')],
               ],
             ),
           ),
