@@ -26,7 +26,7 @@ class UserInfoModel {
     this.carNum,
     this.password,
     this.cardNo,
-    this.emall,
+    this.email,
     this.wechat,
     this.bankNo,
     this.tel2,
@@ -70,7 +70,7 @@ class UserInfoModel {
       carNum: asT<int>(jsonRes['car_num']),
       password: asT<String>(jsonRes['password']),
       cardNo: asT<String>(jsonRes['card_no']),
-      emall: asT<String>(jsonRes['emall']),
+      email: asT<String>(jsonRes['email']),
       wechat: asT<String>(jsonRes['wechat']),
       bankNo: asT<String>(jsonRes['bank_no']),
       tel2: asT<String>(jsonRes['tel2']),
@@ -101,7 +101,7 @@ class UserInfoModel {
   int carNum;
   String password;
   String cardNo;
-  String emall;
+  String email;
   String wechat;
   String bankNo;
   String tel2;
@@ -131,7 +131,7 @@ class UserInfoModel {
         'car_num': carNum,
         'password': password,
         'card_no': cardNo,
-        'emall': emall,
+        'email': email,
         'wechat': wechat,
         'bank_no': bankNo,
         'tel2': tel2,

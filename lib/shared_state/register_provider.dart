@@ -152,7 +152,7 @@ class RegisterProvider with ChangeNotifier {
       carSlide: _carsImageStr,
       carNum: int.tryParse(carNum.text),
       password: pwdCtrl.text,
-      emall: emailCtrl.text,
+      email: emailCtrl.text,
       bankNo: bankNoCtrl.text,
       tel2: tel2Ctrl.text,
       code: int.tryParse(codeCtrl.text),
