@@ -67,6 +67,7 @@ class _LoginForm extends StatelessWidget {
               controller: provider.userNameCtrl,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.only(top: 14),
+                prefixText: '+60',
                 prefixIcon: Icon(Icons.phone_iphone),
                 hintText: 'please enter the phone number',
               ),

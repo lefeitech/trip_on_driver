@@ -11,6 +11,8 @@ import 'package:driver/common/utils/common_util.dart';
 import 'package:driver/common/utils/navigator_util.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+// import '../pages/auth/login.dart';
+
 class RegisterProvider with ChangeNotifier {
   var userInfo = UserInfoModel();
   var secondsCount = 60;
@@ -114,13 +116,21 @@ class RegisterProvider with ChangeNotifier {
       _card1str = cardImageStr[0];
       _card2str = cardImageStr[1];
       if (await _register()) {
+        print('register success');
         CommonUtils.showMessage('register success');
-        Navigator.popUntil(context, ModalRoute.withName(LoginPage.routeName));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+        );
+        // Navigator.popUntil(context, ModalRoute.withName('/'));
+        // Navigator.popUntil(context, ModalRoute.withName('/login'));
       } else {
-        return CommonUtils.showMessage('some bad thing happend');
+        print('some bad thing happend');
+        // return CommonUtils.showMessage('some bad thing happend');
       }
     } catch (e) {
-      return CommonUtils.showMessage('some bad thing happend');
+      print('some error happend');
+      return CommonUtils.showMessage('some error happend');
     } finally {
       EasyLoading.dismiss();
       _loading = false;
@@ -161,7 +171,10 @@ class RegisterProvider with ChangeNotifier {
       var res = await AuthApi.register(userInfo);
       if (res.code == 1) {
         return Future.value(true);
+      }else{
+CommonUtils.showMessage(res.msg);
       }
+      
     } catch (e) {
       print(e);
     }

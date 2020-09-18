@@ -59,6 +59,7 @@ class Step1form extends StatelessWidget {
               TextFormField(
                 controller: provider.telCtrl,
                 decoration: InputDecoration(
+                  prefixText: '+60',
                   labelText: 'Phone number',
                   hintText: 'Phone number',
                   suffixIcon: codeSuffix(provider.getCodeStr(context)),
