@@ -1,8 +1,4 @@
-import 'package:dio/dio.dart';
-import 'dart:convert';
 import 'package:driver/common/model/order/rob_list_res.dart';
-import 'package:driver/common/network/common_http.dart';
-import 'package:driver/common/utils/common_util.dart';
 import 'package:driver/pages/rob/rob_list_item.dart';
 import 'package:driver/pages/rob/rob_list_repo.dart';
 import 'package:driver/shared_state/user_info.dart';
@@ -11,7 +7,6 @@ import 'package:driver/widgets/load_more_list_indicators.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:provider/provider.dart';
-import '../../common/network/base_url.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -76,24 +71,12 @@ class _OrderListState extends State<OrderList> {
     _repo.dispose();
   }
 
-  grab(driver, id) async {
-    CommonUtils.showMessage('Grabbing...');
-    Response res = await CommonHttp().post(
-      BaseUrl.robState,
-      data: {'order_id': id, 'driver_id': driver},
-    );
-    var code = jsonDecode(res.toString())['code'];
-    print(code);
-    if (code == 1) {
-      CommonUtils.showMessage('Grab Success!');
-      _repo.refresh();
-    } else {
-      CommonUtils.showMessage('Grab Failed!');
-    }
-  }
-
   Widget _itemBuilder(BuildContext context, RobInfo item, int index) =>
-      RobListItem(item);
+      RobListItem(
+        item,
+        success: _repo.refresh,
+        failed: _repo.refresh,
+      );
 
   @override
   Widget build(BuildContext context) {
