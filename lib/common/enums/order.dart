@@ -14,7 +14,7 @@ class OrderState {
   // 付款成功
   static const int payed = 2;
 
-  // 确认接单
+  // 已接单
   static const int picked = 3;
 
   // 乘客确认上车

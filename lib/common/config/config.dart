@@ -31,8 +31,8 @@ class Config {
   static const String HTTP_SECRET = 'qwertyuiopasdfghjklzxcvbnm123';
 
   /// ////////////////////////////////////// sentry appid //////////////////////////////////////
-  static const String TEST_ACCOUNT = '13333333333';
-  static const String TEST_PWD = '1qaz@WSX';
+  static const String TEST_ACCOUNT = '18419064455';
+  static const String TEST_PWD = '727322';
 
   /// ////////////////////////////////////// getter //////////////////////////////////////
   static String get host => debugMode ? _DEV_HOST : _PROD_HOST;

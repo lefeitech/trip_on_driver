@@ -13,7 +13,8 @@ class SplashPage extends StatelessWidget {
       appBar: AppBar(backgroundColor: Colors.transparent),
       body: Consumer<UserInfoProvider>(
         child: Center(child: CircularProgressIndicator()),
-        builder: (BuildContext context, UserInfoProvider userInfo, Widget child) {
+        builder:
+            (BuildContext context, UserInfoProvider userInfo, Widget child) {
           return _SplashBody(userInfo, child: child);
         },
       ),
@@ -54,10 +55,7 @@ class __SplashBodyState extends State<_SplashBody> {
         MaterialPageRoute(builder: (BuildContext context) => TabPage()),
       );
     } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
-      );
+      Navigator.pushReplacementNamed(context, LoginPage.routeName);
     }
     return Future.value(true);
   }

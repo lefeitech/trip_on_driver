@@ -3,6 +3,7 @@ import 'package:driver/common/style/custom_theme.dart';
 import 'package:driver/common/style/trip_on_icons.dart';
 import 'package:driver/pages/mine/my_info_card.dart';
 import 'package:driver/shared_state/user_info.dart';
+import 'package:driver/widgets/data_indicators.dart';
 import 'package:driver/widgets/gradient_icon.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui show PlaceholderAlignment;
@@ -27,14 +28,16 @@ class _MinePageState extends State<MinePage> {
   Widget build(BuildContext context) {
     final safePadding = MediaQuery.of(context).padding.top;
     final paddingTop = safePadding + kToolbarHeight;
-    final double contentHeight = _introCardHeight + _introCardPadding.top + _introCardPadding.bottom;
+    final double contentHeight =
+        _introCardHeight + _introCardPadding.top + _introCardPadding.bottom;
 
     return Scaffold(
       body: Consumer<UserInfoProvider>(
         builder: (_, UserInfoProvider infoProvider, __) => NotificationListener(
           onNotification: (ScrollNotification value) {
             final offset = value.metrics.pixels;
-            final opt = 1 - ((contentHeight - offset) / kToolbarHeight).clamp(0.0, 1.0);
+            final opt =
+                1 - ((contentHeight - offset) / kToolbarHeight).clamp(0.0, 1.0);
             if (contentHeight - offset < kToolbarHeight && _titleOpt != opt) {
               setState(() {
                 _titleOpt = opt;
@@ -42,38 +45,45 @@ class _MinePageState extends State<MinePage> {
             }
             return false;
           },
-          child: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                pinned: true,
-                expandedHeight: contentHeight - safePadding + paddingTop + _bottomHeight + kToolbarHeight,
-                title: Opacity(
-                  opacity: _titleOpt,
-                  child: Text(infoProvider.userInfo.driverName),
-                ),
-                actions: <Widget>[
-                  IconButton(
-                    icon: Icon(TripOnIcons.shezhi),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Icon(TripOnIcons.xiaoxi1),
-                    onPressed: () {},
-                  )
-                ],
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Container(
-                    margin: EdgeInsets.only(top: paddingTop),
-                    padding: _introCardPadding,
-                    alignment: Alignment.topCenter,
-                    child: UserInfoCard(infoProvider.userInfo, height: _introCardHeight),
-                  ),
-                ),
-                bottom: _BottomInfo(_bottomHeight, infoProvider.userInfo),
-              ),
-              SliverToBoxAdapter(child: MineInfoCard()),
-            ],
-          ),
+          child: infoProvider.userInfo != null
+              ? CustomScrollView(
+                  slivers: [
+                    SliverAppBar(
+                      pinned: true,
+                      expandedHeight: contentHeight -
+                          safePadding +
+                          paddingTop +
+                          _bottomHeight +
+                          kToolbarHeight,
+                      title: Opacity(
+                        opacity: _titleOpt,
+                        child: Text(infoProvider.userInfo.driverName),
+                      ),
+                      actions: <Widget>[
+                        IconButton(
+                          icon: Icon(TripOnIcons.shezhi),
+                          onPressed: () {},
+                        ),
+                        IconButton(
+                          icon: Icon(TripOnIcons.xiaoxi1),
+                          onPressed: () {},
+                        )
+                      ],
+                      flexibleSpace: FlexibleSpaceBar(
+                        background: Container(
+                          margin: EdgeInsets.only(top: paddingTop),
+                          padding: _introCardPadding,
+                          alignment: Alignment.topCenter,
+                          child: UserInfoCard(infoProvider.userInfo,
+                              height: _introCardHeight),
+                        ),
+                      ),
+                      bottom: _BottomInfo(_bottomHeight, infoProvider.userInfo),
+                    ),
+                    SliverToBoxAdapter(child: MineInfoCard()),
+                  ],
+                )
+              : LoadingWidget(isFullPage: true),
         ),
       ),
     );
@@ -122,7 +132,11 @@ class UserInfoCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(info.driverName, style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500)),
+              Text(info.driverName,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500)),
               SizedBox(height: 4),
               Text.rich(
                 TextSpan(text: 'Service index: ', children: stars),
@@ -180,7 +194,9 @@ class _BottomInfo extends StatelessWidget implements PreferredSizeWidget {
                   TextSpan(text: ' Total assets：'),
                   TextSpan(
                     text: (info.totalMoney ?? 0).toString(),
-                    style: TextStyle(color: CustomTheme.of(context).tipAlertColor, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: CustomTheme.of(context).tipAlertColor,
+                        fontWeight: FontWeight.bold),
                   ),
                 ],
               )),
@@ -191,7 +207,8 @@ class _BottomInfo extends StatelessWidget implements PreferredSizeWidget {
                     style: Theme.of(context).textTheme.caption,
                     children: [
                       WidgetSpan(
-                        child: Icon(Icons.arrow_forward_ios, size: 20, color: Colors.black12),
+                        child: Icon(Icons.arrow_forward_ios,
+                            size: 20, color: Colors.black12),
                         alignment: ui.PlaceholderAlignment.middle,
                       ),
                     ],
@@ -260,7 +277,12 @@ class _BottomInfo extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class _ColumnIconLabel extends StatelessWidget {
-  _ColumnIconLabel({this.icon, this.text = '', this.count = 0, this.textStyle, this.countStyle});
+  _ColumnIconLabel(
+      {this.icon,
+      this.text = '',
+      this.count = 0,
+      this.textStyle,
+      this.countStyle});
 
   final Widget icon;
   final String text;
@@ -281,7 +303,8 @@ class _ColumnIconLabel extends StatelessWidget {
             children: [
               TextSpan(
                 text: count > 99 ? '99+' : count.toString(),
-                style: countStyle ?? TextStyle(color: CustomTheme.of(context).tipAlertColor),
+                style: countStyle ??
+                    TextStyle(color: CustomTheme.of(context).tipAlertColor),
               )
             ],
           ),

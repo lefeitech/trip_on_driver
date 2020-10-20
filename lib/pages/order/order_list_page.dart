@@ -1,6 +1,5 @@
 import 'package:driver/common/enums/order.dart';
 import 'package:driver/common/model/order/order_detail.dart';
-import 'package:driver/common/model/order/order_list_res.dart';
 import 'package:driver/common/utils/navigator_util.dart';
 import 'package:driver/pages/order/order_list_item.dart';
 import 'package:driver/pages/order/order_list_repo.dart';

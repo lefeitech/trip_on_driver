@@ -16,7 +16,8 @@ class OrderListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final transformType = OrderUtil.mapTransformType(info.other.type);
+    final transformType = 'Ride-hailing';
+    // final transformType = OrderUtil.mapTransformType(info.other.type);
     return GestureDetector(
       onTap: onTap ?? () {},
       child: TOCard(

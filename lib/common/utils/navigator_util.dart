@@ -1,5 +1,6 @@
 import 'package:driver/common/model/order/order_detail.dart';
 import 'package:driver/common/utils/route_helper.dart';
+import 'package:driver/pages/auth/login.dart';
 import 'package:driver/pages/auth/register.dart';
 import 'package:driver/pages/auth/register_step2.dart';
 import 'package:driver/pages/auth/register_step3.dart';
@@ -13,7 +14,7 @@ class NavigatorUtil {
 
   /// 命名静态路由
   static Map<String, WidgetBuilder> staticRoutes = {
-//    LoginPage.routeName: (BuildContext context) => LoginPage(),
+   LoginPage.routeName: (BuildContext context) => LoginPage(),
   };
 
   /// register page step 1
