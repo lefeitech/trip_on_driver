@@ -2,6 +2,7 @@ import 'package:driver/common/model/user/user_info.dart';
 import 'package:driver/common/style/custom_theme.dart';
 import 'package:driver/common/style/trip_on_icons.dart';
 import 'package:driver/pages/mine/my_info_card.dart';
+import 'package:driver/pages/setting/setting.dart';
 import 'package:driver/shared_state/user_info.dart';
 import 'package:driver/widgets/data_indicators.dart';
 import 'package:driver/widgets/gradient_icon.dart';
@@ -62,12 +63,14 @@ class _MinePageState extends State<MinePage> {
                       actions: <Widget>[
                         IconButton(
                           icon: Icon(TripOnIcons.shezhi),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => SettingPage()));
+                          },
                         ),
-                        IconButton(
-                          icon: Icon(TripOnIcons.xiaoxi1),
-                          onPressed: () {},
-                        )
+                        // IconButton(
+                        //   icon: Icon(TripOnIcons.xiaoxi1),
+                        //   onPressed: () {},
+                        // )
                       ],
                       flexibleSpace: FlexibleSpaceBar(
                         background: Container(

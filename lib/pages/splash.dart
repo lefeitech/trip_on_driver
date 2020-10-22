@@ -52,7 +52,10 @@ class __SplashBodyState extends State<_SplashBody> {
       widget.userInfoProvider.getUserInfo(int.parse(driverIdStr));
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (BuildContext context) => TabPage()),
+        MaterialPageRoute(
+          builder: (BuildContext context) => TabPage(),
+          settings: RouteSettings(name: TabPage.routeName),
+        ),
       );
     } else {
       Navigator.pushReplacementNamed(context, LoginPage.routeName);

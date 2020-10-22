@@ -15,6 +15,8 @@ class TabPage extends StatelessWidget {
     MinePage(),
   ];
 
+  static const String routeName = 'tab-page';
+
   @override
   Widget build(BuildContext context) {
     return Consumer<TabProvider>(
