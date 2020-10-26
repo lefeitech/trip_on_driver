@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart' show Response;
 import 'package:driver/common/model/common.dart';
+import 'package:driver/common/model/order/order_detail_res.dart';
 import 'package:driver/common/model/order/order_list_res.dart';
 import 'package:driver/common/model/order/rob_list_res.dart';
 import 'package:driver/common/model/user/user_info_res.dart';
@@ -24,9 +25,9 @@ class OrderApi {
   }
 
   /// 获取订单详情
-  static Future<UserInfoRes> getOrderDetail(String id) async {
+  static Future<OrderDetailRes> getOrderDetail(int id) async {
     Response res = await http.post(BaseUrl.orderDetail, data: {'order_id': id});
-    return UserInfoRes.fromJson(res.data);
+    return OrderDetailRes.fromJson(res.data);
   }
 
   // 获取抢单列表
@@ -51,6 +52,19 @@ class OrderApi {
       'order_id': orderId,
     };
     Response res = await http.post(BaseUrl.robState, data: body);
+    return StringRes.fromJson(res.data);
+  }
+
+  /// change order status
+  static Future<StringRes> changeOrderStatus({
+    @required int orderId,
+    @required int state,
+  }) async {
+    final body = {
+      'state': state,
+      'order_id': orderId,
+    };
+    Response res = await http.post(BaseUrl.orderState, data: body);
     return StringRes.fromJson(res.data);
   }
 }

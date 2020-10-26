@@ -22,7 +22,8 @@ class CustomTheme {
     this.settingCardShadowColor,
     this.settingCardColorBegin,
     this.settingCardColorEnd,
-    this.inputErrorBorder = const OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.red)),
+    this.inputErrorBorder = const OutlineInputBorder(
+        borderSide: BorderSide(width: 1, color: Colors.red)),
     this.tipMainColor = const Color(0xFF3CBF0D),
     this.tipAlertColor = _primaryRed,
   });
@@ -47,14 +48,16 @@ class CustomTheme {
 
   /// could get theme use this method
   static CustomTheme of(BuildContext context) {
-    GlobalConfig globalConfig = Provider.of<GlobalConfig>(context, listen: false);
+    GlobalConfig globalConfig =
+        Provider.of<GlobalConfig>(context, listen: false);
     String theme = globalConfig.getTheme();
     return theme == ThemeEnums.light ? CustomTheme.light() : CustomTheme.dark();
   }
 
   /// get system theme, typically use in initialize app
   static ThemeData getSystemTheme(BuildContext context) {
-    GlobalConfig globalConfig = Provider.of<GlobalConfig>(context, listen: false);
+    GlobalConfig globalConfig =
+        Provider.of<GlobalConfig>(context, listen: false);
     String theme = globalConfig.getTheme();
     return theme == ThemeEnums.light ? lightTheme() : darkTheme();
   }
@@ -74,26 +77,41 @@ class CustomTheme {
           ),
       tabBarTheme: ThemeData.light().tabBarTheme.copyWith(
             indicatorSize: TabBarIndicatorSize.label,
-            indicator: UnderlineTabIndicator(insets: const EdgeInsets.only(bottom: 6)),
+            indicator: UnderlineTabIndicator(
+              insets: const EdgeInsets.only(bottom: 6),
+            ),
           ),
       inputDecorationTheme: ThemeData.light().inputDecorationTheme.copyWith(
             hintStyle: TextStyle(color: Color(0xFF999999)),
-            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(width: .4, color: Colors.grey[300])),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(width: .4, color: Colors.grey[300]),
+            ),
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(width: .4, color: Color(0xFF00AFFF)),
             ),
-            errorBorder: UnderlineInputBorder(borderSide: BorderSide(width: .4, color: Colors.red)),
+            errorBorder: UnderlineInputBorder(
+              borderSide: BorderSide(width: .4, color: Colors.red),
+            ),
           ),
+      buttonTheme: ThemeData.light().buttonTheme.copyWith(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        )
+      )
     );
   }
 
   static ThemeData darkTheme() {
     return ThemeData.dark().copyWith(
       appBarTheme: AppBarTheme(elevation: 0),
-      textTheme: ThemeData.light().textTheme.copyWith(caption: TextStyle(fontSize: 12)),
+      textTheme: ThemeData.light().textTheme.copyWith(
+            caption: TextStyle(fontSize: 12),
+          ),
       tabBarTheme: ThemeData.dark().tabBarTheme.copyWith(
             indicatorSize: TabBarIndicatorSize.label,
-            indicator: UnderlineTabIndicator(insets: const EdgeInsets.only(bottom: 6)),
+            indicator: UnderlineTabIndicator(
+              insets: const EdgeInsets.only(bottom: 6),
+            ),
           ),
     );
   }

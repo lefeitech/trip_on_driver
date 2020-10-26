@@ -12,7 +12,7 @@ class OrderState {
   static const int pendingPay = 1;
 
   // 付款成功
-  static const int payed = 2;
+  static const int paied = 2;
 
   // 已接单
   static const int picked = 3;

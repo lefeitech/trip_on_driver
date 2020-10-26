@@ -1,22 +1,128 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:driver/common/api/order/order.dart';
 import 'package:driver/common/enums/order.dart';
 import 'package:driver/common/model/order/order_detail.dart';
 import 'package:driver/common/style/custom_theme.dart';
 import 'package:driver/common/style/trip_on_icons.dart';
+import 'package:driver/common/utils/common_util.dart';
 import 'package:driver/common/utils/order.dart';
+import 'package:driver/widgets/small_circle_indicator.dart';
 import 'package:driver/widgets/start_arrive_widget.dart';
 import 'package:driver/widgets/to_card.dart';
 import 'package:flutter/material.dart';
 
 /// 订单详情
-class OrderDetailPage extends StatelessWidget {
+class OrderDetailPage extends StatefulWidget {
   OrderDetailPage(this.order);
 
   final OrderInfoModel order;
 
   @override
+  _OrderDetailPageState createState() => _OrderDetailPageState();
+}
+
+class _OrderDetailPageState extends State<OrderDetailPage> {
+  OrderInfoModel _order;
+  var _isPageLoading = false;
+  var _isCancelLoading = false;
+  var _isConfirmLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _order = widget.order;
+  }
+
+  void _cancelTap() {
+    showOkCancelAlertDialog(
+      context: context,
+      message: 'Do you want to cancel this order ?',
+      okLabel: 'confirm',
+      cancelLabel: 'cancel',
+      isDestructiveAction: true,
+    ).then((value) {
+      if (value == OkCancelResult.ok) {
+        _cancelOrder();
+      }
+    });
+  }
+
+  Future<void> _cancelOrder() async {
+    setState(() {
+      _isCancelLoading = true;
+    });
+    var hasErr = false;
+
+    try {
+      final res = await OrderApi.changeOrderStatus(
+        orderId: _order.id,
+        state: OrderState.canceled,
+      );
+      hasErr = res.code == 0;
+    } catch (e) {
+      hasErr = true;
+      print(e);
+    }
+
+    if (hasErr) {
+      CommonUtils.showMessage('Some thing error');
+    } else {
+      CommonUtils.showMessage('Canceled');
+    }
+    setState(() {
+      _isCancelLoading = false;
+    });
+    _getOrderDetail(_order.id);
+  }
+
+  Future<void> _confirmCustomer() async {
+    setState(() {
+      _isConfirmLoading = true;
+    });
+    var hasErr = false;
+
+    try {
+      final res = await OrderApi.changeOrderStatus(
+        orderId: _order.id,
+        state: OrderState.passengerOnBoard,
+      );
+      hasErr = res.code == 0;
+    } catch (e) {
+      hasErr = true;
+      print(e);
+    }
+
+    if (hasErr) {
+      CommonUtils.showMessage('Some thing error');
+    } else {
+      CommonUtils.showMessage('Success');
+    }
+    setState(() {
+      _isConfirmLoading = false;
+    });
+    _getOrderDetail(_order.id);
+  }
+
+  Future<void> _getOrderDetail(int id) async {
+    setState(() {
+      _isPageLoading = true;
+    });
+    try {
+      final res = await OrderApi.getOrderDetail(id);
+      setState(() {
+        _order = res.data;
+      });
+    } catch (e) {
+      CommonUtils.showMessage('reload order failed');
+    }
+    setState(() {
+      _isPageLoading = false;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
       appBar: AppBar(title: Text("Order Detail")),
       body: Container(
         decoration: BoxDecoration(
@@ -31,16 +137,65 @@ class OrderDetailPage extends StatelessWidget {
             stops: [0, 0.33, 1],
           ),
         ),
-        child: ListView(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          children: <Widget>[
-            _PriceWidget(order),
-            _TravelInfoWidget(order),
-            _PassengerInfoDisplayWidget(order),
-            _AdditionalWidget(order.serviceInfo),
-          ],
-        ),
+        child: _isPageLoading
+            ? Center(child: CircularProgressIndicator())
+            : ListView(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                children: <Widget>[
+                  _PriceWidget(widget.order),
+                  _TravelInfoWidget(widget.order),
+                  _PassengerInfoDisplayWidget(widget.order),
+                  _AdditionalWidget(widget.order.serviceInfo),
+                ],
+              ),
       ),
+      bottomNavigationBar: _order.state == OrderState.picked && !_isPageLoading
+          ? SafeArea(
+              child: Container(
+                height: 60,
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: OutlineButton(
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                          width: .6,
+                        ),
+                        child: _isCancelLoading
+                            ? SmallCircleIndicator(
+                                color: Colors.red,
+                                drawWidth: 3,
+                              )
+                            : Text(
+                                'cancel',
+                                style: TextStyle(color: Colors.red),
+                              ),
+                        onPressed: _cancelTap,
+                      ),
+                    ),
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: FlatButton(
+                        color: Theme.of(context).primaryColor,
+                        child: _isConfirmLoading
+                            ? SmallCircleIndicator()
+                            : Text(
+                                'confirm',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                        onPressed: _confirmCustomer,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
+          : null,
     );
   }
 }
@@ -65,7 +220,10 @@ class _PriceWidget extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     OrderUtil.mapOrderStatus(order.state),
-                    style: Theme.of(context).textTheme.subtitle1.copyWith(fontSize: 18),
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1
+                        .copyWith(fontSize: 18),
                   ),
                   if (order.payTotalMoney != null)
                     RichText(
@@ -135,15 +293,6 @@ class _TravelInfoWidget extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 10.0),
-//              Row(
-//                crossAxisAlignment: CrossAxisAlignment.center,
-//                children: <Widget>[
-//                  Icon(Icons.check_box),
-//                  SizedBox(width: 10.0),
-//                  Expanded(child: Text("TOVOTA-丰田COASTER-15 seats")),
-//                ],
-//              ),
-//              SizedBox(height: 10.0),
               // start point and arrive point
               if (order.other.type == TransformType.pickUp) ...[
                 StartArriveWidget(
@@ -154,7 +303,10 @@ class _TravelInfoWidget extends StatelessWidget {
                   preferredWidth: 10,
                 ),
                 StartArriveWidget(
-                  title: Padding(padding: const EdgeInsets.only(left: 20), child: Text(order.other.destination)),
+                  title: Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Text(order.other.destination),
+                  ),
                   isStart: false,
                   preferredWidth: 10,
                 ),
@@ -167,7 +319,10 @@ class _TravelInfoWidget extends StatelessWidget {
                   preferredWidth: 10,
                 ),
                 StartArriveWidget(
-                  title: Padding(padding: const EdgeInsets.only(left: 20), child: Text(order.other.airport)),
+                  title: Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Text(order.other.airport),
+                  ),
                   isStart: false,
                   preferredWidth: 10,
                 ),
@@ -181,14 +336,14 @@ class _TravelInfoWidget extends StatelessWidget {
                     Expanded(child: Text('${order.other.distance} km')),
                   ],
                 ),
-              SizedBox(height: 10.0),
-              Row(
-                children: <Widget>[
-                  Icon(TripOnIcons.feiji),
-                  SizedBox(width: 10.0),
-                  Expanded(child: Text(order.other?.flight ?? '')),
-                ],
-              ),
+              // SizedBox(height: 10.0),
+              // Row(
+              //   children: <Widget>[
+              //     Icon(TripOnIcons.feiji),
+              //     SizedBox(width: 10.0),
+              //     Expanded(child: Text(order.other?.flight ?? '')),
+              //   ],
+              // ),
             ],
           ),
         ),
@@ -210,7 +365,10 @@ class _PassengerInfoDisplayWidget extends StatelessWidget with _FormLineMixin {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("Passenger information", style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 18)),
+          Text(
+            "Passenger information",
+            style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 18),
+          ),
           SizedBox(height: 16),
           Column(
             children: <Widget>[
@@ -249,7 +407,13 @@ class _AdditionalWidget extends StatelessWidget with _FormLineMixin {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("Additional services", style: Theme.of(context).textTheme.subtitle2.copyWith(fontSize: 18)),
+                Text(
+                  "Additional services",
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle2
+                      .copyWith(fontSize: 18),
+                ),
                 // for (var i in info) ...[SizedBox(height: 10.0), _buildFormLine(i.serviceName, '\$${i.serviceMoney}')],
               ],
             ),
@@ -300,7 +464,10 @@ class _PassengerInfoEditWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("乘客信息", style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 18)),
+          Text(
+            "乘客信息",
+            style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 18),
+          ),
           SizedBox(height: 10.0),
           DefaultTextStyle(
             style: _passengerStyle,
@@ -310,7 +477,8 @@ class _PassengerInfoEditWidget extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Expanded(child: Text("乘客", textAlign: TextAlign.start), flex: 1),
+                    Expanded(
+                        child: Text("乘客", textAlign: TextAlign.start), flex: 1),
                     Expanded(
                       child: TextField(
                         style: _passengerStyle,

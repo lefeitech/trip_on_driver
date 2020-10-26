@@ -12,4 +12,5 @@ class BaseUrl {
   static String orderDetail = '$host/${Config.HTTP_VERSION}/order_detail';
   static String robList = '$host/${Config.HTTP_VERSION}/rob_list';
   static String robState = '$host/${Config.HTTP_VERSION}/rob_state';
+  static String orderState = '$host/${Config.HTTP_VERSION}/order_state';
 }

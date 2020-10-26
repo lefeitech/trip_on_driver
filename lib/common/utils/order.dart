@@ -22,22 +22,22 @@ class OrderUtil {
     var typeStr = 'unknown';
     switch (type) {
       case OrderState.canceled:
-        typeStr = '取消';
+        typeStr = 'Canceled';
         break;
       case OrderState.pendingPay:
-        typeStr = '待支付';
+        typeStr = 'Paying';
         break;
-      case OrderState.payed:
-        typeStr = '付款成功';
+      case OrderState.paied:
+        typeStr = 'Paied';
         break;
       case OrderState.picked:
-        typeStr = '确认接单';
+        typeStr = 'Picked';
         break;
       case OrderState.passengerOnBoard:
-        typeStr = '乘客确认上车';
+        typeStr = 'Confirmed';
         break;
       case OrderState.done:
-        typeStr = '已完成';
+        typeStr = 'Done';
         break;
       default:
         break;

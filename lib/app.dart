@@ -7,10 +7,11 @@ class DriverApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Trip on Driver',
+      title: 'Driver',
       routes: NavigatorUtil.staticRoutes,
       navigatorKey: NavigatorUtil.navigatorKey,
       home: SplashPage(),
+      themeMode: ThemeMode.light,
       theme: CustomTheme.getSystemTheme(context),
     );
   }
