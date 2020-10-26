@@ -145,7 +145,8 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                   _PriceWidget(widget.order),
                   _TravelInfoWidget(widget.order),
                   _PassengerInfoDisplayWidget(widget.order),
-                  _AdditionalWidget(widget.order.serviceInfo),
+                  if (widget.order.serviceInfo != null)
+                    _AdditionalWidget(widget.order.serviceInfo),
                 ],
               ),
       ),
@@ -228,7 +229,7 @@ class _PriceWidget extends StatelessWidget {
                   if (order.payTotalMoney != null)
                     RichText(
                       text: TextSpan(
-                        text: "¥ ",
+                        text: "\$ ",
                         style: TextStyle(color: Colors.black38, fontSize: 12.0),
                         children: [
                           TextSpan(
@@ -414,7 +415,10 @@ class _AdditionalWidget extends StatelessWidget with _FormLineMixin {
                       .subtitle2
                       .copyWith(fontSize: 18),
                 ),
-                // for (var i in info) ...[SizedBox(height: 10.0), _buildFormLine(i.serviceName, '\$${i.serviceMoney}')],
+                for (var i in info) ...[
+                  SizedBox(height: 10.0),
+                  _buildFormLine(i.serviceName, '\$${i.serviceMoney}')
+                ],
               ],
             ),
           ),
