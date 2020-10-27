@@ -15,7 +15,8 @@ class OrderListPage extends StatefulWidget {
   _OrderListPageState createState() => _OrderListPageState();
 }
 
-class _OrderListPageState extends State<OrderListPage> with SingleTickerProviderStateMixin {
+class _OrderListPageState extends State<OrderListPage>
+    with SingleTickerProviderStateMixin {
   TabController _tabCtrl;
 
   @override
@@ -51,16 +52,27 @@ class _OrderListPageState extends State<OrderListPage> with SingleTickerProvider
           children: <Widget>[
             OrderListTab(controller: _tabCtrl),
             Expanded(
-                child: Consumer<UserInfoProvider>(
-              builder: (_, UserInfoProvider userInfoProvider, __) => TabBarView(
-                controller: _tabCtrl,
-                children: <Widget>[
-                  OrderList(status: OrderState.picked, driverId: userInfoProvider.userInfo?.id),
-                  OrderList(status: OrderState.done, driverId: userInfoProvider.userInfo?.id),
-                  OrderList(status: OrderState.canceled, driverId: userInfoProvider.userInfo?.id),
-                ],
+              child: Consumer<UserInfoProvider>(
+                builder: (_, UserInfoProvider userInfoProvider, __) =>
+                    TabBarView(
+                  controller: _tabCtrl,
+                  children: <Widget>[
+                    OrderList(
+                      status: OrderState.picked,
+                      driverId: userInfoProvider.userInfo?.id,
+                    ),
+                    OrderList(
+                      status: OrderState.done,
+                      driverId: userInfoProvider.userInfo?.id,
+                    ),
+                    OrderList(
+                      status: OrderState.canceled,
+                      driverId: userInfoProvider.userInfo?.id,
+                    ),
+                  ],
+                ),
               ),
-            ))
+            )
           ],
         ),
       ),
@@ -96,7 +108,8 @@ class OrderListTab extends StatelessWidget {
           labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
           indicator: UnderlineTabIndicator(
-            borderSide: BorderSide(width: 3, color: Theme.of(context).primaryColor),
+            borderSide:
+                BorderSide(width: 3, color: Theme.of(context).primaryColor),
             insets: const EdgeInsets.only(bottom: 16),
           ),
         ),
@@ -132,7 +145,8 @@ class _OrderListState extends State<OrderList> {
     _repo.driverId = widget.driverId.toString();
   }
 
-  Widget _itemBuilder(BuildContext context, OrderInfoModel item, int index) => OrderListItem(
+  Widget _itemBuilder(BuildContext context, OrderInfoModel item, int index) =>
+      OrderListItem(
         item,
         onTap: () {
           NavigatorUtil.goOrderDetailPage(item);
@@ -147,7 +161,8 @@ class _OrderListState extends State<OrderList> {
     ListConfig config = ListConfig<OrderInfoModel>(
       padding: EdgeInsets.zero,
       sourceList: _repo,
-      indicatorBuilder: ListStatus(context: context, repo: _repo).indicatorBuilder,
+      indicatorBuilder:
+          ListStatus(context: context, repo: _repo).indicatorBuilder,
       itemBuilder: _itemBuilder,
     );
     return RefreshIndicator(

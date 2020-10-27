@@ -1,4 +1,6 @@
+import 'package:driver/common/enums/order.dart';
 import 'package:driver/common/style/trip_on_icons.dart';
+import 'package:driver/common/utils/navigator_util.dart';
 import 'package:flutter/material.dart';
 
 class MineInfoCard extends StatelessWidget {
@@ -7,8 +9,10 @@ class MineInfoCard extends StatelessWidget {
     final children = [
       _InfoItem(
         icon: TripOnIcons.order_copy,
-        title: '完成订单',
-        onPress: () {},
+        title: 'Completed Order',
+        onPress: () {
+          NavigatorUtil.goPartyOrderListPage(OrderState.done, title: 'Done');
+        },
       ),
       _InfoItem(
         icon: TripOnIcons.pingjia,
@@ -17,12 +21,12 @@ class MineInfoCard extends StatelessWidget {
       ),
       _InfoItem(
         icon: TripOnIcons.gerenzhongxinwoderenwubiaozhuntouxianxing,
-        title: '个人信息',
+        title: 'Information',
         onPress: () {},
       ),
       _InfoItem(
         icon: TripOnIcons.car,
-        title: '车辆信息',
+        title: 'Cars',
         onPress: () {},
       ),
     ];

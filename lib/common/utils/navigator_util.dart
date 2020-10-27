@@ -5,6 +5,7 @@ import 'package:driver/pages/auth/register.dart';
 import 'package:driver/pages/auth/register_step2.dart';
 import 'package:driver/pages/auth/register_step3.dart';
 import 'package:driver/pages/order/order_detail.dart';
+import 'package:driver/pages/order/party_order_list_page.dart';
 import 'package:driver/shared_state/register_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,5 +45,10 @@ class NavigatorUtil {
   /// order detail
   static Future<bool> goOrderDetailPage(OrderInfoModel order) {
     return RouteHelper().pushWidget<bool>(OrderDetailPage(order));
+  }
+
+  /// order list without tab
+  static Future<void> goPartyOrderListPage(int state, {String title}) {
+    return RouteHelper().pushWidget(PartyOrderListPage(state: state, title: title));
   }
 }
