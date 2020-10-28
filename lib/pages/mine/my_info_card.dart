@@ -14,11 +14,11 @@ class MineInfoCard extends StatelessWidget {
           NavigatorUtil.goPartyOrderListPage(OrderState.done, title: 'Done');
         },
       ),
-      _InfoItem(
-        icon: TripOnIcons.pingjia,
-        title: '客户评价',
-        onPress: () {},
-      ),
+      // _InfoItem(
+      //   icon: TripOnIcons.pingjia,
+      //   title: '客户评价',
+      //   onPress: () {},
+      // ),
       _InfoItem(
         icon: TripOnIcons.gerenzhongxinwoderenwubiaozhuntouxianxing,
         title: 'Information',

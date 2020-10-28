@@ -1,5 +1,6 @@
 import 'package:driver/common/model/user/user_info.dart';
 import 'package:driver/common/style/custom_theme.dart';
+import 'package:driver/widgets/rating_bar.dart';
 import 'package:driver/common/style/trip_on_icons.dart';
 import 'package:driver/pages/mine/my_info_card.dart';
 import 'package:driver/pages/setting/setting.dart';
@@ -64,7 +65,12 @@ class _MinePageState extends State<MinePage> {
                         IconButton(
                           icon: Icon(TripOnIcons.shezhi),
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => SettingPage()));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SettingPage(),
+                              ),
+                            );
                           },
                         ),
                         // IconButton(
@@ -77,8 +83,10 @@ class _MinePageState extends State<MinePage> {
                           margin: EdgeInsets.only(top: paddingTop),
                           padding: _introCardPadding,
                           alignment: Alignment.topCenter,
-                          child: UserInfoCard(infoProvider.userInfo,
-                              height: _introCardHeight),
+                          child: UserInfoCard(
+                            infoProvider.userInfo,
+                            height: _introCardHeight,
+                          ),
                         ),
                       ),
                       bottom: _BottomInfo(_bottomHeight, infoProvider.userInfo),
@@ -135,14 +143,36 @@ class UserInfoCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(info.driverName,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500)),
+              Text(
+                info.driverName,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
               SizedBox(height: 4),
+              // todo check this
               Text.rich(
-                TextSpan(text: 'Service index: ', children: stars),
+                TextSpan(
+                  text: 'Service index: ',
+                  children: [
+                    WidgetSpan(
+                      child: RatingBar(
+                        rating: info.score ?? 0,
+                        size: 20,
+                        color: Color(0xFFF6DE9B),
+                        icon: Icon(
+                          TripOnIcons.xingxing,
+                          size: 18,
+                          color: Colors.grey[400],
+                        ),
+                        isIndicator: true,
+                        allowHalfRating: true,
+                      ),
+                    ),
+                  ],
+                ),
                 style: TextStyle(color: Colors.white.withOpacity(.8)),
               ),
             ],
@@ -198,27 +228,32 @@ class _BottomInfo extends StatelessWidget implements PreferredSizeWidget {
                   TextSpan(
                     text: (info.totalMoney ?? 0).toString(),
                     style: TextStyle(
-                        color: CustomTheme.of(context).tipAlertColor,
-                        fontWeight: FontWeight.bold),
+                      color: CustomTheme.of(context).tipAlertColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               )),
-              FlatButton(
-                child: Text.rich(
-                  TextSpan(
-                    text: 'Detail  ',
-                    style: Theme.of(context).textTheme.caption,
-                    children: [
-                      WidgetSpan(
-                        child: Icon(Icons.arrow_forward_ios,
-                            size: 20, color: Colors.black12),
-                        alignment: ui.PlaceholderAlignment.middle,
-                      ),
-                    ],
-                  ),
-                ),
-                onPressed: () {},
-              )
+              // delete this when blow code enable
+              SizedBox(height: 50),
+              // FlatButton(
+              //   child: Text.rich(
+              //     TextSpan(
+              //       text: 'Detail  ',
+              //       style: Theme.of(context).textTheme.caption,
+              //       children: [
+              //         WidgetSpan(
+              //           child: Icon(Icons.arrow_forward_ios,
+              //               size: 20, color: Colors.black12),
+              //           alignment: ui.PlaceholderAlignment.middle,
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              //   onPressed: () {
+              //     // todo detail
+              //   },
+              // )
             ],
           ),
           Divider(height: 1),

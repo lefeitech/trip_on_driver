@@ -42,15 +42,16 @@ class OrderListItem extends StatelessWidget {
                 )
               ],
             ),
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, top: 6, bottom: 6, right: 10),
-                  child: Icon(TripOnIcons.shijian, color: _bodyFontColor, size: 20),
-                ),
-                Text(' ${info.other.flight}', style: TextStyle(color: _bodyFontColor, fontSize: 12)),
-              ],
-            ),
+            if (info.other?.flight != null)
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15, top: 6, bottom: 6, right: 10),
+                    child: Icon(TripOnIcons.shijian, color: _bodyFontColor, size: 20),
+                  ),
+                  Text(' ${info.other.flight}', style: TextStyle(color: _bodyFontColor, fontSize: 12)),
+                ],
+              ),
             // start point and arrive point
             if (info.other.type == TransformType.pickUp) ...[
               StartArriveWidget(title: Text(info.other.airport)),
@@ -66,7 +67,7 @@ class OrderListItem extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20),
               child: Text.rich(
                 TextSpan(
-                  text: 'lump sum：￥',
+                  text: 'lump sum：RM',
                   style: TextStyle(color: _bodyFontColor, fontSize: 12),
                   children: [
                     TextSpan(

@@ -229,7 +229,7 @@ class _PriceWidget extends StatelessWidget {
                   if (order.payTotalMoney != null)
                     RichText(
                       text: TextSpan(
-                        text: "\$ ",
+                        text: "RM ",
                         style: TextStyle(color: Colors.black38, fontSize: 12.0),
                         children: [
                           TextSpan(
@@ -417,7 +417,7 @@ class _AdditionalWidget extends StatelessWidget with _FormLineMixin {
                 ),
                 for (var i in info) ...[
                   SizedBox(height: 10.0),
-                  _buildFormLine(i.serviceName, '\$${i.serviceMoney}')
+                  _buildFormLine(i.serviceName, 'RM${i.serviceMoney}')
                 ],
               ],
             ),

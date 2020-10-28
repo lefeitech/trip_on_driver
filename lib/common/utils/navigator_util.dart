@@ -15,7 +15,7 @@ class NavigatorUtil {
 
   /// 命名静态路由
   static Map<String, WidgetBuilder> staticRoutes = {
-   LoginPage.routeName: (BuildContext context) => LoginPage(),
+    LoginPage.routeName: (BuildContext context) => LoginPage(),
   };
 
   /// register page step 1
@@ -49,6 +49,9 @@ class NavigatorUtil {
 
   /// order list without tab
   static Future<void> goPartyOrderListPage(int state, {String title}) {
-    return RouteHelper().pushWidget(PartyOrderListPage(state: state, title: title));
+    return RouteHelper().pushWidget(PartyOrderListPage(
+      state: state,
+      title: title,
+    ));
   }
 }
