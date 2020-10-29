@@ -31,6 +31,7 @@ class UserInfoModel {
     this.bankNo,
     this.tel2,
     this.code,
+    this.commentNumber,
   });
 
   factory UserInfoModel.fromJson(Map<String, dynamic> jsonRes) {
@@ -75,6 +76,7 @@ class UserInfoModel {
       bankNo: asT<String>(jsonRes['bank_no']),
       tel2: asT<String>(jsonRes['tel2']),
       code: asT<int>(jsonRes['code']),
+      commentNumber: CommentNumber.fromJson(asT<Map<String, dynamic>>(jsonRes['comment_number']))
     );
   }
 
@@ -106,6 +108,7 @@ class UserInfoModel {
   String bankNo;
   String tel2;
   int code;
+  CommentNumber commentNumber;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
@@ -136,8 +139,40 @@ class UserInfoModel {
         'bank_no': bankNo,
         'tel2': tel2,
         'code': code,
+        'comment_number': commentNumber,
       };
 
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class CommentNumber {
+  CommentNumber({
+    this.bad,
+    this.center,
+    this.good,
+  });
+
+  factory CommentNumber.fromJson(Map<String, dynamic> jsonRes) =>
+      jsonRes == null
+          ? null
+          : CommentNumber(
+        bad: asT<int>(jsonRes['bad']),
+        center: asT<int>(jsonRes['center']),
+        good: asT<int>(jsonRes['good']),
+      );
+
+  int bad;
+  int center;
+  int good;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'bad': bad,
+    'center': center,
+    'good': good,
+  };
   @override
   String toString() {
     return json.encode(this);
