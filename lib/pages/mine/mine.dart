@@ -275,7 +275,7 @@ class _BottomInfo extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
                   text: 'good',
-                  count: info.commentNumber.good,
+                  count: info.commentNumber?.good,
                 ),
                 _ColumnIconLabel(
                   icon: GradientIcon(
@@ -289,7 +289,7 @@ class _BottomInfo extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
                   text: 'normal',
-                  count: info.commentNumber.center,
+                  count: info.commentNumber?.center,
                 ),
                 _ColumnIconLabel(
                   icon: GradientIcon(
@@ -303,7 +303,7 @@ class _BottomInfo extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
                   text: 'not good',
-                  count: info.commentNumber.bad,
+                  count: info.commentNumber?.bad,
                 ),
               ],
             ),

@@ -4,6 +4,7 @@ import 'package:driver/common/utils/navigator_util.dart';
 import 'package:driver/pages/tab.dart';
 import 'package:driver/shared_state/login_provider.dart';
 import 'package:driver/shared_state/user_info.dart';
+import 'package:driver/widgets/small_circle_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -137,7 +138,7 @@ class _LoginForm extends StatelessWidget {
                       children: <Widget>[
                         Text('Login'),
                         SizedBox(width: 16),
-                        Icon(Icons.arrow_forward, size: 20),
+                        provider.loading ? SmallCircleIndicator() : Icon(Icons.arrow_forward, size: 20),
                       ],
                     ),
                     color: Theme.of(context).primaryColor,
