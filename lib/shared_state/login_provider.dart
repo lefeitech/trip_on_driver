@@ -33,7 +33,7 @@ class LoginProvider with ChangeNotifier {
   UserInfoModel get userInfo => _userInfo;
   UserInfoModel _userInfo;
 
-  int _loginMethod = LoginType.code;
+  int _loginMethod = LoginType.pwd;
 
   final TextEditingController _userNameCtrl = TextEditingController();
   final TextEditingController _userPwdCtrl = TextEditingController();

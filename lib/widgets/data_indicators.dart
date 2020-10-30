@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 class NoDataWidget extends StatelessWidget {
   final bool isFullPage;
   final bool isSliver;
+  final Function refreshFn;
 
-  NoDataWidget({this.isFullPage = false, this.isSliver = false});
+  NoDataWidget(
+      {this.isFullPage = false, this.isSliver = false, this.refreshFn});
 
   @override
   Widget build(context) {
@@ -14,7 +16,10 @@ class NoDataWidget extends StatelessWidget {
 
     Widget inline = Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[Icon(Icons.inbox, color: color), Text(text, style: TextStyle(color: color))],
+      children: <Widget>[
+        Icon(Icons.inbox, color: color),
+        Text(text, style: TextStyle(color: color))
+      ],
     );
 
     Widget block = SizedBox(
@@ -26,6 +31,13 @@ class NoDataWidget extends StatelessWidget {
             Text(text, style: TextStyle(color: color)),
           ],
         ));
+    block = refreshFn != null
+        ? GestureDetector(
+            onTap: refreshFn,
+            child: block,
+            behavior: HitTestBehavior.opaque,
+          )
+        : block;
 
     Widget child = isFullPage ? block : inline;
     return isSliver ? SliverToBoxAdapter(child: child) : child;
@@ -51,7 +63,10 @@ class LoadErrorWidget extends StatelessWidget {
 
     Widget inline = Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[Icon(Icons.refresh, color: color), Text(text, style: TextStyle(color: color))],
+      children: <Widget>[
+        Icon(Icons.refresh, color: color),
+        Text(text, style: TextStyle(color: color))
+      ],
     );
 
     Widget block = SizedBox(
@@ -65,7 +80,8 @@ class LoadErrorWidget extends StatelessWidget {
         ));
 
     Widget child = isFullPage ? block : inline;
-    child = GestureDetector(behavior: HitTestBehavior.translucent, onTap: refreshFn, child: child);
+    child = GestureDetector(
+        behavior: HitTestBehavior.translucent, onTap: refreshFn, child: child);
 
     return isSliver ? SliverToBoxAdapter(child: child) : child;
   }
@@ -85,7 +101,9 @@ class LoadingWidget extends StatelessWidget {
     Widget inline = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Padding(padding: EdgeInsets.only(right: 10), child: CircularProgressIndicator()),
+        Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: CircularProgressIndicator()),
         Text(text, style: TextStyle(color: color))
       ],
     );

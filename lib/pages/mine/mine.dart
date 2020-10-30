@@ -330,6 +330,7 @@ class _ColumnIconLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _count = count ?? 0;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -340,7 +341,7 @@ class _ColumnIconLabel extends StatelessWidget {
             style: textStyle,
             children: [
               TextSpan(
-                text: count > 99 ? '99+' : count.toString(),
+                text: _count > 99 ? '99+' : _count.toString(),
                 style: countStyle ??
                     TextStyle(color: CustomTheme.of(context).tipAlertColor),
               )

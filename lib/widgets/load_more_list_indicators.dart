@@ -32,7 +32,7 @@ class ListStatus {
         widget = Container();
         break;
       case IndicatorStatus.empty:
-        widget = NoDataWidget(isSliver: isSliver, isFullPage: true);
+        widget = NoDataWidget(isSliver: isSliver, isFullPage: true, refreshFn: repo.refresh);
         break;
       default:
         widget = Container();
