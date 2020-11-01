@@ -23,7 +23,7 @@ class _OrderListPageState extends State<OrderListPage>
   @override
   void initState() {
     super.initState();
-    _tabCtrl = TabController(vsync: this, length: 3);
+    _tabCtrl = TabController(vsync: this, length: 4);
   }
 
   @override
@@ -48,6 +48,10 @@ class _OrderListPageState extends State<OrderListPage>
                   children: <Widget>[
                     OrderList(
                       status: OrderState.picked,
+                      driverId: userInfoProvider.userInfo?.id,
+                    ),
+                    OrderList(
+                      status: OrderState.passengerOnBoard,
                       driverId: userInfoProvider.userInfo?.id,
                     ),
                     OrderList(
@@ -90,6 +94,7 @@ class OrderListTab extends StatelessWidget {
           controller: controller,
           tabs: <Widget>[
             Tab(text: 'To be served'),
+            Tab(text: 'Current'),
             Tab(text: 'Completed'),
             Tab(text: 'Canceled'),
           ],
@@ -97,8 +102,10 @@ class OrderListTab extends StatelessWidget {
           labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
           indicator: UnderlineTabIndicator(
-            borderSide:
-                BorderSide(width: 3, color: Theme.of(context).primaryColor),
+            borderSide: BorderSide(
+              width: 3,
+              color: Theme.of(context).primaryColor,
+            ),
             insets: const EdgeInsets.only(bottom: 16),
           ),
         ),
