@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:driver/app.dart';
 import 'package:driver/common/report/report.dart';
 import 'package:driver/shared_state/global_config.dart';
+import 'package:driver/shared_state/push_service.dart';
 import 'package:driver/shared_state/tab_provider.dart';
 import 'package:driver/shared_state/user_info.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ Future<Null> main() async {
     WidgetsFlutterBinding.ensureInitialized();
 
     await GlobalConfig.getDefaultConfig();
+    await PushService.init();
     GlobalConfig.setDefaultStatusBar();
 
     runApp(OKToast(

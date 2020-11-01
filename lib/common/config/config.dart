@@ -25,12 +25,16 @@ class Config {
   /// ////////////////////////////////////// sentry appid //////////////////////////////////////
   static const String SENTRY_DSN = 'https://8e5a2bddff834adeaf1f5ed550cbddbf@sentry.io/4784190';
 
+  /// ////////////////////////////////////// jpush  //////////////////////////////////////
+  static const String JPUSH_KEY = '3de594a787de360707ec52aa';
+  static const String JPUSH_CHANNEL = 'developer-default';
+
   /// ////////////////////////////////////// http client key secret //////////////////////////////////////
   static const String HTTP_VERSION = 'v2';
   static const String HTTP_KEY = 'driver';
   static const String HTTP_SECRET = 'qwertyuiopasdfghjklzxcvbnm123';
 
-  /// ////////////////////////////////////// sentry appid //////////////////////////////////////
+  /// ////////////////////////////////////// default account //////////////////////////////////////
   static const String TEST_ACCOUNT = '18419064455';
   static const String TEST_PWD = '727322';
 

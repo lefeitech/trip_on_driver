@@ -184,6 +184,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.16.1"
+  jpush_flutter:
+    dependency: "direct main"
+    description:
+      name: jpush_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.0"
   loading_more_list:
     dependency: "direct main"
     description:
