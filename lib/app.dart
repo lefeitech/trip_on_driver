@@ -7,7 +7,7 @@ class DriverApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Driver',
+      title: 'Tripon driver',
       routes: NavigatorUtil.staticRoutes,
       navigatorKey: NavigatorUtil.navigatorKey,
       home: SplashPage(),
