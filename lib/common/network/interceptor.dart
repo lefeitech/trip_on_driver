@@ -113,11 +113,11 @@ class ZGSInterceptor extends Interceptor {
     return code;
   }
 
-  Future<String> refreshToken(String token) async {
-    String newToken;
-    Dio dio = Dio();
-    Response response;
-
-    return Future.value(newToken);
-  }
+  // Future<String> refreshToken(String token) async {
+  //   String newToken;
+  //   Dio dio = Dio();
+  //   Response response;
+  //
+  //   return Future.value(newToken);
+  // }
 }

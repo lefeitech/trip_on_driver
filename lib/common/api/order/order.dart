@@ -3,7 +3,6 @@ import 'package:driver/common/model/common.dart';
 import 'package:driver/common/model/order/order_detail_res.dart';
 import 'package:driver/common/model/order/order_list_res.dart';
 import 'package:driver/common/model/order/rob_list_res.dart';
-import 'package:driver/common/model/user/user_info_res.dart';
 import 'package:driver/common/network/base_url.dart';
 import 'package:driver/common/network/common_http.dart';
 import 'package:flutter/cupertino.dart';

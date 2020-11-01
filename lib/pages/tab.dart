@@ -38,10 +38,9 @@ class TabPage extends StatelessWidget {
   }
 
   List<BottomNavigationBarItem> _buildNavigationItem(BuildContext context) {
-    final TextStyle textStyle = TextStyle(fontSize: 12);
     return [
       BottomNavigationBarItem(
-        title: Text('Home', style: textStyle),
+        label: 'Home',
         icon: Icon(TripOnIcons.shouye2),
         activeIcon: Icon(TripOnIcons.shouye1),
       ),
@@ -50,11 +49,11 @@ class TabPage extends StatelessWidget {
       //   icon: Icon(TripOnIcons.xiaoxi),
       // ),
       BottomNavigationBarItem(
-        title: Text('Order', style: textStyle),
+        label: 'Order',
         icon: Icon(TripOnIcons.order_copy),
       ),
       BottomNavigationBarItem(
-        title: Text('My', style: textStyle),
+        label: 'My',
         icon: Icon(TripOnIcons.wode1),
         activeIcon: Icon(TripOnIcons.wode2),
       ),

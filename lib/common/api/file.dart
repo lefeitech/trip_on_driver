@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:dio/dio.dart' show Response, FormData, MultipartFile;
-import 'package:driver/common/model/common.dart';
 import 'package:driver/common/model/file/image.dart';
 import 'package:driver/common/network/base_url.dart';
 import 'package:driver/common/network/common_http.dart';

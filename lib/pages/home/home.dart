@@ -1,9 +1,11 @@
 import 'package:driver/common/model/order/rob_list_res.dart';
+import 'package:driver/common/utils/navigator_util.dart';
 import 'package:driver/pages/rob/rob_list_item.dart';
 import 'package:driver/pages/rob/rob_list_repo.dart';
 import 'package:driver/shared_state/user_info.dart';
 import 'package:driver/widgets/data_indicators.dart';
 import 'package:driver/widgets/load_more_list_indicators.dart';
+import 'package:driver/widgets/main_container.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:provider/provider.dart';
@@ -18,19 +20,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Order grabbing')),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Theme.of(context).primaryColor,
-              Color(0xFFF7F7FF),
-              Color(0xFFF7F7FF),
-            ],
-            stops: [0, 0.33, 1],
-          ),
-        ),
+      body: MainContainer(
         child: Consumer<UserInfoProvider>(
           builder: (_, UserInfoProvider userInfoProvider, __) =>
               OrderList(driverId: userInfoProvider.userInfo?.id),
@@ -74,6 +64,7 @@ class _OrderListState extends State<OrderList> {
   Widget _itemBuilder(BuildContext context, RobInfo item, int index) =>
       RobListItem(
         item,
+        onTap: () => NavigatorUtil.goRobDetailPage(item),
         success: _repo.refresh,
         failed: _repo.refresh,
       );

@@ -6,6 +6,7 @@ import 'package:driver/pages/order/order_list_repo.dart';
 import 'package:driver/shared_state/user_info.dart';
 import 'package:driver/widgets/data_indicators.dart';
 import 'package:driver/widgets/load_more_list_indicators.dart';
+import 'package:driver/widgets/main_container.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:provider/provider.dart';
@@ -35,19 +36,7 @@ class _OrderListPageState extends State<OrderListPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Order Center')),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Theme.of(context).primaryColor,
-              Color(0xFFF7F7FF),
-              Color(0xFFF7F7FF),
-            ],
-            stops: [0, 0.33, 1],
-          ),
-        ),
+      body: MainContainer(
         child: Column(
           children: <Widget>[
             OrderListTab(controller: _tabCtrl),

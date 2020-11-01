@@ -109,18 +109,18 @@ class UserInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stars = List.filled(
-      5,
-      WidgetSpan(
-        child: GradientIcon(
-          icon: TripOnIcons.xingxing,
-          iconSize: 18,
-          gradient: RadialGradient(
-            colors: [Color(0xFFEFE38F), Color(0xFFDFB152)],
-          ),
-        ),
-      ),
-    );
+    // final stars = List.filled(
+    //   5,
+    //   WidgetSpan(
+    //     child: GradientIcon(
+    //       icon: TripOnIcons.xingxing,
+    //       iconSize: 18,
+    //       gradient: RadialGradient(
+    //         colors: [Color(0xFFEFE38F), Color(0xFFDFB152)],
+    //       ),
+    //     ),
+    //   ),
+    // );
     return Container(
       height: height,
       width: double.infinity,

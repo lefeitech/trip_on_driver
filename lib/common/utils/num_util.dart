@@ -1,7 +1,5 @@
 import 'dart:math' as math;
 
-import 'package:driver/common/config/config.dart';
-
 class NumUtil {
   /// 精确到小数点后几位
   static String getDecimalsNumber(num number, [int precision = 2]) {

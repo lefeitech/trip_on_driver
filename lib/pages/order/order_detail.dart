@@ -6,6 +6,7 @@ import 'package:driver/common/style/custom_theme.dart';
 import 'package:driver/common/style/trip_on_icons.dart';
 import 'package:driver/common/utils/common_util.dart';
 import 'package:driver/common/utils/order.dart';
+import 'package:driver/widgets/main_container.dart';
 import 'package:driver/widgets/small_circle_indicator.dart';
 import 'package:driver/widgets/start_arrive_widget.dart';
 import 'package:driver/widgets/to_card.dart';
@@ -124,19 +125,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Order Detail")),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Theme.of(context).primaryColor,
-              Color(0xFFF7F7FF),
-              Color(0xFFF7F7FF),
-            ],
-            stops: [0, 0.33, 1],
-          ),
-        ),
+      body: MainContainer(
         child: _isPageLoading
             ? Center(child: CircularProgressIndicator())
             : ListView(
@@ -373,11 +362,11 @@ class _PassengerInfoDisplayWidget extends StatelessWidget with _FormLineMixin {
           SizedBox(height: 16),
           Column(
             children: <Widget>[
-              _buildFormLine('passenger', order.rideName),
+              _buildFormLine('passenger', order.rideName ?? '--'),
               _divider,
-              _buildFormLine('phone', order.rideTel),
+              _buildFormLine('phone', order.rideTel ?? '--'),
               _divider,
-              _buildFormLine('requirements', order.remark ?? ''),
+              _buildFormLine('requirements', order.remark ?? '--'),
             ],
           ),
         ],

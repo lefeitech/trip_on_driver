@@ -12,9 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class RobListItem extends StatelessWidget {
-  RobListItem(this.info, {this.success, this.failed});
+  RobListItem(this.info, {this.success, this.failed, this.onTap});
 
   final RobInfo info;
+  final VoidCallback onTap;
   final VoidCallback success;
   final VoidCallback failed;
 
@@ -23,11 +24,8 @@ class RobListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final transformType = 'Ride-hailing';
-    // final transformType = OrderUtil.mapTransformType(info.other.type);
     return GestureDetector(
-      onTap: () {
-        // todo detail page
-      },
+      onTap: onTap ?? () {},
       child: TOCard(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,23 +34,27 @@ class RobListItem extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(transformType,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle2
-                        .copyWith(fontSize: 18)),
+                Text(
+                  transformType,
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle2
+                      .copyWith(fontSize: 18),
+                ),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       const SizedBox(height: 10),
-                      Text(info.createTime ?? '',
-                          style:
-                              TextStyle(color: _bodyFontColor, fontSize: 12)),
+                      Text(
+                        info.createTime ?? '',
+                        style: TextStyle(color: _bodyFontColor, fontSize: 12),
+                      ),
                       const SizedBox(height: 2),
-                      Text('No.${info.outTradeNo ?? ''}',
-                          style:
-                              TextStyle(color: _bodyFontColor, fontSize: 10)),
+                      Text(
+                        'No.${info.outTradeNo ?? ''}',
+                        style: TextStyle(color: _bodyFontColor, fontSize: 10),
+                      ),
                     ],
                   ),
                 )
@@ -62,18 +64,29 @@ class RobListItem extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(
-                      left: 15, top: 6, bottom: 6, right: 10),
-                  child: Icon(TripOnIcons.shijian,
-                      color: _bodyFontColor, size: 20),
+                    left: 15,
+                    top: 6,
+                    bottom: 6,
+                    right: 10,
+                  ),
+                  child: Icon(
+                    TripOnIcons.shijian,
+                    color: _bodyFontColor,
+                    size: 20,
+                  ),
                 ),
-                Text(info.other.startTime,
-                    style: TextStyle(color: _bodyFontColor, fontSize: 12)),
+                Text(
+                  info.other.startTime,
+                  style: TextStyle(color: _bodyFontColor, fontSize: 12),
+                ),
               ],
             ),
             // start point and arrive point
             StartArriveWidget(title: Text(info.other.startAddress)),
             StartArriveWidget(
-                title: Text(info.other.endAddress), isStart: false),
+              title: Text(info.other.endAddress),
+              isStart: false,
+            ),
             SizedBox(height: 20),
             // sum
             Row(
