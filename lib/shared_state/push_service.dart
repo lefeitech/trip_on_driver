@@ -15,6 +15,7 @@ class PushService with ChangeNotifier {
         production: true,
         debug: false,
       );
+      _jpush.applyPushAuthority();
     } catch (e) {
       print(e);
     }
