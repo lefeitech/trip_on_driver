@@ -1,3 +1,4 @@
+import 'package:driver/common/utils/common_util.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:jpush_flutter/jpush_flutter.dart';
@@ -19,5 +20,23 @@ class PushService with ChangeNotifier {
     } catch (e) {
       print(e);
     }
+  }
+
+  static Future<void> setAlias(String alias) async {
+    try {
+      final res = await _jpush.setAlias(alias);
+      if (res['errorCode'] != null && Config.debugMode) {
+        CommonUtils.showMessage('设置用户别名失败');
+      }
+    } catch (e) {}
+  }
+
+  static Future<void> setTags(List<String> tags) async {
+    try {
+      final res = await _jpush.setTags(tags);
+      if (res['errorCode'] != null && Config.debugMode) {
+        CommonUtils.showMessage('设置用户标签失败');
+      }
+    } catch (e) {}
   }
 }

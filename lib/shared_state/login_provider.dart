@@ -7,6 +7,7 @@ import 'package:driver/common/local/local_storage.dart';
 import 'package:driver/common/model/auth/send_code.dart';
 import 'package:driver/common/model/user/user_info.dart';
 import 'package:driver/common/utils/common_util.dart';
+import 'package:driver/shared_state/push_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:async';
@@ -97,7 +98,9 @@ class LoginProvider with ChangeNotifier {
 
   bool validatePhone() {
     // todo more check
-    return _userNameCtrl.text.length == 11;
+    return _userNameCtrl.text.length == 11 ||
+        _userNameCtrl.text.length == 10 ||
+        _userNameCtrl.text.length == 9;
   }
 
   Future<bool> login(BuildContext context) async {
@@ -107,7 +110,9 @@ class LoginProvider with ChangeNotifier {
     }
 
     if (_userPwdCtrl.text == null || _userPwdCtrl.text == '') {
-      final msg = _loginMethod == LoginType.code ? 'please enter code' : 'please enter password';
+      final msg = _loginMethod == LoginType.code
+          ? 'please enter code'
+          : 'please enter password';
       CommonUtils.showMessage(msg);
       return Future.value(false);
     }
@@ -133,6 +138,8 @@ class LoginProvider with ChangeNotifier {
         _userInfo = res.data.info;
         await _saveToken(res.data.token);
         await _saveUserInfo(res.data.info);
+        PushService.setTags(['driver']);
+        PushService.setAlias(res.data.info.id.toString());
         CommonUtils.showMessage('login success');
         success = true;
       }
