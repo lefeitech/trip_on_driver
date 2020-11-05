@@ -35,7 +35,10 @@ class _OrderListPageState extends State<OrderListPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Order Center')),
+      appBar: AppBar(
+        title: Text('Order Center'),
+        centerTitle: true,
+      ),
       body: MainContainer(
         child: Column(
           children: <Widget>[
@@ -91,12 +94,13 @@ class OrderListTab extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 16),
         child: TabBar(
+          isScrollable: true,
           controller: controller,
           tabs: <Widget>[
-            Tab(text: 'To be served'),
-            Tab(text: 'Current'),
+            Tab(text: 'Accepted'),
+            Tab(text: 'Picked Up'),
             Tab(text: 'Completed'),
-            Tab(text: 'Canceled'),
+            Tab(text: 'Cancelled'),
           ],
           labelColor: Color(0xFF222222),
           labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),

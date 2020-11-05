@@ -96,7 +96,7 @@ class RobListItem extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20),
                   child: Text.rich(
                     TextSpan(
-                      text: 'lump sum：￥',
+                      text: 'Order Account：RM',
                       style: TextStyle(color: _bodyFontColor, fontSize: 12),
                       children: [
                         TextSpan(
@@ -136,7 +136,7 @@ class __RobBtnState extends State<_RobBtn> {
   var _isLoading = false;
 
   Future<void> _grab(String orderId, String driverId) async {
-    CommonUtils.showMessage('Grabbing...');
+    CommonUtils.showMessage('Taking...');
 
     if (_isLoading) return;
 
@@ -160,12 +160,12 @@ class __RobBtnState extends State<_RobBtn> {
     });
 
     if (!hasError) {
-      CommonUtils.showMessage('Grab Success!');
+      CommonUtils.showMessage('Take Success!');
       if (widget.success != null) {
         widget.success();
       }
     } else {
-      CommonUtils.showMessage('Grab Failed!');
+      CommonUtils.showMessage('Take Failed!');
       if (widget.failed != null) {
         widget.failed();
       }
@@ -188,7 +188,7 @@ class __RobBtnState extends State<_RobBtn> {
         child: _isLoading
             ? SmallCircleIndicator(color: Colors.white)
             : Text(
-                'Grab',
+                'Take Order',
                 style: TextStyle(fontSize: 18),
               ),
         onPressed: () {

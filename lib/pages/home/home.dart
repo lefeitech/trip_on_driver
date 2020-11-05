@@ -19,7 +19,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Order grabbing')),
+      appBar: AppBar(
+        title: Text('Order List'),
+        centerTitle: true,
+      ),
       body: MainContainer(
         child: Consumer<UserInfoProvider>(
           builder: (_, UserInfoProvider userInfoProvider, __) =>
