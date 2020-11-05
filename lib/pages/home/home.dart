@@ -2,6 +2,7 @@ import 'package:driver/common/model/order/rob_list_res.dart';
 import 'package:driver/common/utils/navigator_util.dart';
 import 'package:driver/pages/rob/rob_list_item.dart';
 import 'package:driver/pages/rob/rob_list_repo.dart';
+import 'package:driver/shared_state/push_service.dart';
 import 'package:driver/shared_state/user_info.dart';
 import 'package:driver/widgets/data_indicators.dart';
 import 'package:driver/widgets/load_more_list_indicators.dart';
@@ -46,6 +47,10 @@ class _OrderListState extends State<OrderList> {
   final _repo = RobListRepo();
   List robs = [];
 
+  final _ctrl = ScrollController();
+
+  final _eventName = 'rob-receiver';
+
   @override
   void didUpdateWidget(OrderList oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -62,6 +67,7 @@ class _OrderListState extends State<OrderList> {
   void dispose() {
     super.dispose();
     _repo.dispose();
+    _ctrl.dispose();
   }
 
   Widget _itemBuilder(BuildContext context, RobInfo item, int index) =>
@@ -80,13 +86,42 @@ class _OrderListState extends State<OrderList> {
     ListConfig config = ListConfig<RobInfo>(
       padding: EdgeInsets.zero,
       sourceList: _repo,
-      indicatorBuilder:
-          ListStatus(context: context, repo: _repo).indicatorBuilder,
+      indicatorBuilder: ListStatus(
+        context: context,
+        repo: _repo,
+      ).indicatorBuilder,
+      controller: _ctrl,
       itemBuilder: _itemBuilder,
     );
-    return RefreshIndicator(
-      onRefresh: _repo.refresh,
-      child: LoadingMoreList(config),
+    return Consumer<PushService>(
+      builder: (_, pushProvider, __) {
+        pushProvider.addReceiveEvent(
+            name: _eventName,
+            onPushMessage: (event) {
+              _ctrl.animateTo(
+                0,
+                duration: Duration(milliseconds: 30),
+                curve: Curves.bounceIn,
+              );
+              print('event.content');
+              return Future.value();
+            });
+        pushProvider.addOpenEvent(
+            name: _eventName,
+            onPushMessage: (event) {
+              _ctrl.animateTo(
+                0,
+                duration: Duration(milliseconds: 30),
+                curve: Curves.bounceIn,
+              );
+              print('event.content');
+              return Future.value();
+            });
+        return RefreshIndicator(
+          onRefresh: _repo.refresh,
+          child: LoadingMoreList(config),
+        );
+      },
     );
   }
 }

@@ -27,6 +27,7 @@ Future<Null> main() async {
           ChangeNotifierProvider(create: (_) => GlobalConfig()),
           ChangeNotifierProvider(create: (_) => UserInfoProvider()),
           ChangeNotifierProvider(create: (_) => TabProvider()),
+          ChangeNotifierProvider(create: (_) => PushService()),
         ],
         child: DriverApp(),
       ),
