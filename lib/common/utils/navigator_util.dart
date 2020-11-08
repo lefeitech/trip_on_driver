@@ -5,6 +5,8 @@ import 'package:driver/pages/auth/login.dart';
 import 'package:driver/pages/auth/register.dart';
 import 'package:driver/pages/auth/register_step2.dart';
 import 'package:driver/pages/auth/register_step3.dart';
+import 'package:driver/pages/mine/car_info.dart';
+import 'package:driver/pages/mine/my_infomation.dart';
 import 'package:driver/pages/order/order_detail.dart';
 import 'package:driver/pages/order/party_order_list_page.dart';
 import 'package:driver/pages/rob/rob_detail.dart';
@@ -18,6 +20,8 @@ class NavigatorUtil {
   /// 命名静态路由
   static Map<String, WidgetBuilder> staticRoutes = {
     LoginPage.routeName: (BuildContext context) => LoginPage(),
+    MyInfomationPage.routeName: (BuildContext context) => MyInfomationPage(),
+    CarInfoPage.routeName: (BuildContext context) => CarInfoPage(),
   };
 
   /// register page step 1

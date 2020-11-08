@@ -1,6 +1,8 @@
 import 'package:driver/common/enums/order.dart';
 import 'package:driver/common/style/trip_on_icons.dart';
 import 'package:driver/common/utils/navigator_util.dart';
+import 'package:driver/pages/mine/car_info.dart';
+import 'package:driver/pages/mine/my_infomation.dart';
 import 'package:flutter/material.dart';
 
 class MineInfoCard extends StatelessWidget {
@@ -22,12 +24,16 @@ class MineInfoCard extends StatelessWidget {
       _InfoItem(
         icon: TripOnIcons.gerenzhongxinwoderenwubiaozhuntouxianxing,
         title: 'Information',
-        onPress: () {},
+        onPress: () {
+          Navigator.pushNamed(context, MyInfomationPage.routeName);
+        },
       ),
       _InfoItem(
         icon: TripOnIcons.car,
         title: 'Cars',
-        onPress: () {},
+        onPress: () {
+          Navigator.pushNamed(context, CarInfoPage.routeName);
+        },
       ),
     ];
 
@@ -55,7 +61,11 @@ class MineInfoCard extends StatelessWidget {
 }
 
 class _InfoItem extends StatelessWidget {
-  _InfoItem({Key key, @required this.icon, @required this.title, @required this.onPress})
+  _InfoItem(
+      {Key key,
+      @required this.icon,
+      @required this.title,
+      @required this.onPress})
       : assert(onPress != null),
         super(key: key);
 
