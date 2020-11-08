@@ -46,7 +46,7 @@ class PushService with ChangeNotifier {
     } catch (e) {}
   }
 
-   void addEventHandler() {
+  void addEventHandler() {
     _jpush.addEventHandler(
       onReceiveMessage: _onReceiveMessage,
       onOpenNotification: _onOpenNotification,
@@ -69,24 +69,31 @@ class PushService with ChangeNotifier {
     _removeEvent(name: name, target: _openEvents);
   }
 
-  Future _onOpenNotification(Map<String, dynamic> data) async {
-
+  Future<dynamic> _onOpenNotification(Map<String, dynamic> data) async {
     print('on open tap ------------------');
     if (data == null) return;
+    print(data);
 
     final event = _parseMessage(data);
+    _jpush.clearNotification(notificationId: event.extras.notificationId);
 
     _openEvents.forEach((key, handler) {
-      handler(event);
+      try {
+        handler(event);
+      } catch (e) {
+        print(e);
+      }
     });
   }
 
-  Future _onReceiveMessage(Map<String, dynamic> data) async {
+  Future<dynamic> _onReceiveMessage(Map<String, dynamic> data) async {
     print('on receive ------------------');
 
     if (data == null) return;
 
     final event = _parseMessage(data);
+
+    _jpush.clearAllNotifications();
 
     _recieveEvents.forEach((key, handler) {
       handler(event);
@@ -94,6 +101,7 @@ class PushService with ChangeNotifier {
   }
 
   PushEventModal _parseMessage(Map<String, dynamic> message) {
+    // todo delete this
     print(message);
     return PushEventModal.fromJson(message);
   }
@@ -103,9 +111,10 @@ class PushService with ChangeNotifier {
     OnPushMessage event,
     Map<String, OnPushMessage> target,
   }) {
-    if (!target.containsKey(name)) {
-      target[name] = event;
+    if (target.containsKey(name)) {
+      print('event exist, this operation will cover old event: $name');
     }
+    target[name] = event;
   }
 
   void _removeEvent({String name, Map<String, OnPushMessage> target}) {
@@ -115,7 +124,7 @@ class PushService with ChangeNotifier {
   @override
   void dispose() {
     super.dispose();
-    _openEvents = null;
-    _recieveEvents = null;
+    _openEvents.clear();
+    _recieveEvents.clear();
   }
 }

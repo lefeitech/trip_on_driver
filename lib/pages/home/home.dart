@@ -49,7 +49,8 @@ class _OrderListState extends State<OrderList> {
 
   final _ctrl = ScrollController();
 
-  final _eventName = 'rob-receiver';
+  final _eventReceive = 'rob-receiver';
+  final _eventOpen = 'rob-open';
 
   @override
   void didUpdateWidget(OrderList oldWidget) {
@@ -65,6 +66,9 @@ class _OrderListState extends State<OrderList> {
 
   @override
   void dispose() {
+    final pushSrv = context.read<PushService>();
+    pushSrv.removeOpenEvent(_eventOpen);
+    pushSrv.removeReceiveEvent(_eventReceive);
     super.dispose();
     _repo.dispose();
     _ctrl.dispose();
@@ -96,24 +100,25 @@ class _OrderListState extends State<OrderList> {
     return Consumer<PushService>(
       builder: (_, pushProvider, __) {
         pushProvider.addReceiveEvent(
-            name: _eventName,
+            name: _eventReceive,
             onPushMessage: (event) {
-              _ctrl.animateTo(
-                0,
-                duration: Duration(milliseconds: 30),
-                curve: Curves.bounceIn,
-              );
+              // todo add rob order
+              // _repo.add(RobInfo());
+              setState(() {});
+              if (_ctrl.hasClients) {
+                _ctrl.animateTo(
+                  0,
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.bounceIn,
+                );
+              }
               print('event.content');
               return Future.value();
             });
         pushProvider.addOpenEvent(
-            name: _eventName,
+            name: _eventOpen,
             onPushMessage: (event) {
-              _ctrl.animateTo(
-                0,
-                duration: Duration(milliseconds: 30),
-                curve: Curves.bounceIn,
-              );
+              _repo.refresh();
               print('event.content');
               return Future.value();
             });

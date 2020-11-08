@@ -59,6 +59,6 @@ class NavigatorUtil {
 
   /// rob item detail
   static Future<void> goRobDetailPage(RobInfo info) {
-    return RouteHelper().pushWidget(RobDetaolPage(info));
+    return RouteHelper().pushWidget(RobDetailPage(info));
   }
 }

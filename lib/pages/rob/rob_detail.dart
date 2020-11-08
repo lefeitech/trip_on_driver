@@ -8,8 +8,8 @@ import 'package:driver/widgets/to_card.dart';
 import 'package:flutter/material.dart';
 
 /// 抢单详情
-class RobDetaolPage extends StatelessWidget {
-  RobDetaolPage(this.info);
+class RobDetailPage extends StatelessWidget {
+  RobDetailPage(this.info);
 
   final RobInfo info;
 
