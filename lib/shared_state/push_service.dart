@@ -1,4 +1,6 @@
-import 'package:driver/common/model/push_event.dart';
+import 'dart:convert';
+
+import 'package:driver/common/model/push/push_event.dart';
 import 'package:driver/common/utils/common_util.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -75,7 +77,7 @@ class PushService with ChangeNotifier {
     print(data);
 
     final event = _parseMessage(data);
-    _jpush.clearNotification(notificationId: event.extras.notificationId);
+    // _jpush.clearNotification(notificationId: event.extras.notificationId);
 
     _openEvents.forEach((key, handler) {
       try {
@@ -88,7 +90,6 @@ class PushService with ChangeNotifier {
 
   Future<dynamic> _onReceiveMessage(Map<String, dynamic> data) async {
     print('on receive ------------------');
-
     if (data == null) return;
 
     final event = _parseMessage(data);
@@ -102,7 +103,7 @@ class PushService with ChangeNotifier {
 
   PushEventModal _parseMessage(Map<String, dynamic> message) {
     // todo delete this
-    print(message);
+    print(json.encode(message));
     return PushEventModal.fromJson(message);
   }
 

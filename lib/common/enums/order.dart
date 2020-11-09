@@ -30,7 +30,7 @@ class TransformType {
   static const int pickUp = 1;
 
   // 送机
-  static const int dropUp = 1;
+  static const int dropUp = 2;
 }
 
 // TODO: service type

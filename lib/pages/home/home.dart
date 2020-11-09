@@ -1,3 +1,4 @@
+import 'package:driver/common/enums/push_event.dart';
 import 'package:driver/common/model/order/rob_list_res.dart';
 import 'package:driver/common/utils/navigator_util.dart';
 import 'package:driver/pages/rob/rob_list_item.dart';
@@ -104,22 +105,29 @@ class _OrderListState extends State<OrderList> {
             onPushMessage: (event) {
               // todo add rob order
               // _repo.add(RobInfo());
-              setState(() {});
-              if (_ctrl.hasClients) {
-                _ctrl.animateTo(
-                  0,
-                  duration: Duration(milliseconds: 300),
-                  curve: Curves.bounceIn,
-                );
+              if (event.extras != null &&
+                  event.extras.extra?.type == PushEvent.rob) {
+                _repo.addAll(event.extras.extra.content);
+                setState(() {});
+                if (_ctrl.hasClients) {
+                  _ctrl.animateTo(
+                    0,
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.bounceIn,
+                  );
+                }
+                print('event.content');
               }
-              print('event.content');
               return Future.value();
             });
         pushProvider.addOpenEvent(
             name: _eventOpen,
             onPushMessage: (event) {
-              _repo.refresh();
-              print('event.content');
+              if (event.extras != null &&
+                  event.extras.extra?.type == PushEvent.rob) {
+                _repo.refresh();
+                print('event.content');
+              }
               return Future.value();
             });
         return RefreshIndicator(

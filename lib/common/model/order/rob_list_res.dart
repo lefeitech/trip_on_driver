@@ -1,12 +1,6 @@
 import 'dart:convert' show json;
 
-T asT<T>(dynamic value) {
-  if (value is T) {
-    return value;
-  }
-
-  return null;
-}
+import '../common.dart';
 
 class RobListRes {
   RobListRes({
