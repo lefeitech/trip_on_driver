@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:driver/app.dart';
+import 'package:driver/common/config/config.dart';
 import 'package:driver/common/report/report.dart';
+import 'package:driver/common/utils/log.dart';
 import 'package:driver/shared_state/global_config.dart';
 import 'package:driver/shared_state/push_service.dart';
 import 'package:driver/shared_state/tab_provider.dart';
@@ -20,6 +22,7 @@ Future<Null> main() async {
     await GlobalConfig.getDefaultConfig();
     await PushService.init();
     GlobalConfig.setDefaultStatusBar();
+    LogUtil.init(isDebug: Config.debugMode);
 
     runApp(OKToast(
       child: MultiProvider(

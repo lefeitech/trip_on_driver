@@ -103,11 +103,9 @@ class _OrderListState extends State<OrderList> {
         pushProvider.addReceiveEvent(
             name: _eventReceive,
             onPushMessage: (event) {
-              // todo add rob order
-              // _repo.add(RobInfo());
-              if (event.extras != null &&
-                  event.extras.extra?.type == PushEvent.rob) {
-                _repo.addAll(event.extras.extra.content);
+              if (event.message?.type == PushEvent.rob &&
+                  event.message.content is RobInfo) {
+                _repo.add(event.message.content);
                 setState(() {});
                 if (_ctrl.hasClients) {
                   _ctrl.animateTo(
@@ -123,8 +121,8 @@ class _OrderListState extends State<OrderList> {
         pushProvider.addOpenEvent(
             name: _eventOpen,
             onPushMessage: (event) {
-              if (event.extras != null &&
-                  event.extras.extra?.type == PushEvent.rob) {
+              if (event.message?.type == PushEvent.rob &&
+                  event.message.content is RobInfo) {
                 _repo.refresh();
                 print('event.content');
               }

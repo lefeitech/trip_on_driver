@@ -96,7 +96,7 @@ class RobListItem extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20),
                   child: Text.rich(
                     TextSpan(
-                      text: 'Order Account：RM',
+                      text: 'RM',
                       style: TextStyle(color: _bodyFontColor, fontSize: 12),
                       children: [
                         TextSpan(
@@ -176,19 +176,22 @@ class __RobBtnState extends State<_RobBtn> {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-          color: Color(0xFF2096F3),
-          boxShadow: [
-            //阴影
-            BoxShadow(
-                color: Color(0xFF4FAFF8), offset: Offset(0, 2), blurRadius: 4.0)
-          ],
-          borderRadius: BorderRadius.circular(30.0)),
+        color: Color(0xFF2096F3),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0xFF4FAFF8),
+            offset: Offset(0, 2),
+            blurRadius: 4.0,
+          )
+        ],
+        borderRadius: BorderRadius.circular(30.0),
+      ),
       child: FlatButton(
         textColor: Colors.white,
         child: _isLoading
             ? SmallCircleIndicator(color: Colors.white)
             : Text(
-                'Take Order',
+                'Take',
                 style: TextStyle(fontSize: 18),
               ),
         onPressed: () {

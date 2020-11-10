@@ -10,6 +10,7 @@ class IOSEventModel {
     this.jBusiness,
     this.content,
     this.type,
+    this.title,
     this.extras,
   });
 
@@ -18,10 +19,12 @@ class IOSEventModel {
           ? null
           : IOSEventModel(
               jUid: asT<int>(jsonRes['_j_uid']),
+              title: asT<String>(jsonRes['title']),
               jMsgid: asT<int>(jsonRes['_j_msgid']),
               aps: Aps.fromJson(asT<Map<String, dynamic>>(jsonRes['aps'])),
-              extras: MessageContent.fromJson(
-                  asT<Map<String, dynamic>>(jsonRes['extras'])),
+              extras: jsonRes['extras'] == null
+                  ? null
+                  : MessageContent.fromJson(json.decode(json.encode(jsonRes['extras']))),
               jBusiness: asT<int>(jsonRes['_j_business']),
               content: asT<String>(jsonRes['content']),
               type: asT<String>(jsonRes['type']),
@@ -33,6 +36,7 @@ class IOSEventModel {
   int jBusiness;
   String content;
   String type;
+  String title;
   MessageContent extras;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
@@ -43,6 +47,7 @@ class IOSEventModel {
         '_j_business': jBusiness,
         'content': content,
         'type': type,
+        'title': title,
       };
 
   @override

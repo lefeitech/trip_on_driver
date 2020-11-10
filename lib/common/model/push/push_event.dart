@@ -45,7 +45,8 @@ class PushEventModal<T> {
     if (event is IOSEventModel) {
       notificationId = event.jUid;
       message = event.extras;
-      alert = event.aps.alert;
+      title = event.title;
+      alert = event.aps?.alert;
     }
     origin = event;
   }

@@ -1,8 +1,13 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:driver/common/model/push/android_event.dart';
+import 'package:driver/common/model/push/ios_event.dart';
 import 'package:driver/common/model/push/push_event.dart';
 import 'package:driver/common/utils/common_util.dart';
+import 'package:driver/common/utils/log.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:jpush_flutter/jpush_flutter.dart';
 import 'package:driver/common/config/config.dart';
@@ -72,12 +77,13 @@ class PushService with ChangeNotifier {
   }
 
   Future<dynamic> _onOpenNotification(Map<String, dynamic> data) async {
-    print('on open tap ------------------');
     if (data == null) return;
-    print(data);
 
     final event = _parseMessage(data);
-    // _jpush.clearNotification(notificationId: event.extras.notificationId);
+
+    if (event == null) return;
+    _jpush.clearNotification(notificationId: event.notificationId);
+    _jpush.setBadge(0);
 
     _openEvents.forEach((key, handler) {
       try {
@@ -89,12 +95,12 @@ class PushService with ChangeNotifier {
   }
 
   Future<dynamic> _onReceiveMessage(Map<String, dynamic> data) async {
-    print('on receive ------------------');
     if (data == null) return;
 
     final event = _parseMessage(data);
 
     _jpush.clearAllNotifications();
+    _jpush.setBadge(0);
 
     _recieveEvents.forEach((key, handler) {
       handler(event);
@@ -102,9 +108,16 @@ class PushService with ChangeNotifier {
   }
 
   PushEventModal _parseMessage(Map<String, dynamic> message) {
-    // todo delete this
-    print(json.encode(message));
-    return PushEventModal.fromJson(message);
+    if (Platform.isAndroid) {
+      final data = AndroidEventModal.fromJson(message);
+      return PushEventModal<AndroidEventModal>.fromAndroid(data);
+    }
+
+    if (Platform.isIOS) {
+      final data = IOSEventModel.fromJson(message);
+      return PushEventModal<IOSEventModel>.fromIos(data);
+    }
+    return null;
   }
 
   void _addEvent({
