@@ -1,15 +1,57 @@
+import 'package:driver/common/model/push/android_event.dart';
+import 'package:driver/common/model/push/ios_event.dart';
+
 import '../common.dart';
 import '../order/rob_list_res.dart';
 
-class PushEventModal {
-  PushEventModal();
-  // todo delete this after combine [AndroidEvent] and [IOSEvent]
-  factory PushEventModal.fromJson(Map<String, dynamic> jsonRes) {
-    return PushEventModal();
+/// combine android and ios notification together
+///
+/// blow properties in android and ios origin key are:
+///
+/// ------------------------------------------------------------------
+/// | property         | android                          | ios      |
+/// | ---------------- | -------------------------------- | :------- |
+/// | [notificationId] | cn.jpush.android.NOTIFICATION_ID | _j_uid   |
+/// | [message]        | cn.jpush.android.EXTRA           | extras   |
+/// | [origin]         | AndroidEventModel                | IOSEventModel |
+/// ------------------------------------------------------------------
+
+class PushEventModal<T> {
+  int notificationId;
+  MessageContent message;
+  String title;
+  String alert;
+  T origin;
+
+  PushEventModal({
+    this.notificationId,
+    this.message,
+    this.title,
+    this.alert,
+    this.origin,
+  });
+
+  PushEventModal.fromAndroid(T event) : assert(event is AndroidEventModal) {
+    if (event is AndroidEventModal) {
+      notificationId = event.extras.notificationId;
+      message = event.extras.extra;
+      alert = event.alert;
+      title = event.title;
+    }
+    origin = event;
   }
 
+  PushEventModal.fromIos(T event) : assert(event is IOSEventModel) {
+    if (event is IOSEventModel) {
+      notificationId = event.jUid;
+      message = event.extras;
+      alert = event.aps.alert;
+    }
+    origin = event;
+  }
 }
 
+/// parse message form push event
 class MessageContent {
   MessageContent({this.type, this.content});
 
@@ -22,21 +64,16 @@ class MessageContent {
     }
     MessageContent message = MessageContent();
     final type = asT<String>(jsonRes['type']);
+    final info = jsonRes['content'];
+
     message.type = type;
 
-    if (jsonRes['content'] == null) {
+    if (info == null) {
       return message;
     }
+
     if (type == 'rob') {
-      final List<RobInfo> info =
-          jsonRes['content'] is List ? <RobInfo>[] : null;
-      if (info != null) {
-        for (final dynamic item in jsonRes['content']) {
-          if (item != null) {
-            info.add(RobInfo.fromJson(asT<Map<String, dynamic>>(item)));
-          }
-        }
-      }
+      message.content = RobInfo.fromJson(asT<Map<String, dynamic>>(info));
     }
 
     return message;

@@ -1,27 +1,31 @@
 import 'dart:convert' show json;
-
+import 'package:driver/common/model/push/push_event.dart';
 import '../common.dart';
 
-class IOSEvent {
-  IOSEvent({
+class IOSEventModel {
+  IOSEventModel({
     this.jUid,
     this.jMsgid,
     this.aps,
     this.jBusiness,
     this.content,
     this.type,
+    this.extras,
   });
 
-  factory IOSEvent.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
-      ? null
-      : IOSEvent(
-          jUid: asT<int>(jsonRes['_j_uid']),
-          jMsgid: asT<int>(jsonRes['_j_msgid']),
-          aps: Aps.fromJson(asT<Map<String, dynamic>>(jsonRes['aps'])),
-          jBusiness: asT<int>(jsonRes['_j_business']),
-          content: asT<String>(jsonRes['content']),
-          type: asT<String>(jsonRes['type']),
-        );
+  factory IOSEventModel.fromJson(Map<String, dynamic> jsonRes) =>
+      jsonRes == null
+          ? null
+          : IOSEventModel(
+              jUid: asT<int>(jsonRes['_j_uid']),
+              jMsgid: asT<int>(jsonRes['_j_msgid']),
+              aps: Aps.fromJson(asT<Map<String, dynamic>>(jsonRes['aps'])),
+              extras: MessageContent.fromJson(
+                  asT<Map<String, dynamic>>(jsonRes['extras'])),
+              jBusiness: asT<int>(jsonRes['_j_business']),
+              content: asT<String>(jsonRes['content']),
+              type: asT<String>(jsonRes['type']),
+            );
 
   int jUid;
   int jMsgid;
@@ -29,11 +33,13 @@ class IOSEvent {
   int jBusiness;
   String content;
   String type;
+  MessageContent extras;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         '_j_uid': jUid,
         '_j_msgid': jMsgid,
         'aps': aps,
+        'extras': extras,
         '_j_business': jBusiness,
         'content': content,
         'type': type,
