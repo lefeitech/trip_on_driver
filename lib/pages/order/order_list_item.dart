@@ -27,7 +27,7 @@ class OrderListItem extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(transformType, style: Theme.of(context).textTheme.subtitle2.copyWith(fontSize: 18)),
+                Text(transformType, style: Theme.of(context).textTheme.subtitle2.copyWith(fontSize: 16)),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -66,7 +66,7 @@ class OrderListItem extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20),
               child: Text.rich(
                 TextSpan(
-                  text: 'lump sum：RM',
+                  text: 'RM ',
                   style: TextStyle(color: _bodyFontColor, fontSize: 12),
                   children: [
                     TextSpan(

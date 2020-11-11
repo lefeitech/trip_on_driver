@@ -84,7 +84,7 @@ class OrderListTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 95,
+      height: 85,
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(10),
@@ -92,9 +92,8 @@ class OrderListTab extends StatelessWidget {
       ),
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.only(bottom: 10),
         child: TabBar(
-          isScrollable: true,
           controller: controller,
           tabs: <Widget>[
             Tab(text: 'Accepted'),
@@ -102,8 +101,9 @@ class OrderListTab extends StatelessWidget {
             Tab(text: 'Completed'),
             Tab(text: 'Cancelled'),
           ],
+          labelPadding: const EdgeInsets.symmetric(horizontal: 2),
           labelColor: Color(0xFF222222),
-          labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
           indicator: UnderlineTabIndicator(
             borderSide: BorderSide(

@@ -1,13 +1,9 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:driver/common/model/push/android_event.dart';
 import 'package:driver/common/model/push/ios_event.dart';
 import 'package:driver/common/model/push/push_event.dart';
 import 'package:driver/common/utils/common_util.dart';
-import 'package:driver/common/utils/log.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:jpush_flutter/jpush_flutter.dart';
 import 'package:driver/common/config/config.dart';

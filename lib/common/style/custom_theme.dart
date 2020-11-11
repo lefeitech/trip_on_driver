@@ -78,7 +78,7 @@ class CustomTheme {
       tabBarTheme: ThemeData.light().tabBarTheme.copyWith(
             indicatorSize: TabBarIndicatorSize.label,
             indicator: UnderlineTabIndicator(
-              insets: const EdgeInsets.only(bottom: 6),
+              insets: const EdgeInsets.only(bottom: 2),
             ),
           ),
       inputDecorationTheme: ThemeData.light().inputDecorationTheme.copyWith(
