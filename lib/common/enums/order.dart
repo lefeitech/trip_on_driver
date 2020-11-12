@@ -1,4 +1,4 @@
-enum OrderType { pickup, dropOff }
+enum AirportOrderType { pickup, dropOff }
 
 /// 订单状态
 class OrderState {
@@ -37,4 +37,21 @@ class TransformType {
 class ServiceType {
   static const int pickUpBand = 1;
   static const int dropUp = 2;
+}
+
+class OrderType {
+  // 接送机
+  static const int airport = 1;
+  // 包车游
+  static const int charter = 2;
+  // 租车
+  static const int rental = 3;
+  // 目的地
+  static const int destination = 4;
+  // 定制游
+  static const int custom = 5;
+  // 通用
+  static const int normal = 6;
+  // 网约车
+  static const int rideHailing = 7;
 }

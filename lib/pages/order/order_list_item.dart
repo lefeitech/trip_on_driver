@@ -56,8 +56,8 @@ class OrderListItem extends StatelessWidget {
               StartArriveWidget(title: Text(info.other.airport)),
               StartArriveWidget(title: Text(info.other.destination), isStart: false),
             ] else ...[
-              StartArriveWidget(title: Text(info.other.destination)),
-              StartArriveWidget(title: Text(info.other.airport), isStart: false),
+              StartArriveWidget(title: Text(info.other.destination ?? '')),
+              StartArriveWidget(title: Text(info.other.airport ), isStart: false),
             ],
 
             SizedBox(height: 20),
