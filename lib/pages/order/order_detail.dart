@@ -2,14 +2,12 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:driver/common/api/order/order.dart';
 import 'package:driver/common/enums/order.dart';
 import 'package:driver/common/model/order/order_detail.dart';
-import 'package:driver/common/model/order/order_other.dart';
 import 'package:driver/common/style/custom_theme.dart';
-import 'package:driver/common/style/trip_on_icons.dart';
 import 'package:driver/common/utils/common_util.dart';
+import 'package:driver/common/utils/log.dart';
 import 'package:driver/common/utils/order.dart';
 import 'package:driver/widgets/main_container.dart';
 import 'package:driver/widgets/small_circle_indicator.dart';
-import 'package:driver/widgets/start_arrive_widget.dart';
 import 'package:driver/widgets/to_card.dart';
 import 'package:flutter/material.dart';
 
@@ -63,7 +61,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
       hasErr = res.code == 0;
     } catch (e) {
       hasErr = true;
-      print(e);
+      LogUtil.v(e);
     }
 
     if (hasErr) {
@@ -77,7 +75,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
     _getOrderDetail(_order.id);
   }
 
-  Future<void> _confirmCustomer() async {
+  Future<void> _updateState(int state) async {
     setState(() {
       _isConfirmLoading = true;
     });
@@ -86,12 +84,12 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
     try {
       final res = await OrderApi.changeOrderStatus(
         orderId: _order.id,
-        state: OrderState.passengerOnBoard,
+        state: state,
       );
       hasErr = res.code == 0;
     } catch (e) {
       hasErr = true;
-      print(e);
+      LogUtil.v(e);
     }
 
     if (hasErr) {
@@ -122,6 +120,79 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
     });
   }
 
+  Widget _operationWidget(OrderInfoModel order) {
+    List<Widget> operations;
+    if (_order.state == OrderState.picked) {
+      operations = [
+        Expanded(
+          child: OutlineButton(
+            borderSide: BorderSide(
+              color: Colors.red,
+              width: .6,
+            ),
+            child: _isCancelLoading
+                ? SmallCircleIndicator(
+                    color: Colors.red,
+                    drawWidth: 3,
+                  )
+                : Text(
+                    'cancel',
+                    style: TextStyle(color: Colors.red),
+                  ),
+            onPressed: _cancelTap,
+          ),
+        ),
+        SizedBox(width: 16),
+        Expanded(
+          child: FlatButton(
+            color: Theme.of(context).primaryColor,
+            child: _isConfirmLoading
+                ? SmallCircleIndicator()
+                : Text(
+                    'confirm',
+                    style: TextStyle(color: Colors.white),
+                  ),
+            onPressed: () {
+              if (_isConfirmLoading) return;
+              _updateState(OrderState.passengerOnBoard);
+            },
+          ),
+        )
+      ];
+    } else if (_order.state == OrderState.passengerOnBoard) {
+      operations = [
+        Expanded(
+          child: FlatButton(
+            color: Theme.of(context).primaryColor,
+            child: _isConfirmLoading
+                ? SmallCircleIndicator()
+                : Text(
+                    'complete',
+                    style: TextStyle(color: Colors.white),
+                  ),
+            onPressed: () async {
+              if (_isConfirmLoading) return;
+              _updateState(OrderState.done);
+            },
+          ),
+        ),
+      ];
+    }
+    return operations == null
+        ? null
+        : SafeArea(
+            child: Container(
+              height: 60,
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+              ),
+              child: Row(children: operations),
+            ),
+          );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,53 +211,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                 ],
               ),
       ),
-      bottomNavigationBar: _order.state == OrderState.picked && !_isPageLoading
-          ? SafeArea(
-              child: Container(
-                height: 60,
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).cardColor,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: OutlineButton(
-                        borderSide: BorderSide(
-                          color: Colors.red,
-                          width: .6,
-                        ),
-                        child: _isCancelLoading
-                            ? SmallCircleIndicator(
-                                color: Colors.red,
-                                drawWidth: 3,
-                              )
-                            : Text(
-                                'cancel',
-                                style: TextStyle(color: Colors.red),
-                              ),
-                        onPressed: _cancelTap,
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                    Expanded(
-                      child: FlatButton(
-                        color: Theme.of(context).primaryColor,
-                        child: _isConfirmLoading
-                            ? SmallCircleIndicator()
-                            : Text(
-                                'confirm',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                        onPressed: _confirmCustomer,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            )
-          : null,
+      bottomNavigationBar: _isPageLoading ? null : _operationWidget(_order),
     );
   }
 }

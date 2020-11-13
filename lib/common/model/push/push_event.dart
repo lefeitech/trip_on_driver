@@ -1,3 +1,4 @@
+import 'package:driver/common/model/order/order_detail.dart';
 import 'package:driver/common/model/push/android_event.dart';
 import 'package:driver/common/model/push/ios_event.dart';
 
@@ -74,7 +75,7 @@ class MessageContent {
     }
 
     if (type == 'rob') {
-      message.content = RobInfo.fromJson(asT<Map<String, dynamic>>(info));
+      message.content = OrderInfoModel.fromJson(asT<Map<String, dynamic>>(info));
     }
 
     return message;

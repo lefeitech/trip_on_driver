@@ -3,6 +3,7 @@ import 'package:driver/common/model/push/android_event.dart';
 import 'package:driver/common/model/push/ios_event.dart';
 import 'package:driver/common/model/push/push_event.dart';
 import 'package:driver/common/utils/common_util.dart';
+import 'package:driver/common/utils/log.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:jpush_flutter/jpush_flutter.dart';
@@ -27,7 +28,7 @@ class PushService with ChangeNotifier {
       );
       _jpush.applyPushAuthority();
     } catch (e) {
-      print(e);
+      LogUtil.v(e);
     }
   }
 
@@ -85,7 +86,7 @@ class PushService with ChangeNotifier {
       try {
         handler(event);
       } catch (e) {
-        print(e);
+        LogUtil.v(e);
       }
     });
   }
@@ -122,7 +123,7 @@ class PushService with ChangeNotifier {
     Map<String, OnPushMessage> target,
   }) {
     if (target.containsKey(name)) {
-      print('event exist, this operation will cover old event: $name');
+      LogUtil.v('event exist, this operation will cover old event: $name');
     }
     target[name] = event;
   }

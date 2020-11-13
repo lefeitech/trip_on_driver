@@ -1,6 +1,5 @@
 import 'package:driver/common/enums/push_event.dart';
 import 'package:driver/common/model/order/order_detail.dart';
-import 'package:driver/common/model/order/rob_list_res.dart';
 import 'package:driver/common/utils/navigator_util.dart';
 import 'package:driver/pages/rob/rob_list_item.dart';
 import 'package:driver/pages/rob/rob_list_repo.dart';
@@ -105,7 +104,7 @@ class _OrderListState extends State<OrderList> {
             name: _eventReceive,
             onPushMessage: (event) {
               if (event.message?.type == PushEvent.rob &&
-                  event.message.content is RobInfo) {
+                  event.message.content is OrderInfoModel) {
                 _repo.add(event.message.content);
                 setState(() {});
                 if (_ctrl.hasClients) {
@@ -115,7 +114,6 @@ class _OrderListState extends State<OrderList> {
                     curve: Curves.bounceIn,
                   );
                 }
-                print('event.content');
               }
               return Future.value();
             });
@@ -123,9 +121,8 @@ class _OrderListState extends State<OrderList> {
             name: _eventOpen,
             onPushMessage: (event) {
               if (event.message?.type == PushEvent.rob &&
-                  event.message.content is RobInfo) {
+                  event.message.content is OrderInfoModel) {
                 _repo.refresh();
-                print('event.content');
               }
               return Future.value();
             });

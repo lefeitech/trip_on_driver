@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:driver/common/utils/log.dart';
 import 'package:driver/pages/auth/login.dart';
 import 'package:flutter/material.dart';
 
@@ -10,8 +11,6 @@ import 'package:driver/common/model/user/user_info.dart';
 import 'package:driver/common/utils/common_util.dart';
 import 'package:driver/common/utils/navigator_util.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-
-// import '../pages/auth/login.dart';
 
 class RegisterProvider with ChangeNotifier {
   var userInfo = UserInfoModel();
@@ -53,12 +52,16 @@ class RegisterProvider with ChangeNotifier {
 
   // driver's license
   final cardCtrl = TextEditingController();
+
   // car's color
   final carColor = TextEditingController();
+
   // car seats number
   final carNum = TextEditingController();
+
   // car's number
   final carNo = TextEditingController();
+
   // car make
   final carMake = TextEditingController();
   final emailCtrl = TextEditingController();
@@ -104,7 +107,8 @@ class RegisterProvider with ChangeNotifier {
     }
 
     if (_agree == false) {
-      return CommonUtils.showMessage('Please agree the \'User Services Agreement\'');
+      return CommonUtils.showMessage(
+          'Please agree the \'User Services Agreement\'');
     }
 
     _loading = true;
@@ -116,21 +120,19 @@ class RegisterProvider with ChangeNotifier {
       _card1str = cardImageStr[0];
       _card2str = cardImageStr[1];
       if (await _register()) {
-        print('register success');
+        LogUtil.v('register success');
         CommonUtils.showMessage('register success');
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
         );
-        // Navigator.popUntil(context, ModalRoute.withName('/'));
-        // Navigator.popUntil(context, ModalRoute.withName('/login'));
       } else {
-        print('some bad thing happend');
-        // return CommonUtils.showMessage('some bad thing happend');
+        LogUtil.v('some bad thing happened');
+        // return CommonUtils.showMessage('some bad thing happened');
       }
     } catch (e) {
-      print('some error happend');
-      return CommonUtils.showMessage('some error happend');
+      LogUtil.v('some error happened');
+      return CommonUtils.showMessage('some error happened');
     } finally {
       EasyLoading.dismiss();
       _loading = false;
@@ -138,7 +140,8 @@ class RegisterProvider with ChangeNotifier {
   }
 
   Future<List<String>> _uploadImages(List<File> files) async {
-    final res = await Future.wait(files.map((image) => FileApi.uploadOneImage(image)));
+    final res =
+        await Future.wait(files.map((image) => FileApi.uploadOneImage(image)));
     List<String> imagesUrl;
     if (res[0].code == 1) {
       imagesUrl = res.map((item) => item.data.baseUrl).toList();
@@ -171,12 +174,11 @@ class RegisterProvider with ChangeNotifier {
       var res = await AuthApi.register(userInfo);
       if (res.code == 1) {
         return Future.value(true);
-      }else{
-CommonUtils.showMessage(res.msg);
+      } else {
+        CommonUtils.showMessage(res.msg);
       }
-      
     } catch (e) {
-      print(e);
+      LogUtil.v(e);
     }
 
     return Future.value(false);

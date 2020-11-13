@@ -2,7 +2,6 @@ import 'package:driver/common/enums/order.dart';
 import 'package:driver/common/model/order/order_detail.dart';
 import 'package:driver/common/utils/navigator_util.dart';
 import 'package:driver/common/utils/order.dart';
-import 'file:///C:/Flutter/projects/trip_on_driver/lib/pages/order/list_items/airport_list_item.dart';
 import 'package:driver/pages/order/order_list_repo.dart';
 import 'package:driver/shared_state/user_info.dart';
 import 'package:driver/widgets/data_indicators.dart';

@@ -1,6 +1,5 @@
 import 'package:driver/common/style/trip_on_icons.dart';
 import 'package:driver/pages/home/home.dart';
-import 'package:driver/pages/message/message.dart';
 import 'package:driver/pages/mine/mine.dart';
 import 'package:driver/pages/order/order_list_page.dart';
 import 'package:driver/shared_state/push_service.dart';

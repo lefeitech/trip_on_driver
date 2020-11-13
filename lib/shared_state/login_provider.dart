@@ -7,6 +7,7 @@ import 'package:driver/common/local/local_storage.dart';
 import 'package:driver/common/model/auth/send_code.dart';
 import 'package:driver/common/model/user/user_info.dart';
 import 'package:driver/common/utils/common_util.dart';
+import 'package:driver/common/utils/log.dart';
 import 'package:driver/shared_state/push_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -60,7 +61,7 @@ class LoginProvider with ChangeNotifier {
     } else if (_loginMethod == LoginType.pwd) {
       _loginMethod = LoginType.code;
     }
-    print(_loginMethod);
+    LogUtil.v(_loginMethod);
     notifyListeners();
   }
 
