@@ -1,7 +1,8 @@
 import 'package:driver/common/enums/order.dart';
 import 'package:driver/common/model/order/order_detail.dart';
 import 'package:driver/common/utils/navigator_util.dart';
-import 'package:driver/pages/order/order_list_item.dart';
+import 'package:driver/common/utils/order.dart';
+import 'file:///C:/Flutter/projects/trip_on_driver/lib/pages/order/list_items/airport_list_item.dart';
 import 'package:driver/pages/order/order_list_repo.dart';
 import 'package:driver/shared_state/user_info.dart';
 import 'package:driver/widgets/data_indicators.dart';
@@ -45,28 +46,29 @@ class _OrderListPageState extends State<OrderListPage>
             OrderListTab(controller: _tabCtrl),
             Expanded(
               child: Consumer<UserInfoProvider>(
-                builder: (_, UserInfoProvider userInfoProvider, __) =>
-                    TabBarView(
-                  controller: _tabCtrl,
-                  children: <Widget>[
-                    OrderList(
-                      status: OrderState.picked,
-                      driverId: userInfoProvider.userInfo?.id,
-                    ),
-                    OrderList(
-                      status: OrderState.passengerOnBoard,
-                      driverId: userInfoProvider.userInfo?.id,
-                    ),
-                    OrderList(
-                      status: OrderState.done,
-                      driverId: userInfoProvider.userInfo?.id,
-                    ),
-                    OrderList(
-                      status: OrderState.canceled,
-                      driverId: userInfoProvider.userInfo?.id,
-                    ),
-                  ],
-                ),
+                builder: (_, UserInfoProvider userInfoProvider, __) {
+                  return TabBarView(
+                    controller: _tabCtrl,
+                    children: <Widget>[
+                      OrderList(
+                        status: OrderState.picked,
+                        driverId: userInfoProvider.userInfo?.id,
+                      ),
+                      OrderList(
+                        status: OrderState.passengerOnBoard,
+                        driverId: userInfoProvider.userInfo?.id,
+                      ),
+                      OrderList(
+                        status: OrderState.done,
+                        driverId: userInfoProvider.userInfo?.id,
+                      ),
+                      OrderList(
+                        status: OrderState.canceled,
+                        driverId: userInfoProvider.userInfo?.id,
+                      ),
+                    ],
+                  );
+                },
               ),
             )
           ],
@@ -145,13 +147,17 @@ class _OrderListState extends State<OrderList> {
     _repo.driverId = widget.driverId.toString();
   }
 
-  Widget _itemBuilder(BuildContext context, OrderInfoModel item, int index) =>
-      OrderListItem(
-        item,
-        onTap: () {
-          NavigatorUtil.goOrderDetailPage(item);
-        },
-      );
+  Widget _itemBuilder(BuildContext context, OrderInfoModel item, int index) {
+    final child = OrderUtil.mapListItemByType(item);
+    return child == null
+        ? Container()
+        : GestureDetector(
+            onTap: () {
+              NavigatorUtil.goOrderDetailPage(item);
+            },
+            child: child,
+          );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,8 +167,10 @@ class _OrderListState extends State<OrderList> {
     ListConfig config = ListConfig<OrderInfoModel>(
       padding: EdgeInsets.zero,
       sourceList: _repo,
-      indicatorBuilder:
-          ListStatus(context: context, repo: _repo).indicatorBuilder,
+      indicatorBuilder: ListStatus(
+        context: context,
+        repo: _repo,
+      ).indicatorBuilder,
       itemBuilder: _itemBuilder,
     );
     return RefreshIndicator(

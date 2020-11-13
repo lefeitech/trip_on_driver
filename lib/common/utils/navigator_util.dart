@@ -1,5 +1,4 @@
 import 'package:driver/common/model/order/order_detail.dart';
-import 'package:driver/common/model/order/rob_list_res.dart';
 import 'package:driver/common/utils/route_helper.dart';
 import 'package:driver/pages/auth/login.dart';
 import 'package:driver/pages/auth/register.dart';
@@ -62,7 +61,7 @@ class NavigatorUtil {
   }
 
   /// rob item detail
-  static Future<void> goRobDetailPage(RobInfo info) {
+  static Future<void> goRobDetailPage(OrderInfoModel info) {
     return RouteHelper().pushWidget(RobDetailPage(info));
   }
 }

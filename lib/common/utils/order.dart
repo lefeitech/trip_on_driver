@@ -1,8 +1,14 @@
 import 'package:driver/common/enums/order.dart';
+import 'package:driver/common/model/order/order_detail.dart';
+import 'package:driver/pages/order/list_items/airport_list_item.dart';
+import 'package:driver/pages/order/list_items/ride_hailing_list_item.dart';
+import 'package:driver/pages/order/travel_info/airport_travel_info.dart';
+import 'package:driver/pages/order/travel_info/raide_hailing_travel_info.dart';
+import 'package:flutter/material.dart';
 
 class OrderUtil {
   /// map order transform status
-  /// !info : for internationalize
+  // !info : for internationalize
   static String mapTransformType(int type) {
     var typeStr = '';
     switch (type) {
@@ -43,5 +49,40 @@ class OrderUtil {
         break;
     }
     return typeStr;
+  }
+
+  static Widget mapListItemByType(
+    OrderInfoModel info, {
+    WidgetBuilder actionBuilder,
+  }) {
+    var item;
+    switch (info.orderTypeId) {
+      case OrderType.airport:
+        item = AirportListItem(info, actionBuilder: actionBuilder);
+        break;
+      case OrderType.rideHailing:
+        item = RideHailingListItem(info, actionBuilder: actionBuilder);
+        break;
+      default:
+        break;
+    }
+    return item;
+  }
+
+
+  static Widget mapTravelWidgetByType(
+      OrderInfoModel info) {
+    var item;
+    switch (info.orderTypeId) {
+      case OrderType.airport:
+        item = AirportTravelInfoWidget(info);
+        break;
+      case OrderType.rideHailing:
+        item = RideHailingTravelInfoWidget(info);
+        break;
+      default:
+        break;
+    }
+    return item;
   }
 }

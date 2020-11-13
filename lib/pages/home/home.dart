@@ -1,4 +1,5 @@
 import 'package:driver/common/enums/push_event.dart';
+import 'package:driver/common/model/order/order_detail.dart';
 import 'package:driver/common/model/order/rob_list_res.dart';
 import 'package:driver/common/utils/navigator_util.dart';
 import 'package:driver/pages/rob/rob_list_item.dart';
@@ -75,7 +76,7 @@ class _OrderListState extends State<OrderList> {
     _ctrl.dispose();
   }
 
-  Widget _itemBuilder(BuildContext context, RobInfo item, int index) =>
+  Widget _itemBuilder(BuildContext context, OrderInfoModel item, int index) =>
       RobListItem(
         item,
         onTap: () => NavigatorUtil.goRobDetailPage(item),
@@ -88,7 +89,7 @@ class _OrderListState extends State<OrderList> {
     if (widget.driverId == null) {
       return LoadingWidget(isFullPage: true);
     }
-    ListConfig config = ListConfig<RobInfo>(
+    ListConfig config = ListConfig<OrderInfoModel>(
       padding: EdgeInsets.zero,
       sourceList: _repo,
       indicatorBuilder: ListStatus(

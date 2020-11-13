@@ -2,14 +2,23 @@ import 'dart:convert';
 
 import '../common.dart';
 
-abstract class OhterBase {
-  OhterBase({this.id});
+/// order type decoder
+/// [Other1], [Other2], [Other7] all extends [OtherBase]
+/// their name follow the code defined in [OderType]
+/// limited type could use [as] keyword
+
+abstract class OtherBase {
+  OtherBase({this.id});
 
   int id;
+
+  Map<String, dynamic> toJson();
+
+  OtherBase.fromJson(Map<String, dynamic> jsonRes);
 }
 
 // 接送机
-class Other1 extends OhterBase {
+class Other1 implements OtherBase {
   Other1({
     this.id,
     this.type,
@@ -73,7 +82,7 @@ class Other1 extends OhterBase {
 }
 
 // 包车游
-class Other2 extends OhterBase {
+class Other2 implements OtherBase {
   Other2({
     this.id,
     this.startCity,
@@ -133,7 +142,7 @@ class Other2 extends OhterBase {
 }
 
 // 网约车
-class Other7 extends OhterBase {
+class Other7 implements OtherBase {
   Other7({
     this.id,
     this.startLongitude,

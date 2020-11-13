@@ -2,6 +2,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:driver/common/api/order/order.dart';
 import 'package:driver/common/enums/order.dart';
 import 'package:driver/common/model/order/order_detail.dart';
+import 'package:driver/common/model/order/order_other.dart';
 import 'package:driver/common/style/custom_theme.dart';
 import 'package:driver/common/style/trip_on_icons.dart';
 import 'package:driver/common/utils/common_util.dart';
@@ -132,7 +133,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 children: <Widget>[
                   _PriceWidget(widget.order),
-                  _TravelInfoWidget(widget.order),
+                  OrderUtil.mapTravelWidgetByType(widget.order) ?? Container(),
                   _PassengerInfoDisplayWidget(widget.order),
                   if (widget.order.serviceInfo != null)
                     _AdditionalWidget(widget.order.serviceInfo),
@@ -249,93 +250,6 @@ class _PriceWidget extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class _TravelInfoWidget extends StatelessWidget {
-  _TravelInfoWidget(this.order);
-
-  final OrderInfoModel order;
-
-  @override
-  Widget build(BuildContext context) {
-    return TOCard(
-      padding: const EdgeInsets.symmetric(vertical: 26, horizontal: 36),
-      child: IconTheme(
-        data: IconThemeData(color: Colors.black38, size: 20.0),
-        child: DefaultTextStyle(
-          style: TextStyle(
-            color: Color(0xFF222222),
-            fontSize: 12.0,
-          ),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Icon(TripOnIcons.hangcheng),
-                  SizedBox(width: 10.0),
-                  Text(order.carInfo?.carName ?? ''),
-                ],
-              ),
-              SizedBox(height: 10.0),
-              // start point and arrive point
-              if (order.other.type == TransformType.pickUp) ...[
-                StartArriveWidget(
-                  title: Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text(order.other.airport),
-                  ),
-                  preferredWidth: 10,
-                ),
-                StartArriveWidget(
-                  title: Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text(order.other.destination),
-                  ),
-                  isStart: false,
-                  preferredWidth: 10,
-                ),
-              ] else ...[
-                StartArriveWidget(
-                  title: Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text(order.other.destination),
-                  ),
-                  preferredWidth: 10,
-                ),
-                StartArriveWidget(
-                  title: Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text(order.other.airport),
-                  ),
-                  isStart: false,
-                  preferredWidth: 10,
-                ),
-              ],
-              SizedBox(height: 10.0),
-              if (order.other?.distance != null)
-                Row(
-                  children: <Widget>[
-                    Icon(TripOnIcons.juli),
-                    SizedBox(width: 10.0),
-                    Expanded(child: Text('${order.other.distance} km')),
-                  ],
-                ),
-              // SizedBox(height: 10.0),
-              // Row(
-              //   children: <Widget>[
-              //     Icon(TripOnIcons.feiji),
-              //     SizedBox(width: 10.0),
-              //     Expanded(child: Text(order.other?.flight ?? '')),
-              //   ],
-              // ),
-            ],
-          ),
         ),
       ),
     );

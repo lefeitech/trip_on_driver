@@ -1,8 +1,9 @@
 import 'package:driver/common/api/order/order.dart';
-import 'package:driver/common/model/order/rob_list_res.dart';
+import 'package:driver/common/model/order/order_detail.dart';
+import 'package:driver/common/model/order/order_list_res.dart';
 import 'package:loading_more_list/loading_more_list.dart' show LoadingMoreBase;
 
-class RobListRepo extends LoadingMoreBase<RobInfo> {
+class RobListRepo extends LoadingMoreBase<OrderInfoModel> {
   bool _hasMore = true;
   int _start = 0;
   int _count = 20;
@@ -17,7 +18,7 @@ class RobListRepo extends LoadingMoreBase<RobInfo> {
     bool successful = true;
 
     try {
-      RobListRes res = await OrderApi.getRobList(
+      OrderListRes res = await OrderApi.getRobList(
         driverId,
         start: _start,
         count: _count

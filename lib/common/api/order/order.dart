@@ -2,7 +2,6 @@ import 'package:dio/dio.dart' show Response;
 import 'package:driver/common/model/common.dart';
 import 'package:driver/common/model/order/order_detail_res.dart';
 import 'package:driver/common/model/order/order_list_res.dart';
-import 'package:driver/common/model/order/rob_list_res.dart';
 import 'package:driver/common/network/base_url.dart';
 import 'package:driver/common/network/common_http.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,7 +29,7 @@ class OrderApi {
   }
 
   // 获取抢单列表
-  static Future<RobListRes> getRobList(String driverId,
+  static Future<OrderListRes> getRobList(String driverId,
       {int start = 0, count = 20}) async {
     final query = {
       'driver_id': driverId,
@@ -38,7 +37,7 @@ class OrderApi {
       'count': count,
     };
     Response res = await http.get(BaseUrl.robList, queryParameters: query);
-    return RobListRes.fromJson(res.data);
+    return OrderListRes.fromJson(res.data);
   }
 
   /// 抢单

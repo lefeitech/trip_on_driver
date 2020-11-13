@@ -1,5 +1,3 @@
-enum AirportOrderType { pickup, dropOff }
-
 /// 订单状态
 class OrderState {
   // all

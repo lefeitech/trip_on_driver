@@ -1,9 +1,7 @@
-import 'package:driver/common/model/order/rob_list_res.dart';
+import 'package:driver/common/model/order/order_detail.dart';
 import 'package:driver/common/style/custom_theme.dart';
-import 'package:driver/common/style/trip_on_icons.dart';
 import 'package:driver/common/utils/order.dart';
 import 'package:driver/widgets/main_container.dart';
-import 'package:driver/widgets/start_arrive_widget.dart';
 import 'package:driver/widgets/to_card.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +9,7 @@ import 'package:flutter/material.dart';
 class RobDetailPage extends StatelessWidget {
   RobDetailPage(this.info);
 
-  final RobInfo info;
+  final OrderInfoModel info;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,7 @@ class RobDetailPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8),
           children: <Widget>[
             _PriceWidget(info),
-            _TravelInfoWidget(info),
+            OrderUtil.mapTravelWidgetByType(info) ?? Container(),
             _PassengerInfoDisplayWidget(info),
           ],
         ),
@@ -37,7 +35,7 @@ class RobDetailPage extends StatelessWidget {
 class _PriceWidget extends StatelessWidget {
   _PriceWidget(this.info);
 
-  final RobInfo info;
+  final OrderInfoModel info;
 
   @override
   Widget build(BuildContext context) {
@@ -99,87 +97,10 @@ class _PriceWidget extends StatelessWidget {
   }
 }
 
-class _TravelInfoWidget extends StatelessWidget {
-  _TravelInfoWidget(this.info);
-
-  final RobInfo info;
-  final _bodyFontColor = Color(0xFFA2A0A0);
-
-  @override
-  Widget build(BuildContext context) {
-    return TOCard(
-      padding: const EdgeInsets.symmetric(vertical: 26, horizontal: 36),
-      child: IconTheme(
-        data: IconThemeData(color: Colors.black38, size: 20.0),
-        child: DefaultTextStyle(
-          style: TextStyle(
-            color: Color(0xFF222222),
-            fontSize: 12.0,
-          ),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 0,
-                      bottom: 6,
-                      right: 10,
-                    ),
-                    child: Icon(
-                      TripOnIcons.shijian,
-                      color: _bodyFontColor,
-                      size: 20,
-                    ),
-                  ),
-                  Text(info.other.startTime),
-                ],
-              ),
-              // start point and arrive point
-              StartArriveWidget(
-                title: Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text(
-                    info.other.startAddress,
-                    maxLines: 3,
-                  ),
-                ),
-                preferredWidth: 18,
-              ),
-              StartArriveWidget(
-                title: Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text(
-                    info.other.endAddress,
-                    maxLines: 3,
-                  ),
-                ),
-                isStart: false,
-                preferredWidth: 18,
-              ),
-              SizedBox(height: 10.0),
-              if (info.other?.distance != null)
-                Row(
-                  children: <Widget>[
-                    Icon(TripOnIcons.juli),
-                    SizedBox(width: 10.0),
-                    Expanded(child: Text('${info.other.distance} km')),
-                  ],
-                ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class _PassengerInfoDisplayWidget extends StatelessWidget with _FormLineMixin {
   _PassengerInfoDisplayWidget(this.info);
 
-  final RobInfo info;
+  final OrderInfoModel info;
 
   @override
   Widget build(BuildContext context) {

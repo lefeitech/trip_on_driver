@@ -1,9 +1,10 @@
 import 'dart:convert';
-
+import 'package:driver/common/enums/order.dart';
 import 'package:driver/common/model/common.dart' show asT;
 import 'package:driver/common/model/user/user_info.dart';
+import 'order_other.dart';
 
-class OrderInfoModel {
+class OrderInfoModel<T extends OtherBase> {
   OrderInfoModel({
     this.id,
     this.openid,
@@ -52,14 +53,35 @@ class OrderInfoModel {
       return null;
     }
 
-    final List<ServiceInfo> serviceInfo = jsonRes['service_info'] is List ? <ServiceInfo>[] : null;
+    final List<ServiceInfo> serviceInfo =
+        jsonRes['service_info'] is List ? <ServiceInfo>[] : null;
     if (serviceInfo != null) {
       for (final dynamic item in jsonRes['service_info']) {
         if (item != null) {
-          serviceInfo.add(ServiceInfo.fromJson(asT<Map<String, dynamic>>(item)));
+          serviceInfo
+              .add(ServiceInfo.fromJson(asT<Map<String, dynamic>>(item)));
         }
       }
     }
+
+    final _typeId = asT<int>(jsonRes['order_type_id']);
+    final _otherMap = asT<Map<String, dynamic>>(jsonRes['other']);
+    OtherBase _other;
+
+    switch (_typeId) {
+      case OrderType.airport:
+        _other = Other1.fromJson(_otherMap);
+        break;
+      case OrderType.charter:
+        _other = Other2.fromJson(_otherMap);
+        break;
+      case OrderType.rideHailing:
+        _other = Other7.fromJson(_otherMap);
+        break;
+      default:
+        break;
+    }
+
     return OrderInfoModel(
       id: asT<int>(jsonRes['id']),
       openid: asT<String>(jsonRes['openid']),
@@ -97,10 +119,12 @@ class OrderInfoModel {
       includeId: asT<int>(jsonRes['include_id']),
       planeId: asT<int>(jsonRes['plane_id']),
       rentId: asT<int>(jsonRes['rent_id']),
-      carInfo: CarInfoModel.fromJson(asT<Map<String, dynamic>>(jsonRes['car_info'])),
+      carInfo:
+          CarInfoModel.fromJson(asT<Map<String, dynamic>>(jsonRes['car_info'])),
       serviceInfo: serviceInfo,
-      driverInfo: UserInfoModel.fromJson(asT<Map<String, dynamic>>(jsonRes['driver_info'])),
-      other: Other.fromJson(asT<Map<String, dynamic>>(jsonRes['other'])),
+      driverInfo: UserInfoModel.fromJson(
+          asT<Map<String, dynamic>>(jsonRes['driver_info'])),
+      other: _other,
     );
   }
 
@@ -143,7 +167,7 @@ class OrderInfoModel {
   CarInfoModel carInfo;
   List<ServiceInfo> serviceInfo;
   UserInfoModel driverInfo;
-  Other other;
+  T other;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
@@ -264,69 +288,6 @@ class ServiceInfo {
         'service_icon': serviceIcon,
         'service_content': serviceContent,
         'service_type': serviceType,
-      };
-
-  @override
-  String toString() {
-    return json.encode(this);
-  }
-}
-
-class Other {
-  Other({
-    this.id,
-    this.type,
-    this.airport,
-    this.flight,
-    this.flightTime,
-    this.destination,
-    this.distance,
-    this.expectTime,
-    this.createTime,
-    this.updateTime,
-    this.typeName,
-  });
-
-  factory Other.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
-      ? null
-      : Other(
-          id: asT<int>(jsonRes['id']),
-          type: asT<int>(jsonRes['type']),
-          airport: asT<String>(jsonRes['airport']),
-          flight: asT<String>(jsonRes['flight']),
-          flightTime: asT<String>(jsonRes['flight_time']),
-          destination: asT<String>(jsonRes['destination']),
-          distance: asT<double>(jsonRes['distance']),
-          expectTime: asT<int>(jsonRes['expect_time']),
-          createTime: asT<int>(jsonRes['create_time']),
-          updateTime: asT<int>(jsonRes['update_time']),
-          typeName: asT<String>(jsonRes['type_name']),
-        );
-
-  int id;
-  int type;
-  String airport;
-  String flight;
-  String flightTime;
-  String destination;
-  double distance;
-  int expectTime;
-  int createTime;
-  int updateTime;
-  String typeName;
-
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'id': id,
-        'type': type,
-        'airport': airport,
-        'flight': flight,
-        'flight_time': flightTime,
-        'destination': destination,
-        'distance': distance,
-        'expect_time': expectTime,
-        'create_time': createTime,
-        'update_time': updateTime,
-        'type_name': typeName,
       };
 
   @override
