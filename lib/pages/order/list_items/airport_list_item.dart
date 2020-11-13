@@ -75,11 +75,49 @@ class AirportListItem extends StatelessWidget {
             ),
           // start point and arrive point
           if (other.type == TransformType.pickUp) ...[
-            StartArriveWidget(title: Text(other.airport)),
-            StartArriveWidget(title: Text(other.destination), isStart: false),
+            StartArriveWidget(
+              title: Tooltip(
+                message: other.airport,
+                child: Text(
+                  other.airport,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+            StartArriveWidget(
+              title: Tooltip(
+                message: other.destination,
+                child: Text(
+                  other.destination,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              isStart: false,
+            ),
           ] else ...[
-            StartArriveWidget(title: Text(other.destination ?? '')),
-            StartArriveWidget(title: Text(other.airport), isStart: false),
+            StartArriveWidget(
+              title: Tooltip(
+                message: other.destination,
+                child: Text(
+                  other.destination,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+            StartArriveWidget(
+              title: Tooltip(
+                message: other.airport,
+                child: Text(
+                  other.airport,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              isStart: false,
+            ),
           ],
 
           SizedBox(height: 20),

@@ -75,8 +75,26 @@ class RideHailingListItem extends StatelessWidget {
             ],
           ),
 
-          StartArriveWidget(title: Text(other.startAddress)),
-          StartArriveWidget(title: Text(other.endAddress), isStart: false),
+          StartArriveWidget(
+            title: Tooltip(
+              message: other.startAddress,
+              child: Text(
+                other.startAddress,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+          StartArriveWidget(
+              title: Tooltip(
+                message: other.endAddress,
+                child: Text(
+                  other.endAddress,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              isStart: false),
 
           SizedBox(height: 20),
           // sum

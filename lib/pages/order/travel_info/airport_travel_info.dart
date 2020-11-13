@@ -40,14 +40,20 @@ class RideHailingTravelInfoWidget extends StatelessWidget {
               StartArriveWidget(
                 title: Padding(
                   padding: const EdgeInsets.only(left: 20),
-                  child: Text(other.startAddress),
+                  child: Tooltip(
+                    message: other.startAddress,
+                    child: Text(other.startAddress),
+                  ),
                 ),
                 preferredWidth: 10,
               ),
               StartArriveWidget(
                 title: Padding(
                   padding: const EdgeInsets.only(left: 20),
-                  child: Text(other.endAddress),
+                  child: Tooltip(
+                    message: other.endAddress,
+                    child: Text(other.endAddress),
+                  ),
                 ),
                 isStart: false,
                 preferredWidth: 10,
