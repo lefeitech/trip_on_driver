@@ -1,4 +1,3 @@
-import 'package:driver/common/enums/order.dart';
 import 'package:driver/common/model/order/order_detail.dart';
 import 'package:driver/common/model/order/order_other.dart';
 import 'package:driver/common/style/trip_on_icons.dart';
@@ -6,14 +5,14 @@ import 'package:driver/widgets/start_arrive_widget.dart';
 import 'package:driver/widgets/to_card.dart';
 import 'package:flutter/material.dart';
 
-class AirportTravelInfoWidget extends StatelessWidget {
-  AirportTravelInfoWidget(this.order);
+class RideHailingTravelInfoWidget extends StatelessWidget {
+  RideHailingTravelInfoWidget(this.order);
 
   final OrderInfoModel order;
 
   @override
   Widget build(BuildContext context) {
-    final other = order.other as Other1;
+    final other = order.other as Other7;
     return TOCard(
       padding: const EdgeInsets.symmetric(vertical: 26, horizontal: 36),
       child: IconTheme(
@@ -36,39 +35,29 @@ class AirportTravelInfoWidget extends StatelessWidget {
               ),
               SizedBox(height: 10.0),
               // start point and arrive point
-              if (other.type == TransformType.pickUp) ...[
-                StartArriveWidget(
-                  title: Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text(other.airport),
+
+              StartArriveWidget(
+                title: Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Tooltip(
+                    message: other.startAddress,
+                    child: Text(other.startAddress),
                   ),
-                  preferredWidth: 10,
                 ),
-                StartArriveWidget(
-                  title: Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text(other.destination),
+                preferredWidth: 10,
+              ),
+              StartArriveWidget(
+                title: Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Tooltip(
+                    message: other.endAddress,
+                    child: Text(other.endAddress),
                   ),
-                  isStart: false,
-                  preferredWidth: 10,
                 ),
-              ] else ...[
-                StartArriveWidget(
-                  title: Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text(other.destination),
-                  ),
-                  preferredWidth: 10,
-                ),
-                StartArriveWidget(
-                  title: Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text(other.airport),
-                  ),
-                  isStart: false,
-                  preferredWidth: 10,
-                ),
-              ],
+                isStart: false,
+                preferredWidth: 10,
+              ),
+
               SizedBox(height: 10.0),
               if (other?.distance != null)
                 Row(
@@ -79,13 +68,6 @@ class AirportTravelInfoWidget extends StatelessWidget {
                   ],
                 ),
               SizedBox(height: 10.0),
-              Row(
-                children: <Widget>[
-                  Icon(TripOnIcons.feiji),
-                  SizedBox(width: 10.0),
-                  Expanded(child: Text(other?.flight ?? '')),
-                ],
-              ),
             ],
           ),
         ),

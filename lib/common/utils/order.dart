@@ -2,8 +2,8 @@ import 'package:driver/common/enums/order.dart';
 import 'package:driver/common/model/order/order_detail.dart';
 import 'package:driver/pages/order/list_items/airport_list_item.dart';
 import 'package:driver/pages/order/list_items/ride_hailing_list_item.dart';
+import 'package:driver/pages/order/travel_info/ride_hailing_travel_info.dart';
 import 'package:driver/pages/order/travel_info/airport_travel_info.dart';
-import 'package:driver/pages/order/travel_info/raide_hailing_travel_info.dart';
 import 'package:flutter/material.dart';
 
 class OrderUtil {
