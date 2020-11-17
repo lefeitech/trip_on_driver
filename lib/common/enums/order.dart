@@ -22,6 +22,18 @@ class OrderState {
   static const int done = 8;
 }
 
+/// 订单状态变更
+class OrderOperationState {
+  // 取消
+  static const int cancel = 0;
+
+  // 确认乘客上车
+  static const int confirmPassenger = 4;
+
+  // 完成
+  static const int complete = 8;
+}
+
 /// 行程类型
 class TransformType {
   // 接机
@@ -40,16 +52,22 @@ class ServiceType {
 class OrderType {
   // 接送机
   static const int airport = 1;
+
   // 包车游
   static const int charter = 2;
+
   // 租车
   static const int rental = 3;
+
   // 目的地
   static const int destination = 4;
+
   // 定制游
   static const int custom = 5;
+
   // 通用
   static const int normal = 6;
+
   // 网约车
   static const int rideHailing = 7;
 }

@@ -56,7 +56,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
     try {
       final res = await OrderApi.changeOrderStatus(
         orderId: _order.id,
-        state: OrderState.canceled,
+        state: OrderOperationState.cancel,
       );
       hasErr = res.code == 0;
     } catch (e) {
@@ -154,7 +154,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                   ),
             onPressed: () {
               if (_isConfirmLoading) return;
-              _updateState(OrderState.passengerOnBoard);
+              _updateState(OrderOperationState.confirmPassenger);
             },
           ),
         )
@@ -172,7 +172,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                   ),
             onPressed: () async {
               if (_isConfirmLoading) return;
-              _updateState(OrderState.done);
+              _updateState(OrderOperationState.complete);
             },
           ),
         ),
