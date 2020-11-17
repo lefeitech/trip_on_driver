@@ -10,6 +10,7 @@ import 'package:driver/widgets/main_container.dart';
 import 'package:driver/widgets/small_circle_indicator.dart';
 import 'package:driver/widgets/to_card.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// 订单详情
 class OrderDetailPage extends StatefulWidget {
@@ -303,7 +304,22 @@ class _PassengerInfoDisplayWidget extends StatelessWidget with _FormLineMixin {
             children: <Widget>[
               _buildFormLine('passenger', order.rideName ?? '--'),
               _divider,
-              _buildFormLine('phone', order.rideTel ?? '--'),
+              if (order.rideTel != null && order.rideTel != '')
+                GestureDetector(
+                  onTap: () {
+                    CommonUtils.callPhone(context, order.rideTel);
+                  },
+                  child: _buildFormLine(
+                    'phone',
+                    order.rideTel,
+                    rightStyle: TextStyle(
+                      decoration: TextDecoration.underline,
+                      color: Colors.blue,
+                    ),
+                  ),
+                )
+              else
+                _buildFormLine('phone', '--'),
               _divider,
               _buildFormLine('requirements', order.remark ?? '--'),
             ],
@@ -364,12 +380,23 @@ class _FormLineMixin {
     fontSize: 14.0,
   );
 
-  Widget _buildFormLine(String left, String right) {
+  Widget _buildFormLine(
+    String left,
+    String right, {
+    TextStyle leftStyle,
+    TextStyle rightStyle,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Expanded(child: Text(left, style: _passengerStyle), flex: 1),
-        Expanded(child: Text(right, textAlign: TextAlign.end), flex: 2)
+        Expanded(
+          child: Text(left, style: leftStyle ?? _passengerStyle),
+          flex: 1,
+        ),
+        Expanded(
+          child: Text(right, style: rightStyle, textAlign: TextAlign.end),
+          flex: 2,
+        )
       ],
     );
   }
