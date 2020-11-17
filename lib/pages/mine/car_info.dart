@@ -36,7 +36,7 @@ class CarInfoPage extends StatelessWidget {
                       ),
                       child: Image.network(
                         infoProvider.userInfo.card1,
-                        fit: BoxFit.contain,
+                        fit: BoxFit.cover,
                       ),
                     ),
                     DefaultTextStyle(
