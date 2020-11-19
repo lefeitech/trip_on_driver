@@ -32,14 +32,14 @@ jobs:
       - name: Check for any formatting issues in the code
         run: flutter format --set-exit-if-changed ./lib
 
-      #       - name: Run widget tests for project
-      #         run: lutter test
+#      - name: Run widget tests for project
+#        run: lutter test
 
-      - name: Build apk
-        run: flutter build apk
+#      - name: Build apk
+#        run: flutter build apk
 
       # Upload generated apk to artifacts
-      - uses: actions/upload-artifact@v2
-        with:
-          name: release-apk
-          path: build/app/outputs/apk/release/app-release.apk
+#      - uses: actions/upload-artifact@v2
+#        with:
+#          name: release-apk
+#          path: build/app/outputs/apk/release/app-release.apk
