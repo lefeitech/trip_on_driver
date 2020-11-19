@@ -9,8 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image:  google/dart:latest
 
     steps:
       # Setup Java environment in order to build the Android app.
