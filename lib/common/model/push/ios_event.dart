@@ -24,7 +24,8 @@ class IOSEventModel {
               aps: Aps.fromJson(asT<Map<String, dynamic>>(jsonRes['aps'])),
               extras: jsonRes['extras'] == null
                   ? null
-                  : MessageContent.fromJson(json.decode(json.encode(jsonRes['extras']))),
+                  : MessageContent.fromJson(
+                      json.decode(json.encode(jsonRes['extras']))),
               jBusiness: asT<int>(jsonRes['_j_business']),
               content: asT<String>(jsonRes['content']),
               type: asT<String>(jsonRes['type']),

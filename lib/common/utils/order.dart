@@ -69,9 +69,7 @@ class OrderUtil {
     return item;
   }
 
-
-  static Widget mapTravelWidgetByType(
-      OrderInfoModel info) {
+  static Widget mapTravelWidgetByType(OrderInfoModel info) {
     var item;
     switch (info.orderTypeId) {
       case OrderType.airport:

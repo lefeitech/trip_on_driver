@@ -27,7 +27,8 @@ class MyInfomationPage extends StatelessWidget {
           child: Column(
             children: [
               TOCard(
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                 child: Column(
                   children: [
                     _buildItem(
@@ -39,7 +40,8 @@ class MyInfomationPage extends StatelessWidget {
                     _buildItem(
                       context,
                       label: 'Tel',
-                      value: CommonUtils.formatHiddenPhone(infoProvider.userInfo.driverTel),
+                      value: CommonUtils.formatHiddenPhone(
+                          infoProvider.userInfo.driverTel),
                     ),
                     child,
                     _buildItem(

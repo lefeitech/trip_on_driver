@@ -65,40 +65,38 @@ class CustomTheme {
   /// 亮色/暗色主题
   static ThemeData lightTheme() {
     return ThemeData.light().copyWith(
-      primaryColor: Color(0xFF00AFFF),
-      primaryColorLight: Color(0xFF00CFFF),
-      accentColor: Color(0xFF00CFFF),
-      appBarTheme: AppBarTheme(elevation: 0),
-      scaffoldBackgroundColor: Color(0xFFFCF9FC),
-      toggleableActiveColor: _primaryRed,
-      dividerColor: Color(0xFFEEEEEE),
-      textTheme: ThemeData.light().textTheme.copyWith(
-            caption: TextStyle(color: Color(0xFF999999), fontSize: 12),
-          ),
-      tabBarTheme: ThemeData.light().tabBarTheme.copyWith(
-            indicatorSize: TabBarIndicatorSize.label,
-            indicator: UnderlineTabIndicator(
-              insets: const EdgeInsets.only(bottom: 2),
+        primaryColor: Color(0xFF00AFFF),
+        primaryColorLight: Color(0xFF00CFFF),
+        accentColor: Color(0xFF00CFFF),
+        appBarTheme: AppBarTheme(elevation: 0),
+        scaffoldBackgroundColor: Color(0xFFFCF9FC),
+        toggleableActiveColor: _primaryRed,
+        dividerColor: Color(0xFFEEEEEE),
+        textTheme: ThemeData.light().textTheme.copyWith(
+              caption: TextStyle(color: Color(0xFF999999), fontSize: 12),
             ),
-          ),
-      inputDecorationTheme: ThemeData.light().inputDecorationTheme.copyWith(
-            hintStyle: TextStyle(color: Color(0xFF999999)),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(width: .4, color: Colors.grey[300]),
+        tabBarTheme: ThemeData.light().tabBarTheme.copyWith(
+              indicatorSize: TabBarIndicatorSize.label,
+              indicator: UnderlineTabIndicator(
+                insets: const EdgeInsets.only(bottom: 2),
+              ),
             ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(width: .4, color: Color(0xFF00AFFF)),
+        inputDecorationTheme: ThemeData.light().inputDecorationTheme.copyWith(
+              hintStyle: TextStyle(color: Color(0xFF999999)),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(width: .4, color: Colors.grey[300]),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(width: .4, color: Color(0xFF00AFFF)),
+              ),
+              errorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(width: .4, color: Colors.red),
+              ),
             ),
-            errorBorder: UnderlineInputBorder(
-              borderSide: BorderSide(width: .4, color: Colors.red),
-            ),
-          ),
-      buttonTheme: ThemeData.light().buttonTheme.copyWith(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        )
-      )
-    );
+        buttonTheme: ThemeData.light().buttonTheme.copyWith(
+                shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            )));
   }
 
   static ThemeData darkTheme() {

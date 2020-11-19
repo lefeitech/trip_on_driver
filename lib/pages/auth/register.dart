@@ -26,12 +26,13 @@ class Step1form extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget codeSuffix(String info) => GestureDetector(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 14),
-        child: Text(info, style: TextStyle(color: CustomTheme.of(context).tipAlertColor)),
-      ),
-      onTap: provider.sendCode,
-    );
+          child: Padding(
+            padding: const EdgeInsets.only(top: 14),
+            child: Text(info,
+                style: TextStyle(color: CustomTheme.of(context).tipAlertColor)),
+          ),
+          onTap: provider.sendCode,
+        );
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -89,8 +90,11 @@ class Step1form extends StatelessWidget {
                   hintText: 'Re-Password',
                 ),
                 validator: (String pwd) {
-                  final result = Validators.required('Password is required')(pwd);
-                  return result ?? Validators.same(provider.pwdCtrl.text, 'Passwords entered twice are different')(pwd);
+                  final result =
+                      Validators.required('Password is required')(pwd);
+                  return result ??
+                      Validators.same(provider.pwdCtrl.text,
+                          'Passwords entered twice are different')(pwd);
                 },
               ),
               TextFormField(
@@ -99,7 +103,8 @@ class Step1form extends StatelessWidget {
                   labelText: 'Driver\'s license number',
                   hintText: 'Driver\'s license number',
                 ),
-                validator: Validators.required('Driver\'s license number is required'),
+                validator:
+                    Validators.required('Driver\'s license number is required'),
               ),
               TextFormField(
                 controller: provider.emailCtrl,
@@ -108,8 +113,10 @@ class Step1form extends StatelessWidget {
                   hintText: 'Email',
                 ),
                 validator: (String email) {
-                  final result = Validators.required('Email is required')(email);
-                  return result ?? Validators.email('Email format is incorrect')(email);
+                  final result =
+                      Validators.required('Email is required')(email);
+                  return result ??
+                      Validators.email('Email format is incorrect')(email);
                 },
               ),
               TextFormField(
@@ -126,7 +133,8 @@ class Step1form extends StatelessWidget {
                   labelText: 'Emergency contact\'s number',
                   hintText: 'Emergency contact\'s number',
                 ),
-                validator: Validators.required('Emergency contact\'s number is required'),
+                validator: Validators.required(
+                    'Emergency contact\'s number is required'),
               ),
               SizedBox(height: 16),
               BottomWithOneBtn(

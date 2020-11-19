@@ -23,7 +23,8 @@ class Config {
   static const String _DEV_HOST = 'https://tripapi.ldbro.com';
 
   /// ////////////////////////////////////// sentry appid //////////////////////////////////////
-  static const String SENTRY_DSN = 'https://8e5a2bddff834adeaf1f5ed550cbddbf@sentry.io/4784190';
+  static const String SENTRY_DSN =
+      'https://8e5a2bddff834adeaf1f5ed550cbddbf@sentry.io/4784190';
 
   /// ////////////////////////////////////// jpush  //////////////////////////////////////
   static const String JPUSH_KEY = '3de594a787de360707ec52aa';

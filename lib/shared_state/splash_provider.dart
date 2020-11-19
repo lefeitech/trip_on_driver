@@ -5,7 +5,8 @@ import 'package:driver/pages/tab.dart';
 import 'package:flutter/material.dart';
 
 class SplashProvider with ChangeNotifier {
-  Future<bool> init(BuildContext context, {Future Function(int driverId) future}) async {
+  Future<bool> init(BuildContext context,
+      {Future Function(int driverId) future}) async {
     final token = await LocalStorage.get(Config.TOKEN_KEY);
     final driverIdStr = await LocalStorage.get(Config.USER_ID);
     if (token != null && driverIdStr != null) {

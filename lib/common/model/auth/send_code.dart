@@ -11,20 +11,20 @@ class SendCodeRes {
   factory SendCodeRes.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
       ? null
       : SendCodeRes(
-    code: asT<int>(jsonRes['code']),
-    msg: asT<String>(jsonRes['msg']),
-    data: CodeDate.fromJson(asT<Map<String, dynamic>>(jsonRes['data'])),
-  );
+          code: asT<int>(jsonRes['code']),
+          msg: asT<String>(jsonRes['msg']),
+          data: CodeDate.fromJson(asT<Map<String, dynamic>>(jsonRes['data'])),
+        );
 
   int code;
   String msg;
   CodeDate data;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-    'code': code,
-    'msg': msg,
-    'data': data,
-  };
+        'code': code,
+        'msg': msg,
+        'data': data,
+      };
   @override
   String toString() {
     return json.encode(this);
@@ -41,20 +41,20 @@ class CodeDate {
   factory CodeDate.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
       ? null
       : CodeDate(
-    tel: asT<String>(jsonRes['tel']),
-    code: asT<int>(jsonRes['code']),
-    time: asT<int>(jsonRes['time']),
-  );
+          tel: asT<String>(jsonRes['tel']),
+          code: asT<int>(jsonRes['code']),
+          time: asT<int>(jsonRes['time']),
+        );
 
   String tel;
   int code;
   int time;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-    'tel': tel,
-    'code': code,
-    'time': time,
-  };
+        'tel': tel,
+        'code': code,
+        'time': time,
+      };
   @override
   String toString() {
     return json.encode(this);

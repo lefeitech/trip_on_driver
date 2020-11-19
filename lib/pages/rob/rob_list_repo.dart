@@ -18,11 +18,8 @@ class RobListRepo extends LoadingMoreBase<OrderInfoModel> {
     bool successful = true;
 
     try {
-      OrderListRes res = await OrderApi.getRobList(
-        driverId,
-        start: _start,
-        count: _count
-      );
+      OrderListRes res =
+          await OrderApi.getRobList(driverId, start: _start, count: _count);
 
       if (_hasMore) {
         _start += 20;

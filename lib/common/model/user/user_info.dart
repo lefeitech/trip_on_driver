@@ -39,7 +39,8 @@ class UserInfoModel {
       return null;
     }
 
-    final List<String> carSlide = jsonRes['car_slide'] is List ? <String>[] : null;
+    final List<String> carSlide =
+        jsonRes['car_slide'] is List ? <String>[] : null;
     if (carSlide != null) {
       for (final dynamic item in jsonRes['car_slide']) {
         if (item != null) {
@@ -48,36 +49,36 @@ class UserInfoModel {
       }
     }
     return UserInfoModel(
-      id: asT<int>(jsonRes['id']),
-      driverTel: asT<String>(jsonRes['driver_tel']),
-      openid: asT<int>(jsonRes['openid']),
-      score: asT<double>(jsonRes['score']),
-      driverName: asT<String>(jsonRes['driver_name']),
-      driverNameEn: asT<String>(jsonRes['driver_name_en']),
-      totalMoney: asT<int>(jsonRes['total_money']),
-      card1: asT<String>(jsonRes['card_1']),
-      card2: asT<String>(jsonRes['card_2']),
-      carNo: asT<String>(jsonRes['car_no']),
-      carColor: asT<String>(jsonRes['car_color']),
-      carMake: asT<String>(jsonRes['car_make']),
-      carSlide: carSlide,
-      state: asT<int>(jsonRes['state']),
-      remark: asT<String>(jsonRes['remark']),
-      createTime: asT<int>(jsonRes['create_time']),
-      updateTime: asT<int>(jsonRes['update_time']),
-      loginTime: asT<int>(jsonRes['login_time']),
-      token: asT<String>(jsonRes['token']),
-      loginNumber: asT<int>(jsonRes['login_number']),
-      carNum: asT<int>(jsonRes['car_num']),
-      password: asT<String>(jsonRes['password']),
-      cardNo: asT<String>(jsonRes['card_no']),
-      email: asT<String>(jsonRes['email']),
-      wechat: asT<String>(jsonRes['wechat']),
-      bankNo: asT<String>(jsonRes['bank_no']),
-      tel2: asT<String>(jsonRes['tel2']),
-      code: asT<int>(jsonRes['code']),
-      commentNumber: CommentNumber.fromJson(asT<Map<String, dynamic>>(jsonRes['comment_number']))
-    );
+        id: asT<int>(jsonRes['id']),
+        driverTel: asT<String>(jsonRes['driver_tel']),
+        openid: asT<int>(jsonRes['openid']),
+        score: asT<double>(jsonRes['score']),
+        driverName: asT<String>(jsonRes['driver_name']),
+        driverNameEn: asT<String>(jsonRes['driver_name_en']),
+        totalMoney: asT<int>(jsonRes['total_money']),
+        card1: asT<String>(jsonRes['card_1']),
+        card2: asT<String>(jsonRes['card_2']),
+        carNo: asT<String>(jsonRes['car_no']),
+        carColor: asT<String>(jsonRes['car_color']),
+        carMake: asT<String>(jsonRes['car_make']),
+        carSlide: carSlide,
+        state: asT<int>(jsonRes['state']),
+        remark: asT<String>(jsonRes['remark']),
+        createTime: asT<int>(jsonRes['create_time']),
+        updateTime: asT<int>(jsonRes['update_time']),
+        loginTime: asT<int>(jsonRes['login_time']),
+        token: asT<String>(jsonRes['token']),
+        loginNumber: asT<int>(jsonRes['login_number']),
+        carNum: asT<int>(jsonRes['car_num']),
+        password: asT<String>(jsonRes['password']),
+        cardNo: asT<String>(jsonRes['card_no']),
+        email: asT<String>(jsonRes['email']),
+        wechat: asT<String>(jsonRes['wechat']),
+        bankNo: asT<String>(jsonRes['bank_no']),
+        tel2: asT<String>(jsonRes['tel2']),
+        code: asT<int>(jsonRes['code']),
+        commentNumber: CommentNumber.fromJson(
+            asT<Map<String, dynamic>>(jsonRes['comment_number'])));
   }
 
   int id;
@@ -159,20 +160,20 @@ class CommentNumber {
       jsonRes == null
           ? null
           : CommentNumber(
-        bad: asT<int>(jsonRes['bad']),
-        center: asT<int>(jsonRes['center']),
-        good: asT<int>(jsonRes['good']),
-      );
+              bad: asT<int>(jsonRes['bad']),
+              center: asT<int>(jsonRes['center']),
+              good: asT<int>(jsonRes['good']),
+            );
 
   int bad;
   int center;
   int good;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-    'bad': bad,
-    'center': center,
-    'good': good,
-  };
+        'bad': bad,
+        'center': center,
+        'good': good,
+      };
   @override
   String toString() {
     return json.encode(this);

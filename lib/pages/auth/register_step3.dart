@@ -15,7 +15,8 @@ class RegisterStep3Page extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Register')),
       body: Consumer<RegisterProvider>(
-        builder: (_, RegisterProvider provider, __) => FlutterEasyLoading(child: Step3form(provider)),
+        builder: (_, RegisterProvider provider, __) =>
+            FlutterEasyLoading(child: Step3form(provider)),
       ),
     );
   }
@@ -100,7 +101,9 @@ class Step3form extends StatelessWidget {
             children: <Widget>[
               IconButton(
                 icon: Icon(
-                  provider.agreed ? Icons.check_circle : Icons.radio_button_unchecked,
+                  provider.agreed
+                      ? Icons.check_circle
+                      : Icons.radio_button_unchecked,
                   color: CustomTheme.of(context).tipAlertColor,
                   size: 16,
                 ),
@@ -114,7 +117,8 @@ class Step3form extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: '\"User Services Agreement\"',
-                        style: TextStyle(color: CustomTheme.of(context).tipAlertColor),
+                        style: TextStyle(
+                            color: CustomTheme.of(context).tipAlertColor),
                       )
                     ],
                   ),

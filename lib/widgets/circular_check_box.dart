@@ -197,14 +197,14 @@ class _RenderCircularCheckBox extends RenderToggleable {
     @required TickerProvider vsync,
   })  : _oldValue = value,
         super(
-        value: value,
-        tristate: tristate,
-        activeColor: activeColor,
-        inactiveColor: inactiveColor,
-        onChanged: onChanged,
-        additionalConstraints: additionalConstraints,
-        vsync: vsync,
-      );
+          value: value,
+          tristate: tristate,
+          activeColor: activeColor,
+          inactiveColor: inactiveColor,
+          onChanged: onChanged,
+          additionalConstraints: additionalConstraints,
+          vsync: vsync,
+        );
 
   bool _oldValue;
 
@@ -228,8 +228,8 @@ class _RenderCircularCheckBox extends RenderToggleable {
     return onChanged == null
         ? inactiveColor
         : (t >= 0.25
-        ? activeColor
-        : Color.lerp(inactiveColor, activeColor, t * 4.0));
+            ? activeColor
+            : Color.lerp(inactiveColor, activeColor, t * 4.0));
   }
 
   // White stroke used to paint the check and dash.
@@ -284,9 +284,9 @@ class _RenderCircularCheckBox extends RenderToggleable {
         offset + (size / 2.0 - const Size.square(_kEdgeSize) / 2.0);
     final AnimationStatus status = position.status;
     final double tNormalized =
-    status == AnimationStatus.forward || status == AnimationStatus.completed
-        ? position.value
-        : 1.0 - position.value;
+        status == AnimationStatus.forward || status == AnimationStatus.completed
+            ? position.value
+            : 1.0 - position.value;
     final Offset center = (offset & size).center;
 
     // Four cases: false to null, false to true, null to false, true to false

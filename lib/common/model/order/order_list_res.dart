@@ -15,7 +15,8 @@ class OrderListRes {
       : OrderListRes(
           code: asT<int>(jsonRes['code']),
           msg: asT<String>(jsonRes['msg']),
-          data: OrderListData.fromJson(asT<Map<String, dynamic>>(jsonRes['data'])),
+          data: OrderListData.fromJson(
+              asT<Map<String, dynamic>>(jsonRes['data'])),
         );
 
   int code;
@@ -46,7 +47,8 @@ class OrderListData {
       return null;
     }
 
-    final List<OrderInfoModel> info = jsonRes['info'] is List ? <OrderInfoModel>[] : null;
+    final List<OrderInfoModel> info =
+        jsonRes['info'] is List ? <OrderInfoModel>[] : null;
     if (info != null) {
       for (final dynamic item in jsonRes['info']) {
         if (item != null) {

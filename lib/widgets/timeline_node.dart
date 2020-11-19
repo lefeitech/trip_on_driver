@@ -86,13 +86,16 @@ class TimelineNodeLinePainter extends CustomPainter {
       case TimelineNodeLineType.None:
         break;
       case TimelineNodeLineType.Full:
-        canvas.drawLine(Offset(size.width / 2, 0), Offset(size.width / 2, size.height), linePaint);
+        canvas.drawLine(Offset(size.width / 2, 0),
+            Offset(size.width / 2, size.height), linePaint);
         break;
       case TimelineNodeLineType.TopHalf:
-        canvas.drawLine(Offset(size.width / 2, 0), Offset(size.width / 2, size.height / 2), linePaint);
+        canvas.drawLine(Offset(size.width / 2, 0),
+            Offset(size.width / 2, size.height / 2), linePaint);
         break;
       case TimelineNodeLineType.BottomHalf:
-        canvas.drawLine(Offset(size.width / 2, size.height / 2), Offset(size.width / 2, size.height), linePaint);
+        canvas.drawLine(Offset(size.width / 2, size.height / 2),
+            Offset(size.width / 2, size.height), linePaint);
         break;
     }
 
@@ -103,7 +106,8 @@ class TimelineNodeLinePainter extends CustomPainter {
       case TimelineNodePointType.None:
         break;
       case TimelineNodePointType.Circle:
-        canvas.drawCircle(Offset(size.width / 2, size.height / 2), this.style.pointRadius, pointPaint);
+        canvas.drawCircle(Offset(size.width / 2, size.height / 2),
+            this.style.pointRadius, pointPaint);
         break;
     }
   }

@@ -26,13 +26,15 @@ class ListStatus {
         widget = LoadErrorWidget(isSliver: false, refreshFn: repo.refresh);
         break;
       case IndicatorStatus.fullScreenError:
-        widget = LoadErrorWidget(isSliver: isSliver, isFullPage: true, refreshFn: repo.refresh);
+        widget = LoadErrorWidget(
+            isSliver: isSliver, isFullPage: true, refreshFn: repo.refresh);
         break;
       case IndicatorStatus.noMoreLoad:
         widget = Container();
         break;
       case IndicatorStatus.empty:
-        widget = NoDataWidget(isSliver: isSliver, isFullPage: true, refreshFn: repo.refresh);
+        widget = NoDataWidget(
+            isSliver: isSliver, isFullPage: true, refreshFn: repo.refresh);
         break;
       default:
         widget = Container();

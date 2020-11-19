@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class SmallCircleIndicator extends StatelessWidget {
-
   SmallCircleIndicator({this.color, this.size, this.drawWidth, this.padding});
   final Color color;
   final double size;

@@ -10,7 +10,6 @@ import 'package:driver/widgets/main_container.dart';
 import 'package:driver/widgets/small_circle_indicator.dart';
 import 'package:driver/widgets/to_card.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 /// 订单详情
 class OrderDetailPage extends StatefulWidget {
@@ -398,116 +397,116 @@ class _FormLineMixin {
     );
   }
 }
-
-class _PassengerInfoEditWidget extends StatelessWidget {
-  final _passengerStyle = TextStyle(
-    color: Color(0xFFA2A0A0),
-    fontSize: 14.0,
-  );
-
-  final _htiStyle = TextStyle(
-    color: Color(0xFFAD5D5D5),
-    fontSize: 14.0,
-  );
-
-  final _divider = Divider(height: 6);
-
-  @override
-  Widget build(BuildContext context) {
-    return TOCard(
-      padding: const EdgeInsets.only(top: 20, left: 36, right: 20, bottom: 16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            "乘客信息",
-            style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 18),
-          ),
-          SizedBox(height: 10.0),
-          DefaultTextStyle(
-            style: _passengerStyle,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            child: Column(
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                        child: Text("乘客", textAlign: TextAlign.start), flex: 1),
-                    Expanded(
-                      child: TextField(
-                        style: _passengerStyle,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "请输入乘客姓名",
-                          hintStyle: _htiStyle,
-                        ),
-                      ),
-                      flex: 2,
-                    )
-                  ],
-                ),
-                _divider,
-                Row(
-                  children: <Widget>[
-                    Expanded(child: Text("联系电话"), flex: 1),
-                    Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: Text("+86", style: TextStyle(color: Colors.black)),
-                    ),
-                    Expanded(
-                      child: TextField(
-                        style: _passengerStyle,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "请输入乘客电话",
-                          hintStyle: _htiStyle,
-                        ),
-                      ),
-                      flex: 2,
-                    )
-                  ],
-                ),
-                _divider,
-                Row(
-                  children: <Widget>[
-                    Expanded(child: Text("邮箱"), flex: 1),
-                    Expanded(
-                      child: TextField(
-                        style: _passengerStyle,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "请输入乘客邮箱",
-                          hintStyle: _htiStyle,
-                        ),
-                      ),
-                      flex: 2,
-                    )
-                  ],
-                ),
-                _divider,
-                Row(
-                  children: <Widget>[
-                    Expanded(child: Text("特殊要求"), flex: 1),
-                    Expanded(
-                      child: TextField(
-                        style: _passengerStyle,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "请输入特殊要求",
-                          hintStyle: _htiStyle,
-                        ),
-                      ),
-                      flex: 2,
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+//
+// class _PassengerInfoEditWidget extends StatelessWidget {
+//   final _passengerStyle = TextStyle(
+//     color: Color(0xFFA2A0A0),
+//     fontSize: 14.0,
+//   );
+//
+//   final _htiStyle = TextStyle(
+//     color: Color(0xFFAD5D5D5),
+//     fontSize: 14.0,
+//   );
+//
+//   final _divider = Divider(height: 6);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return TOCard(
+//       padding: const EdgeInsets.only(top: 20, left: 36, right: 20, bottom: 16),
+//       child: Column(
+//         mainAxisAlignment: MainAxisAlignment.start,
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: <Widget>[
+//           Text(
+//             "乘客信息",
+//             style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 18),
+//           ),
+//           SizedBox(height: 10.0),
+//           DefaultTextStyle(
+//             style: _passengerStyle,
+//             maxLines: 1,
+//             overflow: TextOverflow.ellipsis,
+//             child: Column(
+//               children: <Widget>[
+//                 Row(
+//                   children: <Widget>[
+//                     Expanded(
+//                         child: Text("乘客", textAlign: TextAlign.start), flex: 1),
+//                     Expanded(
+//                       child: TextField(
+//                         style: _passengerStyle,
+//                         decoration: InputDecoration(
+//                           border: InputBorder.none,
+//                           hintText: "请输入乘客姓名",
+//                           hintStyle: _htiStyle,
+//                         ),
+//                       ),
+//                       flex: 2,
+//                     )
+//                   ],
+//                 ),
+//                 _divider,
+//                 Row(
+//                   children: <Widget>[
+//                     Expanded(child: Text("联系电话"), flex: 1),
+//                     Padding(
+//                       padding: EdgeInsets.all(4.0),
+//                       child: Text("+86", style: TextStyle(color: Colors.black)),
+//                     ),
+//                     Expanded(
+//                       child: TextField(
+//                         style: _passengerStyle,
+//                         decoration: InputDecoration(
+//                           border: InputBorder.none,
+//                           hintText: "请输入乘客电话",
+//                           hintStyle: _htiStyle,
+//                         ),
+//                       ),
+//                       flex: 2,
+//                     )
+//                   ],
+//                 ),
+//                 _divider,
+//                 Row(
+//                   children: <Widget>[
+//                     Expanded(child: Text("邮箱"), flex: 1),
+//                     Expanded(
+//                       child: TextField(
+//                         style: _passengerStyle,
+//                         decoration: InputDecoration(
+//                           border: InputBorder.none,
+//                           hintText: "请输入乘客邮箱",
+//                           hintStyle: _htiStyle,
+//                         ),
+//                       ),
+//                       flex: 2,
+//                     )
+//                   ],
+//                 ),
+//                 _divider,
+//                 Row(
+//                   children: <Widget>[
+//                     Expanded(child: Text("特殊要求"), flex: 1),
+//                     Expanded(
+//                       child: TextField(
+//                         style: _passengerStyle,
+//                         decoration: InputDecoration(
+//                           border: InputBorder.none,
+//                           hintText: "请输入特殊要求",
+//                           hintStyle: _htiStyle,
+//                         ),
+//                       ),
+//                       flex: 2,
+//                     )
+//                   ],
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

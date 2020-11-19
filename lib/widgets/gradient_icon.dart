@@ -12,7 +12,8 @@ class GradientIcon extends StatelessWidget {
     return gradient == null
         ? icon
         : ShaderMask(
-            shaderCallback: (Rect bounds) => gradient.createShader(Offset.zero & bounds.size),
+            shaderCallback: (Rect bounds) =>
+                gradient.createShader(Offset.zero & bounds.size),
             child: Icon(icon, size: iconSize, color: Colors.white),
           );
   }

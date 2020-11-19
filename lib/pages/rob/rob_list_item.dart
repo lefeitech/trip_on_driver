@@ -18,7 +18,6 @@ class RobListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final transformType = 'Ride-hailing';
     final actionBuilder = (context) {
       return _RobBtn(info, success: success, failed: failed);
     };

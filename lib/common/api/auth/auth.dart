@@ -8,8 +8,8 @@ import 'package:driver/common/network/base_url.dart';
 import 'package:driver/common/network/common_http.dart';
 
 class AuthApi {
+  static CommonHttp http = CommonHttp();
 
-  static  CommonHttp http = CommonHttp();
   /// 获取验证码
   static Future<SendCodeRes> smsSendLoginCode(String phone) async {
     Response res = await http.post(BaseUrl.sendCode, data: {'tel': phone});
@@ -18,13 +18,15 @@ class AuthApi {
 
   /// 获取用户信息
   static Future<UserInfoRes> getUserInfo(int driverId) async {
-    Response res = await http.post(BaseUrl.userInfo, data: {'driver_id': driverId});
+    Response res =
+        await http.post(BaseUrl.userInfo, data: {'driver_id': driverId});
     return UserInfoRes.fromJson(res.data);
   }
 
   /// 注册
   static Future<UserInfoRes> register(UserInfoModel userInfo) async {
-    Response res = await http.post(BaseUrl.userRegister, data: userInfo.toJson());
+    Response res =
+        await http.post(BaseUrl.userRegister, data: userInfo.toJson());
     return UserInfoRes.fromJson(res.data);
   }
 
@@ -48,7 +50,8 @@ class AuthApi {
 
   /// 登录 [LoginMethod]
   /// [loginMethod]	1是验证码登陆，2是密码登陆
-  static Future<LoginRes> login({String tel, int loginMethod, String code, String password}) async {
+  static Future<LoginRes> login(
+      {String tel, int loginMethod, String code, String password}) async {
     Response res = await http.post(
       BaseUrl.userLogin,
       data: {

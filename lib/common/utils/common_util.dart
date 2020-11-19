@@ -49,7 +49,8 @@ class CommonUtils {
   }
 
   static String generateMd5(int timeStamp) {
-    final originStr = '$timeStamp${Config.HTTP_KEY}version=${Config.HTTP_VERSION}${Config.HTTP_SECRET}';
+    final originStr =
+        '$timeStamp${Config.HTTP_KEY}version=${Config.HTTP_VERSION}${Config.HTTP_SECRET}';
     final content = Utf8Encoder().convert(originStr);
     final digest = md5.convert(content);
     final md5Str = hex.encode(digest.bytes);

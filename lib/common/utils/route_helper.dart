@@ -27,12 +27,12 @@ class RouteHelper {
   /// [replaceCurrent] 替换当前路由页
   /// [result] 如果不存在 replace 的行为, 则忽略, 存在替换行为, 则将结果返回给上一个页面
   Future<T> pushWidget<T>(
-      Widget widget, {
-        bool replaceRoot = false,
-        bool replaceCurrent = false,
-        String name,
-        dynamic result,
-      }) {
+    Widget widget, {
+    bool replaceRoot = false,
+    bool replaceCurrent = false,
+    String name,
+    dynamic result,
+  }) {
     final route = MaterialPageRoute<T>(
       builder: (ctx) => widget,
       settings: RouteSettings(
@@ -50,11 +50,11 @@ class RouteHelper {
 
   /// push 一个route, 参数参考 [pushWidget]
   Future<T> pushRoute<T>(
-      Route route, {
-        bool replaceRoot = false,
-        bool replaceCurrent = false,
-        dynamic result,
-      }) {
+    Route route, {
+    bool replaceRoot = false,
+    bool replaceCurrent = false,
+    dynamic result,
+  }) {
     if (replaceRoot) {
       return this.replaceRoot(route, result);
     }
@@ -81,31 +81,31 @@ class RouteHelper {
   }
 
   Future<T> pushNamed<T>(
-      String routeName, [
-        Object args,
-      ]) {
+    String routeName, [
+    Object args,
+  ]) {
     return router.pushNamed(routeName, arguments: args);
   }
 
   Future<T> popAndPushNamed<T>(
-      String routeName, {
-        T result,
-        Object args,
-      }) {
+    String routeName, {
+    T result,
+    Object args,
+  }) {
     return router.popAndPushNamed(routeName, arguments: args, result: result);
   }
 
   Future<T> showDialog<T>(
-      Widget dialog, {
-        RouteTransitionsBuilder routeTransitionsBuilder,
-      }) {
+    Widget dialog, {
+    RouteTransitionsBuilder routeTransitionsBuilder,
+  }) {
     return router.push<T>(
       DialogRoute<T>(
         dialogBuilder: (
-            BuildContext context,
-            Animation animation,
-            Animation secondaryAnimation,
-            ) {
+          BuildContext context,
+          Animation animation,
+          Animation secondaryAnimation,
+        ) {
           return GestureDetector(
             onTap: () => pop(),
             child: dialog,
@@ -119,11 +119,11 @@ class RouteHelper {
 
 class RouteAnimationHelper {
   Widget bottomAnim(
-      BuildContext context,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      Widget child,
-      ) {
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
     return FractionalTranslation(
       translation: Offset(0, 1 - animation.value),
       child: child,
@@ -131,11 +131,11 @@ class RouteAnimationHelper {
   }
 
   Widget opacity(
-      BuildContext context,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      Widget child,
-      ) {
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
     return Opacity(
       child: child,
       opacity: animation.value,

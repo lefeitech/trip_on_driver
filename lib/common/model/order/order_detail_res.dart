@@ -10,13 +10,15 @@ class OrderDetailRes {
     this.data,
   });
 
-  factory OrderDetailRes.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
-      ? null
-      : OrderDetailRes(
-          code: asT<int>(jsonRes['code']),
-          msg: asT<String>(jsonRes['msg']),
-          data: OrderInfoModel.fromJson(asT<Map<String, dynamic>>(jsonRes['data'])),
-        );
+  factory OrderDetailRes.fromJson(Map<String, dynamic> jsonRes) =>
+      jsonRes == null
+          ? null
+          : OrderDetailRes(
+              code: asT<int>(jsonRes['code']),
+              msg: asT<String>(jsonRes['msg']),
+              data: OrderInfoModel.fromJson(
+                  asT<Map<String, dynamic>>(jsonRes['data'])),
+            );
 
   int code;
   String msg;

@@ -43,7 +43,8 @@ class LoginData {
       ? null
       : LoginData(
           token: asT<String>(jsonRes['token']),
-          info: UserInfoModel.fromJson(asT<Map<String, dynamic>>(jsonRes['info'])),
+          info: UserInfoModel.fromJson(
+              asT<Map<String, dynamic>>(jsonRes['info'])),
         );
 
   String token;

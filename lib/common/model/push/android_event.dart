@@ -15,16 +15,16 @@ class AndroidEventModal {
   factory AndroidEventModal.fromJson(jsonRes) => jsonRes == null
       ? null
       : AndroidEventModal(
-    alert: jsonRes['alert'],
-    extras: Extras.fromJson(jsonRes['extras']),
-    title: jsonRes['title'],
-  );
+          alert: jsonRes['alert'],
+          extras: Extras.fromJson(jsonRes['extras']),
+          title: jsonRes['title'],
+        );
 
   Map<String, dynamic> toJson() => {
-    'alert': alert,
-    'extras': extras,
-    'title': title,
-  };
+        'alert': alert,
+        'extras': extras,
+        'title': title,
+      };
 
   @override
   String toString() {

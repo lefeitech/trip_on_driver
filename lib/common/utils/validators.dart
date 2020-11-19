@@ -154,7 +154,8 @@ class Validators {
   ///          ),
   /// ```
   ///
-  static FormFieldValidator<String> minLength(int minLength, String errorMessage) {
+  static FormFieldValidator<String> minLength(
+      int minLength, String errorMessage) {
     return (value) {
       if (value.isEmpty) return null;
 
@@ -180,7 +181,8 @@ class Validators {
   ///          ),
   /// ```
   ///
-  static FormFieldValidator<String> maxLength(int maxLength, String errorMessage) {
+  static FormFieldValidator<String> maxLength(
+      int maxLength, String errorMessage) {
     return (value) {
       if (value.isEmpty) return null;
 
@@ -209,7 +211,8 @@ class Validators {
   ///          ),
   /// ```
   ///
-  static FormFieldValidator<String> patternString(String pattern, String errorMessage) {
+  static FormFieldValidator<String> patternString(
+      String pattern, String errorMessage) {
     return patternRegExp(RegExp(pattern), errorMessage);
   }
 
@@ -231,7 +234,8 @@ class Validators {
   ///          ),
   /// ```
   ///
-  static FormFieldValidator<String> patternRegExp(RegExp pattern, String errorMessage) {
+  static FormFieldValidator<String> patternRegExp(
+      RegExp pattern, String errorMessage) {
     return (value) {
       if (value.isEmpty) return null;
 
@@ -259,7 +263,8 @@ class Validators {
   ///          ),
   /// ```
   ///
-  static FormFieldValidator<String> compose(List<FormFieldValidator<String>> validators) {
+  static FormFieldValidator<String> compose(
+      List<FormFieldValidator<String>> validators) {
     return (value) {
       for (final validator in validators) {
         final result = validator(value);

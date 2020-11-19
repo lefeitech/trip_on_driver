@@ -1,5 +1,3 @@
 import 'package:flutter/material.dart';
 
-class OrderDetail with ChangeNotifier {
-
-}
+class OrderDetail with ChangeNotifier {}

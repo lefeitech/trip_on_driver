@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class GlobalConfig with ChangeNotifier {
   static String _theme = DefaultConfig.theme;
   static String _language = DefaultConfig.language;
@@ -22,7 +21,8 @@ class GlobalConfig with ChangeNotifier {
 
   static void setDefaultStatusBar() {
     if (Platform.isAndroid) {
-      SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+      SystemUiOverlayStyle systemUiOverlayStyle =
+          SystemUiOverlayStyle(statusBarColor: Colors.transparent);
       SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     }
   }

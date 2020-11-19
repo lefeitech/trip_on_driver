@@ -17,7 +17,7 @@ class SettingPage extends StatelessWidget {
       body: Center(
         child: RaisedButton(
           color: Theme.of(context).primaryColor,
-          child: Text('logout',style: TextStyle(color: Colors.white)),
+          child: Text('logout', style: TextStyle(color: Colors.white)),
           onPressed: () async {
             await LocalStorage.remove(Config.TOKEN_KEY);
             await LocalStorage.remove(Config.USER_ID);
