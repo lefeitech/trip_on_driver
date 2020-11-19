@@ -286,6 +286,7 @@ class _PassengerInfoDisplayWidget extends StatelessWidget with _FormLineMixin {
 
   @override
   Widget build(BuildContext context) {
+    final info = order.customer;
     return TOCard(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -298,16 +299,16 @@ class _PassengerInfoDisplayWidget extends StatelessWidget with _FormLineMixin {
           SizedBox(height: 16),
           Column(
             children: <Widget>[
-              _buildFormLine('passenger', order.rideName ?? '--'),
+              _buildFormLine('passenger', info.nickname ?? '--'),
               _divider,
-              if (order.rideTel != null && order.rideTel != '')
+              if (info.tel != null && info.tel != '')
                 GestureDetector(
                   onTap: () {
-                    CommonUtils.callPhone(context, order.rideTel);
+                    CommonUtils.callPhone(context, info.tel);
                   },
                   child: _buildFormLine(
                     'phone',
-                    order.rideTel,
+                    info.tel,
                     rightStyle: TextStyle(
                       decoration: TextDecoration.underline,
                       color: Colors.blue,

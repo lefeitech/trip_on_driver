@@ -45,6 +45,7 @@ class OrderInfoModel<T extends OtherBase> {
     this.carInfo,
     this.serviceInfo,
     this.driverInfo,
+    this.customer,
     this.other,
   });
 
@@ -124,6 +125,8 @@ class OrderInfoModel<T extends OtherBase> {
       serviceInfo: serviceInfo,
       driverInfo: UserInfoModel.fromJson(
           asT<Map<String, dynamic>>(jsonRes['driver_info'])),
+      customer:
+          CustomerInfo.fromJson(asT<Map<String, dynamic>>(jsonRes['customer'])),
       other: _other,
     );
   }
@@ -167,6 +170,7 @@ class OrderInfoModel<T extends OtherBase> {
   CarInfoModel carInfo;
   List<ServiceInfo> serviceInfo;
   UserInfoModel driverInfo;
+  CustomerInfo customer;
   T other;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
@@ -288,6 +292,49 @@ class ServiceInfo {
         'service_icon': serviceIcon,
         'service_content': serviceContent,
         'service_type': serviceType,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class CustomerInfo {
+  CustomerInfo({
+    this.nickname,
+    this.email,
+    this.countyCode,
+    this.tel,
+    this.passportNo,
+    this.idNo,
+  });
+
+  factory CustomerInfo.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
+      ? null
+      : CustomerInfo(
+          nickname: asT<String>(jsonRes['nickname']),
+          email: asT<String>(jsonRes['email']),
+          countyCode: asT<String>(jsonRes['county_code']),
+          tel: asT<String>(jsonRes['tel']),
+          passportNo: asT<String>(jsonRes['passport_no']),
+          idNo: asT<String>(jsonRes['id_no']),
+        );
+
+  String nickname;
+  String email;
+  String countyCode;
+  String tel;
+  String passportNo;
+  String idNo;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'nickname': nickname,
+        'email': email,
+        'county_code': countyCode,
+        'tel': tel,
+        'passport_no': passportNo,
+        'id_no': idNo,
       };
 
   @override
