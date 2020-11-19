@@ -15,7 +15,6 @@ class AirportTravelInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final other = order.other as Other1;
     return TOCard(
-      padding: const EdgeInsets.symmetric(vertical: 26, horizontal: 36),
       child: IconTheme(
         data: IconThemeData(color: Colors.black38, size: 20.0),
         child: DefaultTextStyle(
@@ -42,7 +41,7 @@ class AirportTravelInfoWidget extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 20),
                     child: Text(other.airport),
                   ),
-                  preferredWidth: 10,
+                  preferredWidth: 20,
                 ),
                 StartArriveWidget(
                   title: Padding(
@@ -50,7 +49,7 @@ class AirportTravelInfoWidget extends StatelessWidget {
                     child: Text(other.destination),
                   ),
                   isStart: false,
-                  preferredWidth: 10,
+                  preferredWidth: 20,
                 ),
               ] else ...[
                 StartArriveWidget(
@@ -58,7 +57,7 @@ class AirportTravelInfoWidget extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 20),
                     child: Text(other.destination),
                   ),
-                  preferredWidth: 10,
+                  preferredWidth: 20,
                 ),
                 StartArriveWidget(
                   title: Padding(
@@ -66,7 +65,7 @@ class AirportTravelInfoWidget extends StatelessWidget {
                     child: Text(other.airport),
                   ),
                   isStart: false,
-                  preferredWidth: 10,
+                  preferredWidth: 20,
                 ),
               ],
               SizedBox(height: 10.0),

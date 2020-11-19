@@ -14,7 +14,6 @@ class RideHailingTravelInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final other = order.other as Other7;
     return TOCard(
-      padding: const EdgeInsets.symmetric(vertical: 26, horizontal: 36),
       child: IconTheme(
         data: IconThemeData(color: Colors.black38, size: 20.0),
         child: DefaultTextStyle(
@@ -44,7 +43,7 @@ class RideHailingTravelInfoWidget extends StatelessWidget {
                     child: Text(other.startAddress),
                   ),
                 ),
-                preferredWidth: 10,
+                preferredWidth: 20,
               ),
               StartArriveWidget(
                 title: Padding(
@@ -55,7 +54,7 @@ class RideHailingTravelInfoWidget extends StatelessWidget {
                   ),
                 ),
                 isStart: false,
-                preferredWidth: 10,
+                preferredWidth: 20,
               ),
 
               SizedBox(height: 10.0),

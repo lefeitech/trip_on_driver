@@ -125,23 +125,20 @@ class AirportListItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: Text.rich(
-                  TextSpan(
-                    text: 'RM ',
-                    style: TextStyle(color: _bodyFontColor, fontSize: 12),
-                    children: [
-                      TextSpan(
-                        text: '${info.payTotalMoney ?? ''}',
-                        style: TextStyle(
-                          color: CustomTheme.of(context).tipAlertColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      )
-                    ],
-                  ),
+              Text.rich(
+                TextSpan(
+                  text: 'RM ',
+                  style: TextStyle(color: _bodyFontColor, fontSize: 12),
+                  children: [
+                    TextSpan(
+                      text: '${info.payTotalMoney ?? ''}',
+                      style: TextStyle(
+                        color: CustomTheme.of(context).tipAlertColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )
+                  ],
                 ),
               ),
               if (actionBuilder != null) actionBuilder(context),

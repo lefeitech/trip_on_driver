@@ -225,58 +225,55 @@ class _PriceWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TOCard(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-        child: Column(
-          children: <Widget>[
-            DefaultTextStyle(
-              style: TextStyle(color: Colors.black38),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    OrderUtil.mapOrderStatus(order.state),
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1
-                        .copyWith(fontSize: 18),
-                  ),
-                  if (order.payTotalMoney != null)
-                    RichText(
-                      text: TextSpan(
-                        text: "RM ",
-                        style: TextStyle(color: Colors.black38, fontSize: 12.0),
-                        children: [
-                          TextSpan(
-                            text: '${order.payTotalMoney ?? ''}',
-                            style: TextStyle(
-                              color: CustomTheme.of(context).tipAlertColor,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w500,
-                            ),
+      child: Column(
+        children: <Widget>[
+          DefaultTextStyle(
+            style: TextStyle(color: Colors.black38),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  OrderUtil.mapOrderStatus(order.state),
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle1
+                      .copyWith(fontSize: 18),
+                ),
+                if (order.payTotalMoney != null)
+                  RichText(
+                    text: TextSpan(
+                      text: "RM ",
+                      style: TextStyle(color: Colors.black38, fontSize: 12.0),
+                      children: [
+                        TextSpan(
+                          text: '${order.payTotalMoney ?? ''}',
+                          style: TextStyle(
+                            color: CustomTheme.of(context).tipAlertColor,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w500,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                ],
-              ),
+                  ),
+              ],
             ),
-            SizedBox(height: 16),
-            DefaultTextStyle(
-              style: Theme.of(context).textTheme.caption,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(order.createTime ?? ''),
-                  Text('No.${order.outTradeNo}'),
-                ],
-              ),
+          ),
+          SizedBox(height: 16),
+          DefaultTextStyle(
+            style: Theme.of(context).textTheme.caption,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(order.createTime ?? ''),
+                Text('No.${order.outTradeNo}'),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -290,7 +287,6 @@ class _PassengerInfoDisplayWidget extends StatelessWidget with _FormLineMixin {
   @override
   Widget build(BuildContext context) {
     return TOCard(
-      padding: const EdgeInsets.only(top: 20, left: 36, right: 20, bottom: 26),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
