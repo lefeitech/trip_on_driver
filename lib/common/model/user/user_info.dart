@@ -55,7 +55,7 @@ class UserInfoModel {
         score: asT<double>(jsonRes['score']),
         driverName: asT<String>(jsonRes['driver_name']),
         driverNameEn: asT<String>(jsonRes['driver_name_en']),
-        totalMoney: asT<int>(jsonRes['total_money']),
+        totalMoney: asT<double>(jsonRes['total_money']),
         card1: asT<String>(jsonRes['card_1']),
         card2: asT<String>(jsonRes['card_2']),
         carNo: asT<String>(jsonRes['car_no']),
@@ -87,7 +87,7 @@ class UserInfoModel {
   double score;
   String driverName;
   String driverNameEn;
-  int totalMoney;
+  double totalMoney;
   String card1;
   String card2;
   String carNo;
