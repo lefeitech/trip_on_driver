@@ -99,7 +99,7 @@ class RegisterProvider with ChangeNotifier {
     }
 
     if (carNo.text == null) {
-      return CommonUtils.showMessage('Please type car\'s number');
+      return CommonUtils.showMessage('Please type Car Plate Number');
     }
 
     if (carNum.text == null) {
@@ -210,7 +210,8 @@ class RegisterProvider with ChangeNotifier {
   }
 
   bool validatePhone(String tel) {
-    return tel != null && tel.length == 11;
+    return tel != null &&
+        (tel.length == 11 || tel.length == 10 || tel.length == 9);
   }
 
   void _autoDecSecond() {

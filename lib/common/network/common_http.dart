@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:driver/common/config/config.dart';
 import 'package:driver/common/local/local_storage.dart';
@@ -11,6 +14,7 @@ class CommonHttp {
   static const CONTENT_TYPE_FORM = "application/x-www-form-urlencoded";
 
   CommonHttp._internal() {
+    _addCertificateCallback(_dio);
     _initInterceptor(_dio);
     _addProxy(_dio);
   }
@@ -130,6 +134,16 @@ class CommonHttp {
         responseBody: true,
       ));
     }
+  }
+
+  void _addCertificateCallback(Dio dio) {
+    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+        (client) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) {
+        return true;
+      };
+    };
   }
 
   void _addProxy(Dio dio) {

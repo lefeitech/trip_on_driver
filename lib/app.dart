@@ -8,6 +8,7 @@ class DriverApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Tripon driver',
+      debugShowCheckedModeBanner: false,
       routes: NavigatorUtil.staticRoutes,
       navigatorKey: NavigatorUtil.navigatorKey,
       home: SplashPage(),

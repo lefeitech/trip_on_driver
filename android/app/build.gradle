@@ -31,6 +31,9 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
+// !! warn this path must be right
+def key = rootProject.file('../../../../keys/key.jks')
+
 android {
     compileSdkVersion 30
 
@@ -52,9 +55,9 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders = [
-                JPUSH_PKGNAME : applicationId,
+                JPUSH_PKGNAME: applicationId,
                 JPUSH_APPKEY : "3de594a787de360707ec52aa", // NOTE: JPush 上注册的包名对应的 Appkey.
-                JPUSH_CHANNEL : "developer-default", // 暂时填写默认值即可.
+                JPUSH_CHANNEL: "developer-default", // 暂时填写默认值即可.
         ]
     }
 
@@ -67,11 +70,10 @@ android {
         }
     }
     buildTypes {
-        debug {
-            signingConfig signingConfigs.debug
-        }
         release {
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
+            // !! warn if key is not exist , the package will be signed with debug certification
+            signingConfig key.exists() ? signingConfigs.release : signingConfigs.debug
         }
     }
 }

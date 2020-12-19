@@ -11,7 +11,7 @@ description: trip on driver
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.0.11+4
+version: 0.0.16+9
 
 environment:
   sdk: ">=2.3.0 <3.0.0"
@@ -36,7 +36,9 @@ dependencies:
   adaptive_dialog: ^0.9.0+1
   convert: ^2.1.1
   crypto: ^2.1.5
-  jpush_flutter: 0.6.0
+#  jpush_flutter: 0.6.0
+  jpush_flutter:
+    git: https://github.com/Torlinone/jpush-flutter-plugin.git
 
 dev_dependencies:
   flutter_test:

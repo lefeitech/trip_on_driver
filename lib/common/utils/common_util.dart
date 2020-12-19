@@ -29,6 +29,18 @@ class CommonUtils {
     }
   }
 
+  static Future<void> launchInWebViewOrVC(String url) async {
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: true,
+        forceWebView: true,
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   /// 判断是否是URL
   static bool isURL(String path) {
     return path.contains('http://') || path.contains('https://');

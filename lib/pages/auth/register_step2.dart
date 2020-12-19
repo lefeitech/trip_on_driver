@@ -10,7 +10,7 @@ class RegisterStep2Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Register')),
+      appBar: AppBar(title: Text('Personal information')),
       body: Consumer<RegisterProvider>(
         builder: (_, RegisterProvider provider, __) => Step2form(provider),
       ),
@@ -31,7 +31,7 @@ class Step2form extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 50),
           child: InfoPhotoPicker(
-            title: 'Positive',
+            title: 'IC PHOTO',
             initImage: provider.card1,
             onFileChanged: (File image) {
               provider.card1 = image;
@@ -41,7 +41,7 @@ class Step2form extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 50),
           child: InfoPhotoPicker(
-            title: 'Back',
+            title: 'LICENSE PHOTO',
             initImage: provider.card2,
             onFileChanged: (File image) {
               provider.card2 = image;
